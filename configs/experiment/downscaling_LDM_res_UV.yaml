@@ -1,0 +1,39 @@
+# @package _global_
+
+# to execute this experiment run:
+# python src/train.py experiment=downscaling_LDM_res_UV
+
+defaults:
+  - override /model: ldm.yaml
+  - override /logger: tensorboard.yaml
+  - override /trainer: gpu.yaml
+
+tags: ["downscaling", "ldm_res_UV"]
+load_optimizer_state: false 
+data:
+  target_vars:
+    high_res: ['U10','V10']
+  crop_size: 512
+  batch_size: 4
+  num_workers: 8
+  nn_lowres: False
+
+model:
+  trainable_parts: ["denoiser.middle_block", "denoiser.output_blocks"] # NEW: specify submodules to train
+  denoiser:
+    in_channels: 64
+    out_channels: 64
+  autoencoder:
+    encoder:
+      in_dim: 2
+    decoder:
+      in_dim: 2
+    unet_regr:
+      net:
+        out_ch: 2
+      ckpt_path: ${paths.pretrained_models_dir}UNET_UV.ckpt
+  ae_load_state_file: ${paths.pretrained_models_dir}VAE_residual_UV.ckpt
+  pde_lambda: 0         # NEW: Weight for the PDE loss term
+  pde_mode: "uv"          # NEW: Use the wind mass-conservation PDE loss
+
+ckpt_path: '/usr/project/xtmp/par55/DiffScaler/pretrained_models/LDM_residual_UV copy.ckpt'

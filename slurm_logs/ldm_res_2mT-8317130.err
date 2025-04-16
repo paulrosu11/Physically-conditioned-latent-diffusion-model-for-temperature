@@ -1,0 +1,765 @@
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+[rank: 0] Global seed set to 42
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/home/users/par55/.local/lib/python3.10/site-packages/lightning/fabric/plugins/environments/slurm.py:165: PossibleUserWarning: The `srun` command is available on your system but is not used. HINT: If your intention is to run Lightning on SLURM, prepend your python command with `srun` like so: srun python3 src/train.py experiment=downscaling_LDM_res_2mT ...
+  rank_zero_warn(
+hwloc/linux: Ignoring PCI device with non-16bit domain.
+Pass --enable-32bits-pci-domain to configure to support such devices
+(warning: it would break the library ABI, don't enable unless really needed).
+hwloc/linux: Ignoring PCI device with non-16bit domain.
+Pass --enable-32bits-pci-domain to configure to support such devices
+(warning: it would break the library ABI, don't enable unless really needed).
+Trainer already configured with model summary callbacks: [<class 'lightning.pytorch.callbacks.rich_model_summary.RichModelSummary'>]. Skipping setting a default `ModelSummary` callback.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+2025-04-01 17:10:47.233937: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-04-01 17:10:47.742631: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1743541847.953461  994246 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1743541848.016278  994246 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-04-01 17:10:48.514885: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+/home/users/par55/.local/lib/python3.10/site-packages/lightning/fabric/plugins/environments/slurm.py:165: PossibleUserWarning: The `srun` command is available on your system but is not used. HINT: If your intention is to run Lightning on SLURM, prepend your python command with `srun` like so: srun python3 src/train.py experiment=downscaling_LDM_res_2mT ...
+  rank_zero_warn(
+[rank: 0] Global seed set to 42
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/4
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+[rank: 2] Global seed set to 42
+[rank: 3] Global seed set to 42
+[rank: 1] Global seed set to 42
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+hwloc/linux: Ignoring PCI device with non-16bit domain.
+Pass --enable-32bits-pci-domain to configure to support such devices
+(warning: it would break the library ABI, don't enable unless really needed).
+hwloc/linux: Ignoring PCI device with non-16bit domain.
+Pass --enable-32bits-pci-domain to configure to support such devices
+(warning: it would break the library ABI, don't enable unless really needed).
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+[rank: 3] Global seed set to 42
+Initializing distributed: GLOBAL_RANK: 3, MEMBER: 4/4
+hwloc/linux: Ignoring PCI device with non-16bit domain.
+Pass --enable-32bits-pci-domain to configure to support such devices
+(warning: it would break the library ABI, don't enable unless really needed).
+hwloc/linux: Ignoring PCI device with non-16bit domain.
+Pass --enable-32bits-pci-domain to configure to support such devices
+(warning: it would break the library ABI, don't enable unless really needed).
+hwloc/linux: Ignoring PCI device with non-16bit domain.
+Pass --enable-32bits-pci-domain to configure to support such devices
+(warning: it would break the library ABI, don't enable unless really needed).
+hwloc/linux: Ignoring PCI device with non-16bit domain.
+Pass --enable-32bits-pci-domain to configure to support such devices
+(warning: it would break the library ABI, don't enable unless really needed).
+[rank: 1] Global seed set to 42
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/4
+[rank: 2] Global seed set to 42
+Initializing distributed: GLOBAL_RANK: 2, MEMBER: 3/4
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 4 processes
+----------------------------------------------------------------------------------------------------
+
+You are using a CUDA device ('NVIDIA RTX A5000') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+Missing logger folder: /usr/project/xtmp/par55/DiffScaler/tensorboard/
+Missing logger folder: /usr/project/xtmp/par55/DiffScaler/tensorboard/
+Missing logger folder: /usr/project/xtmp/par55/DiffScaler/tensorboard/
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 2 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 3 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+/home/users/par55/.local/lib/python3.10/site-packages/torch/utils/data/dataloader.py:560: UserWarning: This DataLoader will create 8 worker processes in total. Our suggested max number of worker in current system is 4, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+/home/users/par55/.local/lib/python3.10/site-packages/torch/utils/data/dataloader.py:560: UserWarning: This DataLoader will create 8 worker processes in total. Our suggested max number of worker in current system is 4, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+/home/users/par55/.local/lib/python3.10/site-packages/torch/utils/data/dataloader.py:560: UserWarning: This DataLoader will create 8 worker processes in total. Our suggested max number of worker in current system is 4, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+/home/users/par55/.local/lib/python3.10/site-packages/torch/utils/data/dataloader.py:560: UserWarning: This DataLoader will create 8 worker processes in total. Our suggested max number of worker in current system is 4, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+Error executing job with overrides: ['experiment=downscaling_LDM_res_2mT']
+Error executing job with overrides: ['experiment=downscaling_LDM_res_2mT']
+Error executing job with overrides: ['experiment=downscaling_LDM_res_2mT']
+Error executing job with overrides: ['experiment=downscaling_LDM_res_2mT']
+Traceback (most recent call last):
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 88, in main
+    metric_dict, _ = train(cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 75, in wrap
+    raise ex
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 65, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 65, in train
+    trainer.fit(model=model, datamodule=datamodule, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 529, in fit
+    call._call_and_handle_interrupt(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 41, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/launchers/subprocess_script.py", line 91, in launch
+    return function(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 568, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 973, in _run
+    results = self._run_stage()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1014, in _run_stage
+    self._run_sanity_check()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1043, in _run_sanity_check
+    val_loop.run()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/loops/utilities.py", line 177, in _decorator
+    return loop_run(self, *args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/loops/evaluation_loop.py", line 115, in run
+    self._evaluation_step(batch, batch_idx, dataloader_idx)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/loops/evaluation_loop.py", line 375, in _evaluation_step
+    output = call._call_strategy_hook(trainer, hook_name, *step_kwargs.values())
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 291, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 336, in validation_step
+    return self.model(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1156, in forward
+    output = self._run_ddp_forward(*inputs, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1110, in _run_ddp_forward
+    return module_to_run(*inputs[0], **kwargs[0])  # type: ignore[index]
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/overrides/base.py", line 102, in forward
+    return self._forward_module.validation_step(*inputs, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/usr/project/xtmp/par55/DiffScaler/src/models/ldm_module.py", line 325, in validation_step
+    self.log("val/loss", loss, **log_params, sync_dist=True)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/core/module.py", line 441, in log
+    value = apply_to_collection(value, (Tensor, numbers.Number), self.__to_tensor, name)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning_utilities/core/apply_func.py", line 64, in apply_to_collection
+    return function(data, *args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/core/module.py", line 615, in __to_tensor
+    raise ValueError(
+ValueError: `self.log(val/loss, tensor([[[[-0.7610, -0.9084, -0.8278,  ...,  0.3111,  0.3315,  0.2840],
+          [-0.6928, -0.7981, -0.7483,  ...,  0.2517,  0.2933,  0.3216],
+          [-0.5544, -0.6283, -0.5953,  ...,  0.2185,  0.2715,  0.3183],
+          ...,
+          [ 0.0088,  0.0647,  0.0703,  ..., -0.0823, -0.0646, -0.0442],
+          [ 0.0458,  0.0757,  0.0639,  ..., -0.0735, -0.0612, -0.0363],
+          [ 0.0891,  0.1055,  0.1115,  ..., -0.0610, -0.0520, -0.0345]]],
+
+
+        [[[ 0.0048, -0.0833, -0.1244,  ...,  0.3011,  0.2857,  0.2321],
+          [ 0.0222, -0.1016, -0.1316,  ...,  0.2236,  0.2180,  0.2369],
+          [ 0.0302, -0.1312, -0.1319,  ...,  0.1601,  0.1701,  0.2088],
+          ...,
+          [ 0.2814,  0.3502,  0.3604,  ..., -0.0864, -0.0853, -0.0633],
+          [ 0.3525,  0.4218,  0.3609,  ..., -0.0997, -0.0921, -0.0620],
+          [ 0.3553,  0.3863,  0.3622,  ..., -0.0913, -0.0793, -0.0599]]],
+
+
+        [[[-0.1257, -0.1696, -0.1936,  ..., -0.1037, -0.0767, -0.0812],
+          [-0.1302, -0.1653, -0.1878,  ..., -0.1844, -0.1366, -0.0953],
+          [-0.1294, -0.1627, -0.1719,  ..., -0.2016, -0.1606, -0.1168],
+          ...,
+          [-0.2589, -0.1951, -0.0762,  ..., -0.0547, -0.0338, -0.0155],
+          [-0.0785, -0.0517, -0.0193,  ..., -0.0594, -0.0444, -0.0181],
+          [ 0.0051,  0.0039,  0.0026,  ..., -0.0471, -0.0389, -0.0217]]],
+
+
+        ...,
+
+
+        [[[-0.1007, -0.1022, -0.0882,  ..., -0.0812, -0.0768, -0.0705],
+          [-0.1180, -0.1334, -0.1306,  ..., -0.1198, -0.1132, -0.0867],
+          [-0.1076, -0.1178, -0.1155,  ..., -0.1110, -0.1087, -0.0838],
+          ...,
+          [-0.1252, -0.1264, -0.1312,  ..., -0.1084, -0.0960, -0.0753],
+          [-0.1148, -0.1171, -0.1174,  ..., -0.1021, -0.0942, -0.0686],
+          [-0.0970, -0.1073, -0.1020,  ..., -0.0943, -0.0857, -0.0664]]],
+
+
+        [[[-0.0466, -0.0307,  0.0009,  ..., -0.2138, -0.1985, -0.1852],
+          [-0.0590, -0.0520, -0.0298,  ..., -0.2432, -0.2278, -0.1977],
+          [-0.0306, -0.0333, -0.0188,  ..., -0.2468, -0.2305, -0.2001],
+          ...,
+          [-0.1351, -0.1423, -0.1475,  ..., -0.1307, -0.1307, -0.1112],
+          [-0.1133, -0.1232, -0.1239,  ..., -0.1215, -0.1202, -0.0966],
+          [-0.0946, -0.1059, -0.1056,  ..., -0.1132, -0.1079, -0.0895]]],
+
+
+        [[[ 0.0166,  0.0248,  0.0347,  ..., -0.0393, -0.0174, -0.0214],
+          [-0.0017, -0.0033,  0.0043,  ..., -0.0879, -0.0674, -0.0439],
+          [-0.0124, -0.0169, -0.0034,  ..., -0.0908, -0.0712, -0.0501],
+          ...,
+          [ 0.2055,  0.2479,  0.3558,  ..., -0.1214, -0.1054, -0.0871],
+          [ 0.2029,  0.2206,  0.2820,  ..., -0.1097, -0.0981, -0.0769],
+          [ 0.2402,  0.2608,  0.2796,  ..., -0.0958, -0.0855, -0.0690]]]],
+       device='cuda:2'))` was called, but the tensor must have a single element. You can try doing `self.log(val/loss, tensor([[[[-0.7610, -0.9084, -0.8278,  ...,  0.3111,  0.3315,  0.2840],
+          [-0.6928, -0.7981, -0.7483,  ...,  0.2517,  0.2933,  0.3216],
+          [-0.5544, -0.6283, -0.5953,  ...,  0.2185,  0.2715,  0.3183],
+          ...,
+          [ 0.0088,  0.0647,  0.0703,  ..., -0.0823, -0.0646, -0.0442],
+          [ 0.0458,  0.0757,  0.0639,  ..., -0.0735, -0.0612, -0.0363],
+          [ 0.0891,  0.1055,  0.1115,  ..., -0.0610, -0.0520, -0.0345]]],
+
+
+        [[[ 0.0048, -0.0833, -0.1244,  ...,  0.3011,  0.2857,  0.2321],
+          [ 0.0222, -0.1016, -0.1316,  ...,  0.2236,  0.2180,  0.2369],
+          [ 0.0302, -0.1312, -0.1319,  ...,  0.1601,  0.1701,  0.2088],
+          ...,
+          [ 0.2814,  0.3502,  0.3604,  ..., -0.0864, -0.0853, -0.0633],
+          [ 0.3525,  0.4218,  0.3609,  ..., -0.0997, -0.0921, -0.0620],
+          [ 0.3553,  0.3863,  0.3622,  ..., -0.0913, -0.0793, -0.0599]]],
+
+
+        [[[-0.1257, -0.1696, -0.1936,  ..., -0.1037, -0.0767, -0.0812],
+          [-0.1302, -0.1653, -0.1878,  ..., -0.1844, -0.1366, -0.0953],
+          [-0.1294, -0.1627, -0.1719,  ..., -0.2016, -0.1606, -0.1168],
+          ...,
+          [-0.2589, -0.1951, -0.0762,  ..., -0.0547, -0.0338, -0.0155],
+          [-0.0785, -0.0517, -0.0193,  ..., -0.0594, -0.0444, -0.0181],
+          [ 0.0051,  0.0039,  0.0026,  ..., -0.0471, -0.0389, -0.0217]]],
+
+
+        ...,
+
+
+        [[[-0.1007, -0.1022, -0.0882,  ..., -0.0812, -0.0768, -0.0705],
+          [-0.1180, -0.1334, -0.1306,  ..., -0.1198, -0.1132, -0.0867],
+          [-0.1076, -0.1178, -0.1155,  ..., -0.1110, -0.1087, -0.0838],
+          ...,
+          [-0.1252, -0.1264, -0.1312,  ..., -0.1084, -0.0960, -0.0753],
+          [-0.1148, -0.1171, -0.1174,  ..., -0.1021, -0.0942, -0.0686],
+          [-0.0970, -0.1073, -0.1020,  ..., -0.0943, -0.0857, -0.0664]]],
+
+
+        [[[-0.0466, -0.0307,  0.0009,  ..., -0.2138, -0.1985, -0.1852],
+          [-0.0590, -0.0520, -0.0298,  ..., -0.2432, -0.2278, -0.1977],
+          [-0.0306, -0.0333, -0.0188,  ..., -0.2468, -0.2305, -0.2001],
+          ...,
+          [-0.1351, -0.1423, -0.1475,  ..., -0.1307, -0.1307, -0.1112],
+          [-0.1133, -0.1232, -0.1239,  ..., -0.1215, -0.1202, -0.0966],
+          [-0.0946, -0.1059, -0.1056,  ..., -0.1132, -0.1079, -0.0895]]],
+
+
+        [[[ 0.0166,  0.0248,  0.0347,  ..., -0.0393, -0.0174, -0.0214],
+          [-0.0017, -0.0033,  0.0043,  ..., -0.0879, -0.0674, -0.0439],
+          [-0.0124, -0.0169, -0.0034,  ..., -0.0908, -0.0712, -0.0501],
+          ...,
+          [ 0.2055,  0.2479,  0.3558,  ..., -0.1214, -0.1054, -0.0871],
+          [ 0.2029,  0.2206,  0.2820,  ..., -0.1097, -0.0981, -0.0769],
+          [ 0.2402,  0.2608,  0.2796,  ..., -0.0958, -0.0855, -0.0690]]]],
+       device='cuda:2').mean())`
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 88, in main
+    metric_dict, _ = train(cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 88, in main
+    metric_dict, _ = train(cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 75, in wrap
+    raise ex
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 75, in wrap
+    raise ex
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 65, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 65, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 65, in train
+    trainer.fit(model=model, datamodule=datamodule, ckpt_path=ckpt_path)
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 65, in train
+    trainer.fit(model=model, datamodule=datamodule, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 529, in fit
+    call._call_and_handle_interrupt(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 529, in fit
+    call._call_and_handle_interrupt(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 41, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 41, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/launchers/subprocess_script.py", line 91, in launch
+    return function(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/launchers/subprocess_script.py", line 91, in launch
+    return function(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 568, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 568, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 973, in _run
+    results = self._run_stage()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 973, in _run
+    results = self._run_stage()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1014, in _run_stage
+    self._run_sanity_check()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1014, in _run_stage
+    self._run_sanity_check()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1043, in _run_sanity_check
+    val_loop.run()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1043, in _run_sanity_check
+    val_loop.run()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/loops/utilities.py", line 177, in _decorator
+    return loop_run(self, *args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/loops/utilities.py", line 177, in _decorator
+    return loop_run(self, *args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/loops/evaluation_loop.py", line 115, in run
+    self._evaluation_step(batch, batch_idx, dataloader_idx)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/loops/evaluation_loop.py", line 115, in run
+    self._evaluation_step(batch, batch_idx, dataloader_idx)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/loops/evaluation_loop.py", line 375, in _evaluation_step
+    output = call._call_strategy_hook(trainer, hook_name, *step_kwargs.values())
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/loops/evaluation_loop.py", line 375, in _evaluation_step
+    output = call._call_strategy_hook(trainer, hook_name, *step_kwargs.values())
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 291, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 291, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 336, in validation_step
+    return self.model(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 336, in validation_step
+    return self.model(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1156, in forward
+    output = self._run_ddp_forward(*inputs, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1156, in forward
+    output = self._run_ddp_forward(*inputs, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1110, in _run_ddp_forward
+    return module_to_run(*inputs[0], **kwargs[0])  # type: ignore[index]
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1110, in _run_ddp_forward
+    return module_to_run(*inputs[0], **kwargs[0])  # type: ignore[index]
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/overrides/base.py", line 102, in forward
+    return self._forward_module.validation_step(*inputs, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/overrides/base.py", line 102, in forward
+    return self._forward_module.validation_step(*inputs, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/usr/project/xtmp/par55/DiffScaler/src/models/ldm_module.py", line 325, in validation_step
+    self.log("val/loss", loss, **log_params, sync_dist=True)
+  File "/usr/project/xtmp/par55/DiffScaler/src/models/ldm_module.py", line 325, in validation_step
+    self.log("val/loss", loss, **log_params, sync_dist=True)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/core/module.py", line 441, in log
+    value = apply_to_collection(value, (Tensor, numbers.Number), self.__to_tensor, name)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/core/module.py", line 441, in log
+    value = apply_to_collection(value, (Tensor, numbers.Number), self.__to_tensor, name)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning_utilities/core/apply_func.py", line 64, in apply_to_collection
+    return function(data, *args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning_utilities/core/apply_func.py", line 64, in apply_to_collection
+    return function(data, *args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/core/module.py", line 615, in __to_tensor
+    raise ValueError(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/core/module.py", line 615, in __to_tensor
+    raise ValueError(
+ValueError: `self.log(val/loss, tensor([[[[-0.1623, -0.1973, -0.2078,  ..., -0.2479, -0.2079, -0.1895],
+          [-0.1634, -0.2026, -0.2244,  ..., -0.2970, -0.2546, -0.2073],
+          [-0.1516, -0.1838, -0.1909,  ..., -0.2963, -0.2686, -0.2215],
+          ...,
+          [-0.0267, -0.0346, -0.0560,  ..., -0.1255, -0.0982, -0.0760],
+          [-0.0813, -0.0947, -0.1006,  ..., -0.1182, -0.0970, -0.0703],
+          [-0.0913, -0.1082, -0.1051,  ..., -0.1024, -0.0839, -0.0645]]],
+
+
+        [[[-0.1301, -0.1373, -0.1064,  ...,  0.0369,  0.0227,  0.0047],
+          [-0.1401, -0.1474, -0.1240,  ..., -0.0286, -0.0259, -0.0018],
+          [-0.1365, -0.1466, -0.1250,  ..., -0.0459, -0.0374, -0.0066],
+          ...,
+          [-0.0768, -0.0345, -0.0338,  ..., -0.0909, -0.0984, -0.0783],
+          [-0.0957, -0.0625, -0.0651,  ..., -0.0905, -0.0921, -0.0652],
+          [-0.0894, -0.0788, -0.0766,  ..., -0.0775, -0.0743, -0.0588]]],
+
+
+        [[[-0.1957, -0.1854, -0.0811,  ..., -0.3101, -0.3084, -0.3040],
+          [-0.1663, -0.1446, -0.0807,  ..., -0.3524, -0.3348, -0.3127],
+          [-0.1258, -0.1172, -0.0899,  ..., -0.3539, -0.3359, -0.3089],
+          ...,
+          [-0.1146, -0.1259, -0.1315,  ..., -0.0718, -0.0498, -0.0305],
+          [-0.1942, -0.1877, -0.1685,  ..., -0.0690, -0.0536, -0.0276],
+          [-0.2226, -0.2160, -0.1886,  ..., -0.0556, -0.0453, -0.0278]]],
+
+
+        ...,
+
+
+        [[[-0.0594, -0.0540, -0.0410,  ..., -0.1118, -0.1087, -0.0984],
+          [-0.0799, -0.0906, -0.0876,  ..., -0.1437, -0.1309, -0.1015],
+          [-0.0720, -0.0856, -0.0859,  ..., -0.1278, -0.1166, -0.0885],
+          ...,
+          [-0.0622, -0.0639, -0.0676,  ..., -0.0896, -0.0689, -0.0464],
+          [-0.0576, -0.0606, -0.0618,  ..., -0.0745, -0.0618, -0.0376],
+          [-0.0391, -0.0535, -0.0501,  ..., -0.0579, -0.0540, -0.0392]]],
+
+
+        [[[ 0.0676,  0.0965,  0.1173,  ..., -0.0489, -0.0440, -0.0473],
+          [ 0.0540,  0.0736,  0.0894,  ..., -0.0843, -0.0780, -0.0565],
+          [ 0.0612,  0.0676,  0.0790,  ..., -0.0870, -0.0788, -0.0578],
+          ...,
+          [-0.0922, -0.0907, -0.0945,  ..., -0.1671, -0.1871, -0.1692],
+          [-0.0843, -0.0862, -0.0858,  ..., -0.1495, -0.1637, -0.1461],
+          [-0.0676, -0.0788, -0.0700,  ..., -0.1352, -0.1328, -0.1217]]],
+
+
+        [[[-0.0825, -0.1837, -0.2056,  ..., -0.0558, -0.0142, -0.0098],
+          [-0.0589, -0.1618, -0.1775,  ..., -0.1011, -0.0609, -0.0293],
+          [-0.0562, -0.1721, -0.1664,  ..., -0.0875, -0.0583, -0.0347],
+          ...,
+          [-0.0465, -0.0713, -0.0769,  ..., -0.0707, -0.0588, -0.0415],
+          [-0.0453, -0.0629, -0.0644,  ..., -0.0726, -0.0639, -0.0413],
+          [-0.0258, -0.0432, -0.0444,  ..., -0.0677, -0.0599, -0.0428]]]],
+       device='cuda:1'))` was called, but the tensor must have a single element. You can try doing `self.log(val/loss, tensor([[[[-0.1623, -0.1973, -0.2078,  ..., -0.2479, -0.2079, -0.1895],
+          [-0.1634, -0.2026, -0.2244,  ..., -0.2970, -0.2546, -0.2073],
+          [-0.1516, -0.1838, -0.1909,  ..., -0.2963, -0.2686, -0.2215],
+          ...,
+          [-0.0267, -0.0346, -0.0560,  ..., -0.1255, -0.0982, -0.0760],
+          [-0.0813, -0.0947, -0.1006,  ..., -0.1182, -0.0970, -0.0703],
+          [-0.0913, -0.1082, -0.1051,  ..., -0.1024, -0.0839, -0.0645]]],
+
+
+        [[[-0.1301, -0.1373, -0.1064,  ...,  0.0369,  0.0227,  0.0047],
+          [-0.1401, -0.1474, -0.1240,  ..., -0.0286, -0.0259, -0.0018],
+          [-0.1365, -0.1466, -0.1250,  ..., -0.0459, -0.0374, -0.0066],
+          ...,
+          [-0.0768, -0.0345, -0.0338,  ..., -0.0909, -0.0984, -0.0783],
+          [-0.0957, -0.0625, -0.0651,  ..., -0.0905, -0.0921, -0.0652],
+          [-0.0894, -0.0788, -0.0766,  ..., -0.0775, -0.0743, -0.0588]]],
+
+
+        [[[-0.1957, -0.1854, -0.0811,  ..., -0.3101, -0.3084, -0.3040],
+          [-0.1663, -0.1446, -0.0807,  ..., -0.3524, -0.3348, -0.3127],
+          [-0.1258, -0.1172, -0.0899,  ..., -0.3539, -0.3359, -0.3089],
+          ...,
+          [-0.1146, -0.1259, -0.1315,  ..., -0.0718, -0.0498, -0.0305],
+          [-0.1942, -0.1877, -0.1685,  ..., -0.0690, -0.0536, -0.0276],
+          [-0.2226, -0.2160, -0.1886,  ..., -0.0556, -0.0453, -0.0278]]],
+
+
+        ...,
+
+
+        [[[-0.0594, -0.0540, -0.0410,  ..., -0.1118, -0.1087, -0.0984],
+          [-0.0799, -0.0906, -0.0876,  ..., -0.1437, -0.1309, -0.1015],
+          [-0.0720, -0.0856, -0.0859,  ..., -0.1278, -0.1166, -0.0885],
+          ...,
+          [-0.0622, -0.0639, -0.0676,  ..., -0.0896, -0.0689, -0.0464],
+          [-0.0576, -0.0606, -0.0618,  ..., -0.0745, -0.0618, -0.0376],
+          [-0.0391, -0.0535, -0.0501,  ..., -0.0579, -0.0540, -0.0392]]],
+
+
+        [[[ 0.0676,  0.0965,  0.1173,  ..., -0.0489, -0.0440, -0.0473],
+          [ 0.0540,  0.0736,  0.0894,  ..., -0.0843, -0.0780, -0.0565],
+          [ 0.0612,  0.0676,  0.0790,  ..., -0.0870, -0.0788, -0.0578],
+          ...,
+          [-0.0922, -0.0907, -0.0945,  ..., -0.1671, -0.1871, -0.1692],
+          [-0.0843, -0.0862, -0.0858,  ..., -0.1495, -0.1637, -0.1461],
+          [-0.0676, -0.0788, -0.0700,  ..., -0.1352, -0.1328, -0.1217]]],
+
+
+        [[[-0.0825, -0.1837, -0.2056,  ..., -0.0558, -0.0142, -0.0098],
+          [-0.0589, -0.1618, -0.1775,  ..., -0.1011, -0.0609, -0.0293],
+          [-0.0562, -0.1721, -0.1664,  ..., -0.0875, -0.0583, -0.0347],
+          ...,
+          [-0.0465, -0.0713, -0.0769,  ..., -0.0707, -0.0588, -0.0415],
+          [-0.0453, -0.0629, -0.0644,  ..., -0.0726, -0.0639, -0.0413],
+          [-0.0258, -0.0432, -0.0444,  ..., -0.0677, -0.0599, -0.0428]]]],
+       device='cuda:1').mean())`
+ValueError: `self.log(val/loss, tensor([[[[ 0.0283, -0.0782, -0.1603,  ...,  0.1843,  0.2352,  0.2121],
+          [ 0.0428, -0.2006, -0.3259,  ...,  0.1465,  0.2207,  0.2566],
+          [-0.0052, -0.4220, -0.5083,  ...,  0.0970,  0.1895,  0.2464],
+          ...,
+          [-0.1421, -0.1488, -0.1531,  ..., -0.1094, -0.0805, -0.0571],
+          [-0.1649, -0.1622, -0.1552,  ..., -0.1001, -0.0815, -0.0551],
+          [-0.1463, -0.1404, -0.1253,  ..., -0.0889, -0.0734, -0.0522]]],
+
+
+        [[[-0.0918, -0.1055, -0.1123,  ...,  0.1867,  0.1531,  0.1105],
+          [-0.1082, -0.1250, -0.1326,  ...,  0.1066,  0.0905,  0.1060],
+          [-0.0939, -0.1109, -0.1078,  ...,  0.0711,  0.0643,  0.0921],
+          ...,
+          [-0.0045, -0.0061, -0.0130,  ..., -0.1170, -0.1164, -0.0918],
+          [-0.0382, -0.0418, -0.0424,  ..., -0.1070, -0.1010, -0.0738],
+          [-0.0403, -0.0528, -0.0513,  ..., -0.0868, -0.0776, -0.0622]]],
+
+
+        [[[-0.8394, -0.9045, -0.7198,  ...,  0.0202,  0.0494,  0.0475],
+          [-0.8230, -0.7967, -0.6776,  ..., -0.0290,  0.0123,  0.0432],
+          [-0.8363, -0.6994, -0.6113,  ..., -0.0216,  0.0134,  0.0449],
+          ...,
+          [ 0.3778,  0.3691,  0.3744,  ..., -0.1628, -0.1485, -0.1261],
+          [ 0.3477,  0.3608,  0.3341,  ..., -0.1601, -0.1458, -0.1158],
+          [ 0.3032,  0.3102,  0.3111,  ..., -0.1432, -0.1278, -0.1063]]],
+
+
+        ...,
+
+
+        [[[-0.0695, -0.0707, -0.0605,  ..., -0.0591, -0.0620, -0.0593],
+          [-0.0842, -0.1023, -0.1043,  ..., -0.1113, -0.1050, -0.0760],
+          [-0.0749, -0.0922, -0.0977,  ..., -0.1021, -0.1005, -0.0727],
+          ...,
+          [-0.0634, -0.0665, -0.0822,  ..., -0.1381, -0.1268, -0.1040],
+          [-0.0621, -0.0677, -0.0756,  ..., -0.1248, -0.1154, -0.0893],
+          [-0.0468, -0.0647, -0.0633,  ..., -0.1112, -0.1034, -0.0834]]],
+
+
+        [[[-0.0204,  0.0027,  0.0320,  ..., -0.0626, -0.0508, -0.0519],
+          [-0.0400, -0.0310, -0.0096,  ..., -0.0972, -0.0831, -0.0591],
+          [-0.0281, -0.0325, -0.0204,  ..., -0.1027, -0.0917, -0.0682],
+          ...,
+          [-0.1080, -0.0975, -0.0908,  ..., -0.1020, -0.1103, -0.0921],
+          [-0.1042, -0.0954, -0.0904,  ..., -0.1035, -0.1080, -0.0813],
+          [-0.0966, -0.0977, -0.0914,  ..., -0.1010, -0.0997, -0.0789]]],
+
+
+        [[[-0.1031, -0.1312, -0.1219,  ..., -0.1193, -0.1163, -0.1049],
+          [-0.1118, -0.1367, -0.1288,  ..., -0.1325, -0.1387, -0.1158],
+          [-0.1167, -0.1412, -0.1302,  ..., -0.1084, -0.1176, -0.1014],
+          ...,
+          [-0.1261, -0.1388, -0.1365,  ..., -0.1174, -0.1093, -0.0904],
+          [-0.1498, -0.1596, -0.1620,  ..., -0.1215, -0.1168, -0.0913],
+          [-0.1416, -0.1536, -0.1624,  ..., -0.1208, -0.1120, -0.0921]]]],
+       device='cuda:3'))` was called, but the tensor must have a single element. You can try doing `self.log(val/loss, tensor([[[[ 0.0283, -0.0782, -0.1603,  ...,  0.1843,  0.2352,  0.2121],
+          [ 0.0428, -0.2006, -0.3259,  ...,  0.1465,  0.2207,  0.2566],
+          [-0.0052, -0.4220, -0.5083,  ...,  0.0970,  0.1895,  0.2464],
+          ...,
+          [-0.1421, -0.1488, -0.1531,  ..., -0.1094, -0.0805, -0.0571],
+          [-0.1649, -0.1622, -0.1552,  ..., -0.1001, -0.0815, -0.0551],
+          [-0.1463, -0.1404, -0.1253,  ..., -0.0889, -0.0734, -0.0522]]],
+
+
+        [[[-0.0918, -0.1055, -0.1123,  ...,  0.1867,  0.1531,  0.1105],
+          [-0.1082, -0.1250, -0.1326,  ...,  0.1066,  0.0905,  0.1060],
+          [-0.0939, -0.1109, -0.1078,  ...,  0.0711,  0.0643,  0.0921],
+          ...,
+          [-0.0045, -0.0061, -0.0130,  ..., -0.1170, -0.1164, -0.0918],
+          [-0.0382, -0.0418, -0.0424,  ..., -0.1070, -0.1010, -0.0738],
+          [-0.0403, -0.0528, -0.0513,  ..., -0.0868, -0.0776, -0.0622]]],
+
+
+        [[[-0.8394, -0.9045, -0.7198,  ...,  0.0202,  0.0494,  0.0475],
+          [-0.8230, -0.7967, -0.6776,  ..., -0.0290,  0.0123,  0.0432],
+          [-0.8363, -0.6994, -0.6113,  ..., -0.0216,  0.0134,  0.0449],
+          ...,
+          [ 0.3778,  0.3691,  0.3744,  ..., -0.1628, -0.1485, -0.1261],
+          [ 0.3477,  0.3608,  0.3341,  ..., -0.1601, -0.1458, -0.1158],
+          [ 0.3032,  0.3102,  0.3111,  ..., -0.1432, -0.1278, -0.1063]]],
+
+
+        ...,
+
+
+        [[[-0.0695, -0.0707, -0.0605,  ..., -0.0591, -0.0620, -0.0593],
+          [-0.0842, -0.1023, -0.1043,  ..., -0.1113, -0.1050, -0.0760],
+          [-0.0749, -0.0922, -0.0977,  ..., -0.1021, -0.1005, -0.0727],
+          ...,
+          [-0.0634, -0.0665, -0.0822,  ..., -0.1381, -0.1268, -0.1040],
+          [-0.0621, -0.0677, -0.0756,  ..., -0.1248, -0.1154, -0.0893],
+          [-0.0468, -0.0647, -0.0633,  ..., -0.1112, -0.1034, -0.0834]]],
+
+
+        [[[-0.0204,  0.0027,  0.0320,  ..., -0.0626, -0.0508, -0.0519],
+          [-0.0400, -0.0310, -0.0096,  ..., -0.0972, -0.0831, -0.0591],
+          [-0.0281, -0.0325, -0.0204,  ..., -0.1027, -0.0917, -0.0682],
+          ...,
+          [-0.1080, -0.0975, -0.0908,  ..., -0.1020, -0.1103, -0.0921],
+          [-0.1042, -0.0954, -0.0904,  ..., -0.1035, -0.1080, -0.0813],
+          [-0.0966, -0.0977, -0.0914,  ..., -0.1010, -0.0997, -0.0789]]],
+
+
+        [[[-0.1031, -0.1312, -0.1219,  ..., -0.1193, -0.1163, -0.1049],
+          [-0.1118, -0.1367, -0.1288,  ..., -0.1325, -0.1387, -0.1158],
+          [-0.1167, -0.1412, -0.1302,  ..., -0.1084, -0.1176, -0.1014],
+          ...,
+          [-0.1261, -0.1388, -0.1365,  ..., -0.1174, -0.1093, -0.0904],
+          [-0.1498, -0.1596, -0.1620,  ..., -0.1215, -0.1168, -0.0913],
+          [-0.1416, -0.1536, -0.1624,  ..., -0.1208, -0.1120, -0.0921]]]],
+       device='cuda:3').mean())`
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+Traceback (most recent call last):
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 88, in main
+    metric_dict, _ = train(cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 75, in wrap
+    raise ex
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 65, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 65, in train
+    trainer.fit(model=model, datamodule=datamodule, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 529, in fit
+    call._call_and_handle_interrupt(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 41, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/launchers/subprocess_script.py", line 91, in launch
+    return function(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 568, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 973, in _run
+    results = self._run_stage()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1014, in _run_stage
+    self._run_sanity_check()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1043, in _run_sanity_check
+    val_loop.run()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/loops/utilities.py", line 177, in _decorator
+    return loop_run(self, *args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/loops/evaluation_loop.py", line 115, in run
+    self._evaluation_step(batch, batch_idx, dataloader_idx)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/loops/evaluation_loop.py", line 375, in _evaluation_step
+    output = call._call_strategy_hook(trainer, hook_name, *step_kwargs.values())
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 291, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 336, in validation_step
+    return self.model(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1156, in forward
+    output = self._run_ddp_forward(*inputs, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1110, in _run_ddp_forward
+    return module_to_run(*inputs[0], **kwargs[0])  # type: ignore[index]
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/overrides/base.py", line 102, in forward
+    return self._forward_module.validation_step(*inputs, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/usr/project/xtmp/par55/DiffScaler/src/models/ldm_module.py", line 325, in validation_step
+    self.log("val/loss", loss, **log_params, sync_dist=True)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/core/module.py", line 441, in log
+    value = apply_to_collection(value, (Tensor, numbers.Number), self.__to_tensor, name)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning_utilities/core/apply_func.py", line 64, in apply_to_collection
+    return function(data, *args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/core/module.py", line 615, in __to_tensor
+    raise ValueError(
+ValueError: `self.log(val/loss, tensor([[[[ 0.2195,  0.2982,  0.3717,  ...,  0.4118,  0.4388,  0.3824],
+          [ 0.2094,  0.1984,  0.2398,  ...,  0.2830,  0.3298,  0.3857],
+          [ 0.1702,  0.0632,  0.1131,  ...,  0.1966,  0.2563,  0.3384],
+          ...,
+          [ 0.2804,  0.2691,  0.2312,  ...,  0.0853,  0.0919,  0.1193],
+          [ 0.3140,  0.3025,  0.2404,  ...,  0.0854,  0.0893,  0.1079],
+          [ 0.3105,  0.3047,  0.2825,  ...,  0.1090,  0.1034,  0.1005]]],
+
+
+        [[[-0.0225, -0.0039,  0.0139,  ...,  0.1316,  0.1103,  0.0732],
+          [-0.0258,  0.0018,  0.0187,  ...,  0.0987,  0.0786,  0.0795],
+          [ 0.0135,  0.0328,  0.0533,  ...,  0.0531,  0.0423,  0.0515],
+          ...,
+          [-0.0598, -0.0627, -0.0678,  ..., -0.1054, -0.1151, -0.0946],
+          [-0.0632, -0.0692, -0.0707,  ..., -0.1054, -0.1071, -0.0789],
+          [-0.0531, -0.0677, -0.0609,  ..., -0.0934, -0.0881, -0.0706]]],
+
+
+        [[[-0.1486, -0.2259, -0.2914,  ..., -0.0760, -0.0549, -0.0582],
+          [-0.1897, -0.2416, -0.2513,  ..., -0.1402, -0.1069, -0.0725],
+          [-0.2150, -0.2463, -0.1819,  ..., -0.1456, -0.1169, -0.0823],
+          ...,
+          [ 0.3815,  0.3938,  0.3973,  ..., -0.1041, -0.0767, -0.0546],
+          [ 0.4756,  0.5176,  0.4933,  ..., -0.1026, -0.0819, -0.0527],
+          [ 0.4903,  0.5259,  0.5244,  ..., -0.0872, -0.0708, -0.0513]]],
+
+
+        ...,
+
+
+        [[[-0.0374, -0.0302, -0.0139,  ..., -0.0596, -0.0603, -0.0553],
+          [-0.0533, -0.0618, -0.0557,  ..., -0.1040, -0.0980, -0.0699],
+          [-0.0380, -0.0459, -0.0433,  ..., -0.0967, -0.0939, -0.0666],
+          ...,
+          [-0.0900, -0.0934, -0.1036,  ..., -0.1250, -0.1108, -0.0884],
+          [-0.0875, -0.0914, -0.0959,  ..., -0.1119, -0.1021, -0.0762],
+          [-0.0739, -0.0882, -0.0849,  ..., -0.1023, -0.0931, -0.0717]]],
+
+
+        [[[-0.0682, -0.0533, -0.0198,  ..., -0.0062, -0.0095, -0.0157],
+          [-0.0840, -0.0776, -0.0551,  ..., -0.0503, -0.0469, -0.0234],
+          [-0.0661, -0.0645, -0.0497,  ..., -0.0500, -0.0430, -0.0178],
+          ...,
+          [-0.0623, -0.0632, -0.0697,  ..., -0.1504, -0.1547, -0.1306],
+          [-0.0544, -0.0598, -0.0621,  ..., -0.1471, -0.1450, -0.1200],
+          [-0.0396, -0.0561, -0.0498,  ..., -0.1443, -0.1314, -0.1124]]],
+
+
+        [[[ 0.0671,  0.0663,  0.0653,  ..., -0.0149, -0.0078, -0.0134],
+          [ 0.0562,  0.0505,  0.0575,  ..., -0.0615, -0.0507, -0.0283],
+          [ 0.0485,  0.0383,  0.0639,  ..., -0.0503, -0.0405, -0.0216],
+          ...,
+          [-0.0451, -0.0402,  0.0109,  ..., -0.1304, -0.1250, -0.1108],
+          [-0.1051, -0.1075, -0.0682,  ..., -0.1240, -0.1187, -0.0985],
+          [-0.1062, -0.1166, -0.1083,  ..., -0.1148, -0.1074, -0.0912]]]],
+       device='cuda:0'))` was called, but the tensor must have a single element. You can try doing `self.log(val/loss, tensor([[[[ 0.2195,  0.2982,  0.3717,  ...,  0.4118,  0.4388,  0.3824],
+          [ 0.2094,  0.1984,  0.2398,  ...,  0.2830,  0.3298,  0.3857],
+          [ 0.1702,  0.0632,  0.1131,  ...,  0.1966,  0.2563,  0.3384],
+          ...,
+          [ 0.2804,  0.2691,  0.2312,  ...,  0.0853,  0.0919,  0.1193],
+          [ 0.3140,  0.3025,  0.2404,  ...,  0.0854,  0.0893,  0.1079],
+          [ 0.3105,  0.3047,  0.2825,  ...,  0.1090,  0.1034,  0.1005]]],
+
+
+        [[[-0.0225, -0.0039,  0.0139,  ...,  0.1316,  0.1103,  0.0732],
+          [-0.0258,  0.0018,  0.0187,  ...,  0.0987,  0.0786,  0.0795],
+          [ 0.0135,  0.0328,  0.0533,  ...,  0.0531,  0.0423,  0.0515],
+          ...,
+          [-0.0598, -0.0627, -0.0678,  ..., -0.1054, -0.1151, -0.0946],
+          [-0.0632, -0.0692, -0.0707,  ..., -0.1054, -0.1071, -0.0789],
+          [-0.0531, -0.0677, -0.0609,  ..., -0.0934, -0.0881, -0.0706]]],
+
+
+        [[[-0.1486, -0.2259, -0.2914,  ..., -0.0760, -0.0549, -0.0582],
+          [-0.1897, -0.2416, -0.2513,  ..., -0.1402, -0.1069, -0.0725],
+          [-0.2150, -0.2463, -0.1819,  ..., -0.1456, -0.1169, -0.0823],
+          ...,
+          [ 0.3815,  0.3938,  0.3973,  ..., -0.1041, -0.0767, -0.0546],
+          [ 0.4756,  0.5176,  0.4933,  ..., -0.1026, -0.0819, -0.0527],
+          [ 0.4903,  0.5259,  0.5244,  ..., -0.0872, -0.0708, -0.0513]]],
+
+
+        ...,
+
+
+        [[[-0.0374, -0.0302, -0.0139,  ..., -0.0596, -0.0603, -0.0553],
+          [-0.0533, -0.0618, -0.0557,  ..., -0.1040, -0.0980, -0.0699],
+          [-0.0380, -0.0459, -0.0433,  ..., -0.0967, -0.0939, -0.0666],
+          ...,
+          [-0.0900, -0.0934, -0.1036,  ..., -0.1250, -0.1108, -0.0884],
+          [-0.0875, -0.0914, -0.0959,  ..., -0.1119, -0.1021, -0.0762],
+          [-0.0739, -0.0882, -0.0849,  ..., -0.1023, -0.0931, -0.0717]]],
+
+
+        [[[-0.0682, -0.0533, -0.0198,  ..., -0.0062, -0.0095, -0.0157],
+          [-0.0840, -0.0776, -0.0551,  ..., -0.0503, -0.0469, -0.0234],
+          [-0.0661, -0.0645, -0.0497,  ..., -0.0500, -0.0430, -0.0178],
+          ...,
+          [-0.0623, -0.0632, -0.0697,  ..., -0.1504, -0.1547, -0.1306],
+          [-0.0544, -0.0598, -0.0621,  ..., -0.1471, -0.1450, -0.1200],
+          [-0.0396, -0.0561, -0.0498,  ..., -0.1443, -0.1314, -0.1124]]],
+
+
+        [[[ 0.0671,  0.0663,  0.0653,  ..., -0.0149, -0.0078, -0.0134],
+          [ 0.0562,  0.0505,  0.0575,  ..., -0.0615, -0.0507, -0.0283],
+          [ 0.0485,  0.0383,  0.0639,  ..., -0.0503, -0.0405, -0.0216],
+          ...,
+          [-0.0451, -0.0402,  0.0109,  ..., -0.1304, -0.1250, -0.1108],
+          [-0.1051, -0.1075, -0.0682,  ..., -0.1240, -0.1187, -0.0985],
+          [-0.1062, -0.1166, -0.1083,  ..., -0.1148, -0.1074, -0.0912]]]],
+       device='cuda:0').mean())`
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

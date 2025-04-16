@@ -1,0 +1,6 @@
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+[rank: 0] Global seed set to 42
+slurmstepd: error: *** JOB 8341258 ON compsci-cluster-fitz-13 CANCELLED AT 2025-04-06T20:26:44 ***

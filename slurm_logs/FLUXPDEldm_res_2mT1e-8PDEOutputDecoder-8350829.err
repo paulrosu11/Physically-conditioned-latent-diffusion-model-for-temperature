@@ -1,0 +1,196 @@
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+[rank: 0] Global seed set to 42
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/home/users/par55/.local/lib/python3.10/site-packages/lightning/fabric/plugins/environments/slurm.py:165: PossibleUserWarning: The `srun` command is available on your system but is not used. HINT: If your intention is to run Lightning on SLURM, prepend your python command with `srun` like so: srun python3 src/train.py experiment=downscaling_LDM_res_2mT ...
+  rank_zero_warn(
+Trainer already configured with model summary callbacks: [<class 'lightning.pytorch.callbacks.rich_model_summary.RichModelSummary'>]. Skipping setting a default `ModelSummary` callback.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+2025-04-08 14:05:47.674606: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-04-08 14:05:47.704356: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1744135547.721025  627219 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1744135547.725926  627219 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-04-08 14:05:47.743293: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+/home/users/par55/.local/lib/python3.10/site-packages/lightning/fabric/plugins/environments/slurm.py:165: PossibleUserWarning: The `srun` command is available on your system but is not used. HINT: If your intention is to run Lightning on SLURM, prepend your python command with `srun` like so: srun python3 src/train.py experiment=downscaling_LDM_res_2mT ...
+  rank_zero_warn(
+[rank: 0] Global seed set to 42
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/4
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+[rank: 2] Global seed set to 42
+[rank: 1] Global seed set to 42
+[rank: 3] Global seed set to 42
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+[rank: 1] Global seed set to 42
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/4
+[rank: 3] Global seed set to 42
+Initializing distributed: GLOBAL_RANK: 3, MEMBER: 4/4
+[rank: 2] Global seed set to 42
+Initializing distributed: GLOBAL_RANK: 2, MEMBER: 3/4
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 4 processes
+----------------------------------------------------------------------------------------------------
+
+Missing logger folder: /usr/project/xtmp/par55/DiffScaler/tensorboard/
+Missing logger folder: /usr/project/xtmp/par55/DiffScaler/tensorboard/
+Missing logger folder: /usr/project/xtmp/par55/DiffScaler/tensorboard/
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 3 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 2 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+Error executing job with overrides: ['experiment=downscaling_LDM_res_2mT']
+Error executing job with overrides: ['experiment=downscaling_LDM_res_2mT']
+Error executing job with overrides: ['experiment=downscaling_LDM_res_2mT']
+Error executing job with overrides: ['experiment=downscaling_LDM_res_2mT']
+Traceback (most recent call last):
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 91, in main
+    metric_dict, _ = train(cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 75, in wrap
+    raise ex
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 65, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 68, in train
+    trainer.fit(model=model, datamodule=datamodule, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 529, in fit
+    call._call_and_handle_interrupt(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 41, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/launchers/subprocess_script.py", line 91, in launch
+    return function(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 568, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 949, in _run
+    self.strategy.setup(self)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 164, in setup
+    self.configure_ddp()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 269, in configure_ddp
+    self.model = self._setup_model(_LightningModuleWrapperBase(self.model))
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 183, in _setup_model
+    return DistributedDataParallel(module=model, device_ids=device_ids, **self._ddp_kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 674, in __init__
+    _verify_param_shape_across_processes(self.process_group, parameters)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/distributed/utils.py", line 118, in _verify_param_shape_across_processes
+    return dist._verify_params_across_processes(process_group, tensors, logger)
+RuntimeError: DDP expects same model across all ranks, but Rank 2 has 34 params, while rank 0 has inconsistent 192 params.
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 91, in main
+    metric_dict, _ = train(cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 75, in wrap
+    raise ex
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 65, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 91, in main
+    metric_dict, _ = train(cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 68, in train
+    trainer.fit(model=model, datamodule=datamodule, ckpt_path=ckpt_path)
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 75, in wrap
+    raise ex
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 529, in fit
+    call._call_and_handle_interrupt(
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 65, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 41, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 68, in train
+    trainer.fit(model=model, datamodule=datamodule, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/launchers/subprocess_script.py", line 91, in launch
+    return function(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 529, in fit
+    call._call_and_handle_interrupt(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 568, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 41, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 949, in _run
+    self.strategy.setup(self)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/launchers/subprocess_script.py", line 91, in launch
+    return function(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 164, in setup
+    self.configure_ddp()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 568, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 269, in configure_ddp
+    self.model = self._setup_model(_LightningModuleWrapperBase(self.model))
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 949, in _run
+    self.strategy.setup(self)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 183, in _setup_model
+    return DistributedDataParallel(module=model, device_ids=device_ids, **self._ddp_kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 164, in setup
+    self.configure_ddp()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 674, in __init__
+    _verify_param_shape_across_processes(self.process_group, parameters)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 269, in configure_ddp
+    self.model = self._setup_model(_LightningModuleWrapperBase(self.model))
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/distributed/utils.py", line 118, in _verify_param_shape_across_processes
+    return dist._verify_params_across_processes(process_group, tensors, logger)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 183, in _setup_model
+    return DistributedDataParallel(module=model, device_ids=device_ids, **self._ddp_kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 674, in __init__
+    _verify_param_shape_across_processes(self.process_group, parameters)
+RuntimeError: DDP expects same model across all ranks, but Rank 3 has 34 params, while rank 0 has inconsistent 192 params.
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/distributed/utils.py", line 118, in _verify_param_shape_across_processes
+    return dist._verify_params_across_processes(process_group, tensors, logger)
+RuntimeError: DDP expects same model across all ranks, but Rank 1 has 34 params, while rank 0 has inconsistent 192 params.
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+Traceback (most recent call last):
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 91, in main
+    metric_dict, _ = train(cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 75, in wrap
+    raise ex
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 65, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 68, in train
+    trainer.fit(model=model, datamodule=datamodule, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 529, in fit
+    call._call_and_handle_interrupt(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 41, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/launchers/subprocess_script.py", line 91, in launch
+    return function(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 568, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 949, in _run
+    self.strategy.setup(self)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 164, in setup
+    self.configure_ddp()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 269, in configure_ddp
+    self.model = self._setup_model(_LightningModuleWrapperBase(self.model))
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 183, in _setup_model
+    return DistributedDataParallel(module=model, device_ids=device_ids, **self._ddp_kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 674, in __init__
+    _verify_param_shape_across_processes(self.process_group, parameters)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/distributed/utils.py", line 118, in _verify_param_shape_across_processes
+    return dist._verify_params_across_processes(process_group, tensors, logger)
+RuntimeError: DDP expects same model across all ranks, but Rank 0 has 192 params, while rank 1 has inconsistent 34 params.
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

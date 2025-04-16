@@ -1,0 +1,371 @@
+[2025-03-24 23:59:04,362][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-24 23:59:04,362][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-24 23:59:06,880][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-24 23:59:06,912][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-25 00:00:02,361][torch.nn.parallel.distributed][INFO] - Reducer buckets have been rebuilt in this iteration.
+[2025-03-25 14:23:07,984][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-25 14:23:07,984][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-25 14:23:17,987][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-25 14:23:18,008][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-25 17:32:05,973][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-25 17:32:05,973][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-25 17:32:08,594][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-25 17:32:08,688][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-25 17:33:07,764][torch.nn.parallel.distributed][INFO] - Reducer buckets have been rebuilt in this iteration.
+[2025-03-25 18:36:02,802][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-25 18:36:02,803][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-25 18:36:27,277][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-25 18:36:27,351][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-25 18:41:08,046][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-25 18:41:08,047][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-25 18:41:18,002][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-25 18:41:18,013][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-25 18:46:54,683][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-25 18:46:54,684][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-25 18:47:04,556][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-25 18:47:04,669][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-25 19:58:37,378][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-25 19:58:37,378][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-25 19:58:53,107][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-25 19:58:58,516][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 01:25:10,407][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 01:25:10,407][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 01:25:19,813][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 01:25:19,998][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 01:29:09,265][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 01:29:09,266][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 01:29:18,750][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 01:29:18,761][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 01:32:51,924][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 01:32:51,925][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 01:33:10,015][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 01:33:11,877][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 01:45:24,310][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 01:45:24,310][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 01:45:33,892][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 01:45:34,066][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 01:48:17,974][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 01:48:17,974][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 01:48:27,185][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 01:48:28,361][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 01:50:32,836][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 01:50:32,837][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 01:50:43,911][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 01:50:44,033][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 01:53:43,239][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 01:53:43,239][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 01:53:53,725][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 01:53:53,736][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 01:56:38,846][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 01:56:38,847][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 01:56:50,233][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 01:56:50,243][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 02:07:32,251][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 02:07:32,251][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 02:07:42,576][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 02:07:43,373][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 02:11:40,476][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 02:11:40,476][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 02:11:55,588][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 02:11:56,467][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 10:17:28,883][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 10:17:28,884][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 10:17:39,047][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 10:17:39,078][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 10:20:28,213][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 10:20:28,214][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 10:20:37,835][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 10:20:38,631][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 11:53:52,720][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 11:53:52,720][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 11:54:02,702][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 11:54:02,794][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 12:06:12,227][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 12:06:12,228][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 12:06:21,700][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 12:06:22,129][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 13:17:41,231][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 13:17:41,232][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 13:17:58,211][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 13:17:58,221][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 13:43:35,095][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 13:43:35,095][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 13:43:50,510][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 13:43:51,757][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 13:56:16,779][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 13:56:16,780][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 13:56:26,363][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 13:56:27,069][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 14:03:27,990][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 14:03:27,990][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 14:03:44,633][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 14:03:44,643][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 14:27:19,352][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 14:27:19,352][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 14:27:35,605][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 14:27:36,588][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 17:19:34,528][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 17:19:34,529][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 17:19:52,207][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 17:19:52,228][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 18:41:22,923][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 18:41:22,923][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 18:41:40,261][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 18:41:40,281][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 18:45:36,893][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 18:45:36,894][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 18:46:10,825][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 18:46:12,589][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 19:05:11,795][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 19:05:11,795][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 19:05:51,656][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 19:05:51,679][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 19:10:45,609][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 19:10:45,610][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 19:11:02,191][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 19:11:02,947][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 19:16:08,516][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 19:16:08,517][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 19:16:24,846][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 19:16:25,552][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 19:23:40,220][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 19:23:40,220][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 19:23:57,419][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 19:23:57,551][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 20:42:18,302][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 20:42:18,303][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 20:42:34,356][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-26 20:42:35,062][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-27 00:21:52,797][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-27 00:21:52,798][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-27 00:22:06,272][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-27 00:22:07,609][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-27 19:40:53,044][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-27 19:40:53,044][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-27 19:41:07,656][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-27 19:41:08,411][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-27 19:44:28,069][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-27 19:44:28,069][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-27 19:44:44,090][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-27 19:44:44,091][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-27 19:52:42,814][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-27 19:52:42,815][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-27 19:52:58,447][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-27 19:52:58,457][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-27 19:56:48,060][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-27 19:56:48,061][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-27 19:57:04,120][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-27 19:57:04,130][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-27 20:00:38,751][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-27 20:00:38,751][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-27 20:00:53,534][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-27 20:00:54,332][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-27 20:06:35,287][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-27 20:06:35,288][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-27 20:06:51,268][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-03-27 20:06:51,299][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-01 17:11:10,846][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-01 17:11:10,846][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-01 17:11:26,953][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-01 17:11:28,004][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-01 17:27:08,125][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-01 17:27:08,125][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-01 17:27:25,877][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-01 17:27:26,071][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-01 17:39:26,393][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-01 17:39:26,394][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-01 17:39:43,059][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-01 17:39:43,182][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-01 17:42:41,783][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-01 17:42:41,784][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-01 17:42:58,043][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-01 17:42:58,084][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-01 17:52:22,058][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-01 17:52:22,058][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-01 17:52:39,536][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-01 17:52:39,618][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-04 11:15:45,685][numexpr.utils][INFO] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-04 11:15:45,686][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-04 11:16:01,466][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-04 11:16:02,630][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-04 23:01:52,232][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-04 23:01:52,232][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-04 23:02:09,875][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-04 23:02:09,907][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-05 11:37:17,883][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-05 11:37:17,883][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-05 11:37:34,665][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-05 11:37:35,215][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-05 11:37:44,739][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-05 11:37:44,740][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-05 11:38:02,182][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-05 11:38:02,192][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-05 11:38:54,328][numexpr.utils][INFO] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-05 11:38:54,328][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-05 11:39:10,149][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-05 11:39:10,404][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-06 13:26:17,608][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-06 13:26:17,608][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-06 13:26:36,022][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-06 13:26:36,033][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-06 20:27:42,553][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-06 20:27:42,553][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-06 20:27:58,446][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-06 20:27:58,558][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-06 21:17:50,794][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-06 21:17:50,794][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-06 21:18:05,526][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-06 21:18:05,904][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-06 23:30:39,194][numexpr.utils][INFO] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-06 23:30:39,194][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-06 23:30:56,280][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-06 23:30:56,291][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-07 00:54:17,297][numexpr.utils][INFO] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-07 00:54:17,297][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-07 00:54:34,660][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-07 00:54:34,671][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-07 00:54:41,961][numexpr.utils][INFO] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-07 00:54:41,961][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-07 00:54:59,369][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-07 00:54:59,390][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-07 00:56:37,139][numexpr.utils][INFO] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-07 00:56:37,139][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-07 00:56:54,035][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-07 00:56:54,046][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-07 10:55:55,398][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-07 10:55:55,398][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-07 10:56:13,283][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-07 10:56:13,477][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-07 10:56:51,084][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-07 10:56:51,084][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-07 10:57:09,022][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-07 10:57:09,033][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-07 13:10:03,646][numexpr.utils][INFO] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-07 13:10:03,647][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-07 13:10:20,939][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-07 13:10:20,991][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-07 13:11:32,731][numexpr.utils][INFO] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-07 13:11:32,732][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-07 13:11:50,126][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-07 13:11:50,147][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 00:39:28,014][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 00:39:28,015][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 00:39:45,247][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 00:39:46,468][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 00:55:30,739][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 00:55:30,739][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 00:55:48,106][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 00:55:48,998][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 01:13:20,613][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 01:13:20,614][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 01:13:38,622][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 01:13:38,633][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 02:40:37,877][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 02:40:37,878][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 02:40:51,764][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 02:40:52,297][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 02:45:15,958][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 02:45:15,958][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 02:45:31,577][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 02:45:33,591][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 03:07:11,518][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 03:07:11,519][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 03:07:29,165][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 03:07:29,348][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 03:07:38,736][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 03:07:38,737][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 03:07:54,022][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 03:07:55,595][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 03:57:37,434][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 03:57:37,434][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 03:57:54,282][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 03:57:55,153][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 05:36:53,774][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 05:36:53,775][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 05:37:10,157][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 05:37:10,168][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 05:43:50,101][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 05:43:50,101][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 05:44:07,188][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 05:44:07,198][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:12:10,105][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 11:12:10,106][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 11:12:20,575][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 11:12:20,576][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 11:12:27,345][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 11:12:27,355][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:12:36,581][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 11:12:37,440][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:12:49,665][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 11:12:49,665][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 11:12:53,964][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 11:12:53,964][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 11:13:06,787][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 11:13:06,797][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:13:11,858][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 11:13:11,879][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:13:53,131][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 11:13:53,132][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 11:14:10,151][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 11:14:10,640][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:16:59,246][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 11:16:59,246][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 11:17:04,840][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 11:17:04,840][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 11:17:17,831][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 11:17:17,842][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:17:22,478][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 11:17:22,489][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:18:44,090][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 11:18:44,090][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 11:19:01,732][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 11:19:01,743][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:19:09,127][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 11:19:09,127][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 11:19:13,769][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 11:19:13,770][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 11:19:25,141][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 11:19:25,500][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:19:32,065][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 11:19:32,117][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:19:48,934][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 11:19:48,944][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 14:05:20,797][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 14:05:20,798][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 14:05:36,984][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 14:05:38,243][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 14:05:47,031][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 14:05:47,032][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 14:06:05,568][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 14:06:05,568][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 14:06:09,299][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 14:06:09,299][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 14:06:20,752][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 14:06:20,763][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 14:06:25,157][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 14:06:25,168][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 14:06:31,651][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 14:06:31,651][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 14:06:45,827][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 14:06:46,462][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 14:06:59,561][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 14:06:59,562][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 14:07:13,555][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 14:07:13,811][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 14:13:57,348][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 14:13:57,349][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 14:14:10,192][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 14:14:10,192][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 14:14:15,804][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 14:14:15,845][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 14:14:26,951][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 14:14:26,962][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 14:17:40,994][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 14:17:40,995][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 14:17:58,833][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 14:17:58,844][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 19:12:26,773][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 19:12:26,774][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 19:12:44,091][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 3
+[2025-04-08 19:12:44,439][torch.distributed.distributed_c10d][INFO] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.

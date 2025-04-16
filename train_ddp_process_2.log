@@ -1,0 +1,559 @@
+[2025-03-24 23:59:04,249][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-24 23:59:04,250][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-24 23:59:06,695][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-24 23:59:06,912][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-25 00:00:01,631][torch.nn.parallel.distributed][INFO] - Reducer buckets have been rebuilt in this iteration.
+[2025-03-25 14:23:07,783][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-25 14:23:07,783][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-25 14:23:17,999][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-25 14:23:18,010][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-25 17:32:05,995][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-25 17:32:05,996][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-25 17:32:08,678][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-25 17:32:08,679][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-25 17:33:07,728][torch.nn.parallel.distributed][INFO] - Reducer buckets have been rebuilt in this iteration.
+[2025-03-25 18:36:02,676][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-25 18:36:02,677][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-25 18:36:27,248][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-25 18:36:27,347][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-25 18:41:08,073][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-25 18:41:08,073][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-25 18:41:17,994][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-25 18:41:18,005][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-25 18:46:54,623][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-25 18:46:54,623][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-25 18:47:04,658][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-25 18:47:04,668][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-25 19:58:37,450][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-25 19:58:37,451][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-25 19:58:58,500][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-25 19:58:58,531][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 01:25:10,412][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 01:25:10,413][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 01:25:19,985][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 01:25:19,996][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 01:29:08,828][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 01:29:08,828][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 01:29:18,662][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 01:29:18,765][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 01:32:52,936][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 01:32:52,936][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 01:33:09,794][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 01:33:11,873][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 01:45:24,533][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 01:45:24,533][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 01:45:34,051][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 01:45:34,061][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 01:48:18,295][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 01:48:18,296][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 01:48:28,348][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 01:48:28,359][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 01:50:32,844][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 01:50:32,845][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 01:50:43,529][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 01:50:44,040][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 01:53:43,107][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 01:53:43,108][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 01:53:53,257][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 01:53:53,738][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 01:56:38,239][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 01:56:38,239][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 01:56:49,427][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 01:56:50,246][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 02:07:32,376][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 02:07:32,376][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 02:07:43,358][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 02:07:43,368][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 02:11:40,628][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 02:11:40,629][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 02:11:56,457][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 02:11:56,468][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 10:17:28,923][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 10:17:28,923][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 10:17:38,994][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 10:17:39,076][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 10:20:28,886][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 10:20:28,886][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 10:20:38,625][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 10:20:38,636][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 11:53:52,643][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 11:53:52,645][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 11:54:02,787][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 11:54:02,797][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 12:06:12,232][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 12:06:12,233][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 12:06:22,119][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 12:06:22,130][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 13:17:41,061][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 13:17:41,061][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 13:17:58,182][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 13:17:58,223][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 13:43:35,358][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 13:43:35,358][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 13:43:51,698][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 13:43:51,749][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 13:56:17,180][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 13:56:17,180][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 13:56:27,038][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 13:56:27,069][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 14:03:28,506][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 14:03:28,506][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 14:03:43,694][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 14:03:44,636][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 14:27:20,124][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 14:27:20,124][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 14:27:36,574][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 14:27:36,584][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 17:19:34,830][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 17:19:34,831][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 17:19:52,213][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 17:19:52,223][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 18:41:23,044][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 18:41:23,045][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 18:41:40,169][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 18:41:40,281][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 18:45:37,554][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 18:45:37,555][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 18:46:10,988][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 18:46:12,588][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 19:05:12,151][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 19:05:12,151][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 19:05:46,067][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 19:05:51,678][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 19:10:45,356][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 19:10:45,357][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 19:11:02,057][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 19:11:02,947][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 19:16:08,369][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 19:16:08,370][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 19:16:25,546][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 19:16:25,556][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 19:23:40,839][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 19:23:40,840][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 19:23:57,549][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 19:23:57,560][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-26 20:42:18,113][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-26 20:42:18,114][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-26 20:42:35,052][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-26 20:42:35,063][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-27 00:21:52,586][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-27 00:21:52,587][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-27 00:22:07,601][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-27 00:22:07,612][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-27 19:40:53,011][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-27 19:40:53,011][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-27 19:41:08,402][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-27 19:41:08,413][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-27 19:44:28,152][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-27 19:44:28,152][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-27 19:44:43,935][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-27 19:44:44,092][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-27 19:52:42,866][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-27 19:52:42,867][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-27 19:52:58,207][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-27 19:52:58,452][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-27 19:56:47,793][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-27 19:56:47,793][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-27 19:57:03,440][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-27 19:57:04,135][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-27 20:00:38,826][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-27 20:00:38,826][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-27 20:00:54,233][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-27 20:00:54,335][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-03-27 20:06:35,502][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-03-27 20:06:35,503][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-03-27 20:06:50,300][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-03-27 20:06:51,301][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-01 17:11:10,660][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-01 17:11:10,661][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-01 17:11:27,991][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-01 17:11:28,002][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-01 17:27:07,966][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-01 17:27:07,967][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-01 17:27:26,053][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-01 17:27:26,064][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-01 17:39:26,709][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-01 17:39:26,709][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-01 17:39:43,172][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-01 17:39:43,183][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-01 17:42:41,846][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-01 17:42:41,846][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-01 17:42:58,072][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-01 17:42:58,083][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-01 17:52:21,979][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-01 17:52:21,980][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-01 17:52:39,605][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-01 17:52:39,616][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-04 11:15:45,868][numexpr.utils][INFO] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-04 11:15:45,868][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-04 11:16:02,605][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-04 11:16:02,626][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-04 23:01:52,983][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-04 23:01:52,984][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-04 23:02:09,892][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-04 23:02:09,903][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-05 11:37:17,863][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-05 11:37:17,863][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-05 11:37:35,210][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-05 11:37:35,210][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-05 11:37:45,174][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-05 11:37:45,175][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-05 11:38:02,113][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-05 11:38:02,184][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-05 11:38:54,134][numexpr.utils][INFO] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-05 11:38:54,135][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-05 11:39:10,395][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-05 11:39:10,406][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-06 13:26:17,634][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-06 13:26:17,634][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-06 13:26:35,313][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-06 13:26:36,037][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-06 20:27:42,895][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-06 20:27:42,895][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-06 20:27:57,801][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-06 20:27:58,556][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-06 21:17:50,797][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-06 21:17:50,798][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-06 21:18:05,427][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-06 21:18:05,906][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-06 23:30:39,166][numexpr.utils][INFO] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-06 23:30:39,166][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-06 23:30:55,958][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-06 23:30:56,285][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-07 00:54:17,257][numexpr.utils][INFO] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-07 00:54:17,257][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-07 00:54:33,957][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-07 00:54:34,671][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-07 00:54:41,922][numexpr.utils][INFO] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-07 00:54:41,923][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-07 00:54:58,405][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-07 00:54:59,385][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-07 00:56:37,132][numexpr.utils][INFO] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-07 00:56:37,132][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-07 00:56:54,005][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-07 00:56:54,046][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-07 10:55:55,556][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-07 10:55:55,556][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-07 10:56:13,460][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-07 10:56:13,470][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-07 10:56:51,084][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-07 10:56:51,084][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-07 10:57:09,022][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-07 10:57:09,033][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-07 13:10:03,840][numexpr.utils][INFO] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-07 13:10:03,841][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-07 13:10:20,980][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-07 13:10:20,991][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-07 13:11:32,974][numexpr.utils][INFO] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-07 13:11:32,974][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-07 13:11:49,516][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-07 13:11:50,148][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 00:39:28,297][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 00:39:28,298][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 00:39:46,449][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 00:39:46,460][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 00:55:30,925][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 00:55:30,925][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 00:55:48,983][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 00:55:48,993][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 01:13:20,406][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 01:13:20,407][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 01:13:38,103][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 01:13:38,625][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 02:18:17,769][numexpr.utils][INFO] - Note: NumExpr detected 24 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 02:18:17,769][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 02:18:29,611][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 02:18:29,621][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 3 nodes.
+[2025-04-08 02:25:14,347][numexpr.utils][INFO] - Note: NumExpr detected 24 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 02:25:14,347][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 02:25:24,838][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 02:25:24,848][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 3 nodes.
+[2025-04-08 02:28:27,075][numexpr.utils][INFO] - Note: NumExpr detected 24 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 02:28:27,076][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 02:28:37,004][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 02:28:37,015][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 3 nodes.
+[2025-04-08 02:30:40,156][numexpr.utils][INFO] - Note: NumExpr detected 24 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 02:30:40,157][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 02:30:50,550][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 02:30:50,561][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 3 nodes.
+[2025-04-08 02:40:38,525][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 02:40:38,525][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 02:40:52,282][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 02:40:52,292][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 02:45:16,377][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 02:45:16,378][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 02:45:33,571][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 02:45:33,592][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 03:07:11,611][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 03:07:11,611][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 03:07:29,000][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 03:07:29,347][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 03:07:38,641][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 03:07:38,642][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 03:07:55,472][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 03:07:55,595][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 03:57:37,441][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 03:57:37,441][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 03:57:55,127][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 03:57:55,148][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 05:36:53,398][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 05:36:53,398][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 05:37:09,682][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 05:37:10,162][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 05:43:50,192][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 05:43:50,192][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 05:44:07,034][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 05:44:07,197][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:12:10,170][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 11:12:10,170][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 11:12:20,512][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 11:12:20,513][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 11:12:26,508][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 11:12:27,356][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:12:37,424][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 11:12:37,434][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:12:49,476][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 11:12:49,477][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 11:12:53,835][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 11:12:53,835][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 11:13:06,376][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 11:13:06,805][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:13:11,869][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 11:13:11,880][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:13:53,382][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 11:13:53,383][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 11:14:10,330][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 11:14:10,647][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:16:59,240][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 11:16:59,240][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 11:17:04,685][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 11:17:04,686][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 11:17:17,823][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 11:17:17,844][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:17:22,381][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 11:17:22,484][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:18:30,505][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 11:18:30,506][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 11:18:38,722][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 11:18:48,731][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+reads.
+[2025-04-08 11:19:01,721][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 11:19:01,752][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store[2025-04-08 11:19:08,750][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+11:19:09,050][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 11:19:18,755][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+reads.
+[2025-04-08 11:19:28,760][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:19:31,562][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 11:19:32,114][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based [2025-04-08 11:19:38,763][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:19:48,769][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 11:19:58,772][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:20:08,776][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:20:18,780][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:20:28,786][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:20:38,795][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:20:48,801][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:20:58,804][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:21:08,813][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:21:18,815][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:21:28,823][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:21:38,833][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:21:48,842][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:21:58,853][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:22:08,858][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:22:18,863][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:22:28,874][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:22:38,876][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:22:48,878][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:22:58,880][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:23:08,883][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:23:18,893][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:23:28,902][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:23:38,908][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:23:48,913][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:23:58,923][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:24:08,926][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:24:18,930][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:24:28,941][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:24:38,946][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:24:48,956][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:24:58,964][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:25:08,966][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:25:18,967][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:25:28,969][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:25:38,971][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:25:48,973][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:25:58,980][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:26:08,989][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:26:18,990][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:26:28,996][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:26:39,002][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:26:49,010][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:26:59,015][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:27:09,016][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:27:19,020][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:27:29,027][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:27:39,030][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:27:49,035][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:27:59,037][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:28:09,040][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:28:19,050][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:28:29,056][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:28:39,067][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:28:49,069][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:28:59,075][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:29:09,076][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:29:19,079][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:29:29,080][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:29:39,083][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:29:49,088][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:29:59,098][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:30:09,106][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:30:19,112][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:30:29,120][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:30:39,125][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:30:49,128][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:30:59,128][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:31:09,137][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:31:19,146][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:31:29,148][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:31:39,158][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:31:49,163][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:31:59,166][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:32:09,175][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:32:19,183][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:32:29,191][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:32:39,201][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:32:49,205][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:32:59,210][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:33:09,218][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:33:19,225][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:33:29,233][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:33:39,238][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:33:49,247][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:33:59,251][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:34:09,255][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:34:19,258][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:34:29,268][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:34:39,278][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:34:49,279][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:34:59,285][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:35:09,293][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:35:19,304][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:35:29,309][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:35:39,316][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:35:49,322][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:35:59,325][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:36:09,334][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:36:19,341][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:36:29,352][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:36:39,362][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:36:49,370][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:36:59,376][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:37:09,379][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:37:19,387][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:37:29,391][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:37:39,395][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:37:49,398][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:37:59,406][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:38:09,407][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:38:19,411][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:38:29,413][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:38:39,414][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:38:49,421][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:38:59,425][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:39:09,436][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:39:19,441][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:39:29,445][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:39:39,449][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:39:49,453][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:39:59,460][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:40:09,469][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:40:19,472][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:40:29,474][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:40:39,481][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:40:49,485][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:40:59,493][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:41:09,496][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:41:19,502][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:41:29,504][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:41:39,505][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:41:49,514][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:41:59,521][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:42:09,527][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:42:19,532][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:42:29,535][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:42:39,541][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:42:49,550][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:42:59,559][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:43:09,568][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:43:19,575][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:43:29,584][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:43:39,586][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:43:49,593][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:43:59,602][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:44:09,604][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:44:19,612][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:44:29,617][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:44:39,622][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:44:49,624][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:44:59,626][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:45:09,628][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:45:19,636][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:45:29,640][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:45:39,643][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:45:49,650][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:45:59,658][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:46:09,668][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:46:19,671][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:46:29,679][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:46:39,683][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:46:49,693][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:46:59,699][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:47:09,703][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:47:19,710][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:47:29,715][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:47:39,718][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:47:49,720][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:47:59,721][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:48:09,730][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)
+[2025-04-08 11:48:19,732][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)
+[2025-04-08 11:48:29,736][torch.distributed.distributed_c10d][INFO] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)
+[2025-04-08 14:05:21,362][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 14:05:21,362][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 14:05:38,096][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 14:05:38,240][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 14:05:47,224][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 14:05:47,225][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 14:06:05,109][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 14:06:05,109][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 14:06:08,905][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 14:06:08,906][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 14:06:20,753][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 14:06:20,764][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 14:06:24,757][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 14:06:25,166][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 14:06:31,675][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 14:06:31,676][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 14:06:46,333][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 14:06:46,456][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 14:07:00,203][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 14:07:00,203][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 14:07:13,662][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 14:07:13,815][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 14:13:57,398][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 14:13:57,398][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+                                                                                                                                                                                                                                    [2025-04-08 14:14:15,833][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 14:14:15,844][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 14:14:26,779][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 14:14:26,963][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 14:17:41,971][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 14:17:41,972][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 14:17:57,329][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 14:17:58,842][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.
+[2025-04-08 19:12:26,596][numexpr.utils][INFO] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-04-08 19:12:26,597][numexpr.utils][INFO] - NumExpr defaulting to 8 threads.
+[2025-04-08 19:12:43,877][torch.distributed.distributed_c10d][INFO] - Added key: store_based_barrier_key:1 to store for rank: 2
+[2025-04-08 19:12:44,440][torch.distributed.distributed_c10d][INFO] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.

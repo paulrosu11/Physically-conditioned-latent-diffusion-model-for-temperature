@@ -1,0 +1,36 @@
+# @package _global_
+
+# to execute this experiment run:
+# python src/train.py experiment=downscaling_LDM_res_2mT
+
+defaults:
+  - override /model: ldm.yaml
+  - override /logger: tensorboard.yaml
+  - override /trainer: gpu.yaml
+
+tags: ["downscaling", "ldm_res_2mT"]
+
+load_optimizer_state: false   # NEW: Flag to skip restoring the optimizer state
+
+data:
+  target_vars:
+    high_res: ['2mT']
+  crop_size: 512
+  batch_size: 16
+  num_workers: 2
+  nn_lowres: False
+
+model:
+  pde_lambda: 0.1      # NEW: Weight for the PDE (mass conservation) loss term
+  temp_pde_coef: .00000000001
+  temp_energy_coef:  0
+  pde_mode: "temp"   # or "uv" depending on the training goal
+  trainable_parts: ["denoiser.output_blocks", "autoencoder.decoder", "denoiser.middle_block"]  # NEW: specify submodules to train
+  #trainable_parts: ["denoiser.output_blocks", "autoencoder.decoder"]
+  #trainable_parts: ["autoencoder.decoder"]  # NEW: specify submodules to train
+  autoencoder:
+    unet_regr:
+      ckpt_path: ${paths.pretrained_models_dir}UNET_2mT.ckpt
+  ae_load_state_file: ${paths.pretrained_models_dir}VAE_residual_2mT.ckpt
+
+ckpt_path: '/usr/project/xtmp/par55/DiffScaler/pretrained_models/LDM_residual_2mT.ckpt'

@@ -1,0 +1,1730 @@
+[[36m2025-04-07 00:53:28,955[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - Enforcing tags! <cfg.extras.enforce_tags=True>[0m
+[[36m2025-04-07 00:53:28,962[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - Printing config tree with Rich! <cfg.extras.print_config=True>[0m
+CONFIG
+├── data
+│   └── _target_: src.data.downscaling_datamodule.DownscalingDataModule         
+│       data_dir: /usr/project/xtmp/par55/DiffScaler/data/                      
+│       static_vars:                                                            
+│         dtm_tif_file: /usr/project/xtmp/par55/DiffScaler/data//static_var/dtm_
+│         lc_tif_file: /usr/project/xtmp/par55/DiffScaler/data//static_var/land_
+│         lat_tif_file: /usr/project/xtmp/par55/DiffScaler/data//static_var/lat_
+│       target_vars:                                                            
+│         low_res:                                                              
+│         - 2mT                                                                 
+│         - PMSL                                                                
+│         - U10                                                                 
+│         - V10                                                                 
+│         - dp2mT                                                               
+│         - SST                                                                 
+│         - SNDPT                                                               
+│         - TP                                                                  
+│         - SSRadIn                                                             
+│         - Q850                                                                
+│         - T850                                                                
+│         - U850                                                                
+│         - V850                                                                
+│         - W850                                                                
+│         high_res:                                                             
+│         - 2mT                                                                 
+│       batch_size: 16                                                          
+│       num_workers: 4                                                          
+│       pin_memory: true                                                        
+│       crop_size: 512                                                          
+│       nn_lowres: false                                                        
+│                                                                               
+├── model
+│   └── _target_: src.models.ldm_module.LatentDiffusion                         
+│       parameterization: v                                                     
+│       denoiser:                                                               
+│         _target_: src.models.components.ldm.denoiser.UNetModel                
+│         in_channels: 32                                                       
+│         model_channels: 256                                                   
+│         out_channels: 32                                                      
+│         num_res_blocks: 2                                                     
+│         attention_resolutions:                                                
+│         - 1                                                                   
+│         - 2                                                                   
+│         dims: 2                                                               
+│         channel_mult:                                                         
+│         - 1                                                                   
+│         - 2                                                                   
+│         - 4                                                                   
+│         num_heads: 8                                                          
+│         context_ch:                                                           
+│         - 256                                                                 
+│         - 512                                                                 
+│         - 1024                                                                
+│       autoencoder:                                                            
+│         _target_: src.models.ae_module.AutoencoderKL                          
+│         encoder:                                                              
+│           _target_: src.models.components.ae.SimpleConvEncoder                
+│           levels: 3                                                           
+│         decoder:                                                              
+│           _target_: src.models.components.ae.SimpleConvDecoder                
+│           levels: 3                                                           
+│         unet_regr:                                                            
+│           _target_: src.models.unet_module.UnetLitModule                      
+│           net:                                                                
+│             _target_: src.models.components.unet.DownscalingUnet              
+│             in_ch: 32                                                         
+│             out_ch: 1                                                         
+│             features:                                                         
+│             - 64                                                              
+│             - 128                                                             
+│             - 256                                                             
+│             - 512                                                             
+│           loss:                                                               
+│             _target_: torch.nn.MSELoss                                        
+│             reduction: mean                                                   
+│           optimizer: None                                                     
+│           ckpt_path: /usr/project/xtmp/par55/DiffScaler/pretrained_models/UNET
+│         ae_flag: residual                                                     
+│       context_encoder:                                                        
+│         _target_: src.models.components.ldm.conditioner.AFNOConditionerNetCasc
+│         autoencoder:                                                          
+│         - _target_: src.models.ae_module.AutoencoderKL                        
+│           encoder:                                                            
+│             _target_: src.models.components.ae.SimpleConvEncoder              
+│             in_dim: 18                                                        
+│             levels: 3                                                         
+│             ch_mult: 3                                                        
+│           decoder: None                                                       
+│         - _target_: src.models.ae_module.EncoderLRES                          
+│         train_autoenc: true                                                   
+│         cascade_depth: 3                                                      
+│         embed_dim:                                                            
+│         - 128                                                                 
+│         - 24                                                                  
+│         analysis_depth:                                                       
+│         - 4                                                                   
+│         - 4                                                                   
+│         afno_fusion: true                                                     
+│         input_size_ratios:                                                    
+│         - 1                                                                   
+│         - 1                                                                   
+│         embed_dim_out: 256                                                    
+│       lr: 0.0001                                                              
+│       ae_load_state_file: /usr/project/xtmp/par55/DiffScaler/pretrained_models
+│       pde_lambda: 0.5                                                         
+│       temp_pde_coef: 100                                                      
+│       temp_energy_coef: 0                                                     
+│       pde_mode: temp                                                          
+│       trainable_parts:                                                        
+│       - denoiser.output_blocks                                                
+│       - autoencoder.decoder                                                   
+│       - denoiser.middle_block                                                 
+│                                                                               
+├── callbacks
+│   └── model_checkpoint:                                                       
+│         _target_: lightning.pytorch.callbacks.ModelCheckpoint                 
+│         dirpath: /usr/project/xtmp/par55/DiffScaler/logs/train/runs/2025-04-07
+│         filename: epoch_{epoch:03d}                                           
+│         monitor: val/loss                                                     
+│         verbose: false                                                        
+│         save_last: true                                                       
+│         save_top_k: 3                                                         
+│         mode: min                                                             
+│         auto_insert_metric_name: false                                        
+│         save_weights_only: false                                              
+│         every_n_train_steps: null                                             
+│         train_time_interval: null                                             
+│         every_n_epochs: null                                                  
+│         save_on_train_epoch_end: null                                         
+│       early_stopping:                                                         
+│         _target_: lightning.pytorch.callbacks.EarlyStopping                   
+│         monitor: val/loss                                                     
+│         min_delta: 0.0                                                        
+│         patience: 5                                                           
+│         verbose: false                                                        
+│         mode: min                                                             
+│         strict: true                                                          
+│         check_finite: true                                                    
+│         stopping_threshold: null                                              
+│         divergence_threshold: null                                            
+│         check_on_train_epoch_end: null                                        
+│       model_summary:                                                          
+│         _target_: lightning.pytorch.callbacks.RichModelSummary                
+│         max_depth: -1                                                         
+│       rich_progress_bar:                                                      
+│         _target_: lightning.pytorch.callbacks.RichProgressBar                 
+│                                                                               
+├── logger
+│   └── tensorboard:                                                            
+│         _target_: lightning.pytorch.loggers.tensorboard.TensorBoardLogger     
+│         save_dir: /usr/project/xtmp/par55/DiffScaler/logs/train/runs/2025-04-0
+│         name: null                                                            
+│         log_graph: false                                                      
+│         default_hp_metric: true                                               
+│         prefix: ''                                                            
+│                                                                               
+├── trainer
+│   └── _target_: lightning.pytorch.trainer.Trainer                             
+│       default_root_dir: /usr/project/xtmp/par55/DiffScaler/logs/train/runs/202
+│       min_epochs: 10                                                          
+│       max_epochs: 35                                                          
+│       accelerator: gpu                                                        
+│       devices: 4                                                              
+│       strategy: ddp_find_unused_parameters_true                               
+│       check_val_every_n_epoch: 1                                              
+│       deterministic: false                                                    
+│                                                                               
+├── paths
+│   └── root_dir: /usr/project/xtmp/par55/DiffScaler                            
+│       data_dir: /usr/project/xtmp/par55/DiffScaler/data/                      
+│       log_dir: /usr/project/xtmp/par55/DiffScaler/logs/                       
+│       output_dir: /usr/project/xtmp/par55/DiffScaler/logs/train/runs/2025-04-0
+│       work_dir: /usr/project/xtmp/par55/DiffScaler                            
+│       pretrained_models_dir: /usr/project/xtmp/par55/DiffScaler/pretrained_mod
+│                                                                               
+├── extras
+│   └── ignore_warnings: false                                                  
+│       enforce_tags: true                                                      
+│       print_config: true                                                      
+│                                                                               
+├── task_name
+│   └── train                                                                   
+├── tags
+│   └── ['downscaling', 'ldm_res_2mT']                                          
+├── train
+│   └── True                                                                    
+├── test
+│   └── True                                                                    
+├── compile
+│   └── False                                                                   
+├── ckpt_path
+│   └── /usr/project/xtmp/par55/DiffScaler/pretrained_models/LDM_residual_2mT.ck
+├── seed
+│   └── 42                                                                      
+├── optimized_metric
+│   └── val/loss                                                                
+└── load_optimizer_state
+    └── False                                                                   
+[[36m2025-04-07 00:53:29,062[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating datamodule <src.data.downscaling_datamodule.DownscalingDataModule>[0m
+[[36m2025-04-07 00:53:29,551[0m][[34mnumexpr.utils[0m][[32mINFO[0m] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.[0m
+[[36m2025-04-07 00:53:29,552[0m][[34mnumexpr.utils[0m][[32mINFO[0m] - NumExpr defaulting to 8 threads.[0m
+[[36m2025-04-07 00:53:30,379[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating model <src.models.ldm_module.LatentDiffusion>[0m
+Restored from /usr/project/xtmp/par55/DiffScaler/pretrained_models/UNET_2mT.ckpt with 0 missing and 0 unexpected keys
+Unfreezing parameter: denoiser.middle_block.0.in_layers.2.weight
+Unfreezing parameter: denoiser.middle_block.0.in_layers.2.bias
+Unfreezing parameter: denoiser.middle_block.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.middle_block.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.middle_block.0.out_layers.3.weight
+Unfreezing parameter: denoiser.middle_block.0.out_layers.3.bias
+Unfreezing parameter: denoiser.middle_block.1.pre_proj.weight
+Unfreezing parameter: denoiser.middle_block.1.pre_proj.bias
+Unfreezing parameter: denoiser.middle_block.1.filter.w1
+Unfreezing parameter: denoiser.middle_block.1.filter.b1
+Unfreezing parameter: denoiser.middle_block.1.filter.w2
+Unfreezing parameter: denoiser.middle_block.1.filter.b2
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.middle_block.2.in_layers.2.weight
+Unfreezing parameter: denoiser.middle_block.2.in_layers.2.bias
+Unfreezing parameter: denoiser.middle_block.2.emb_layers.1.weight
+Unfreezing parameter: denoiser.middle_block.2.emb_layers.1.bias
+Unfreezing parameter: denoiser.middle_block.2.out_layers.3.weight
+Unfreezing parameter: denoiser.middle_block.2.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.2.1.conv.weight
+Unfreezing parameter: denoiser.output_blocks.2.1.conv.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.5.2.conv.weight
+Unfreezing parameter: denoiser.output_blocks.5.2.conv.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc2.bias
+Unfreezing parameter: autoencoder.decoder.net.0.weight
+Unfreezing parameter: autoencoder.decoder.net.0.bias
+Unfreezing parameter: autoencoder.decoder.net.1.proj.weight
+Unfreezing parameter: autoencoder.decoder.net.1.proj.bias
+Unfreezing parameter: autoencoder.decoder.net.1.conv1.weight
+Unfreezing parameter: autoencoder.decoder.net.1.conv1.bias
+Unfreezing parameter: autoencoder.decoder.net.1.conv2.weight
+Unfreezing parameter: autoencoder.decoder.net.1.conv2.bias
+Unfreezing parameter: autoencoder.decoder.net.1.norm1.weight
+Unfreezing parameter: autoencoder.decoder.net.1.norm1.bias
+Unfreezing parameter: autoencoder.decoder.net.1.norm2.weight
+Unfreezing parameter: autoencoder.decoder.net.1.norm2.bias
+Unfreezing parameter: autoencoder.decoder.net.2.weight
+Unfreezing parameter: autoencoder.decoder.net.2.bias
+Unfreezing parameter: autoencoder.decoder.net.3.conv1.weight
+Unfreezing parameter: autoencoder.decoder.net.3.conv1.bias
+Unfreezing parameter: autoencoder.decoder.net.3.conv2.weight
+Unfreezing parameter: autoencoder.decoder.net.3.conv2.bias
+Unfreezing parameter: autoencoder.decoder.net.3.norm1.weight
+Unfreezing parameter: autoencoder.decoder.net.3.norm1.bias
+Unfreezing parameter: autoencoder.decoder.net.3.norm2.weight
+Unfreezing parameter: autoencoder.decoder.net.3.norm2.bias
+Unfreezing parameter: autoencoder.decoder.net.4.weight
+Unfreezing parameter: autoencoder.decoder.net.4.bias
+Unfreezing parameter: autoencoder.decoder.net.5.proj.weight
+Unfreezing parameter: autoencoder.decoder.net.5.proj.bias
+Unfreezing parameter: autoencoder.decoder.net.5.conv1.weight
+Unfreezing parameter: autoencoder.decoder.net.5.conv1.bias
+Unfreezing parameter: autoencoder.decoder.net.5.conv2.weight
+Unfreezing parameter: autoencoder.decoder.net.5.conv2.bias
+Unfreezing parameter: autoencoder.decoder.net.5.norm1.weight
+Unfreezing parameter: autoencoder.decoder.net.5.norm1.bias
+Unfreezing parameter: autoencoder.decoder.net.5.norm2.weight
+Unfreezing parameter: autoencoder.decoder.net.5.norm2.bias
+[[36m2025-04-07 00:53:35,726[0m][[34m__main__[0m][[32mINFO[0m] - Partial training mode: loading model weights from /usr/project/xtmp/par55/DiffScaler/pretrained_models/LDM_residual_2mT.ckpt without optimizer state.[0m
+[[36m2025-04-07 00:53:50,668[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating callbacks...[0m
+[[36m2025-04-07 00:53:50,669[0m][[34msrc.utils.instantiators[0m][[32mINFO[0m] - Instantiating callback <lightning.pytorch.callbacks.ModelCheckpoint>[0m
+[[36m2025-04-07 00:53:50,673[0m][[34msrc.utils.instantiators[0m][[32mINFO[0m] - Instantiating callback <lightning.pytorch.callbacks.EarlyStopping>[0m
+[[36m2025-04-07 00:53:50,674[0m][[34msrc.utils.instantiators[0m][[32mINFO[0m] - Instantiating callback <lightning.pytorch.callbacks.RichModelSummary>[0m
+[[36m2025-04-07 00:53:50,674[0m][[34msrc.utils.instantiators[0m][[32mINFO[0m] - Instantiating callback <lightning.pytorch.callbacks.RichProgressBar>[0m
+[[36m2025-04-07 00:53:50,677[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating loggers...[0m
+[[36m2025-04-07 00:53:50,677[0m][[34msrc.utils.instantiators[0m][[32mINFO[0m] - Instantiating logger <lightning.pytorch.loggers.tensorboard.TensorBoardLogger>[0m
+[[36m2025-04-07 00:53:50,679[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating trainer <lightning.pytorch.trainer.Trainer>[0m
+[[36m2025-04-07 00:53:51,872[0m][[34m__main__[0m][[32mINFO[0m] - Logging hyperparameters![0m
+[[36m2025-04-07 00:54:00,784[0m][[34m__main__[0m][[32mINFO[0m] - Starting training![0m
+[[36m2025-04-07 00:54:16,286[0m][[34mnumexpr.utils[0m][[32mINFO[0m] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.[0m
+[[36m2025-04-07 00:54:16,287[0m][[34mnumexpr.utils[0m][[32mINFO[0m] - NumExpr defaulting to 8 threads.[0m
+[[36m2025-04-07 00:54:16,452[0m][[34mnumexpr.utils[0m][[32mINFO[0m] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.[0m
+[[36m2025-04-07 00:54:16,452[0m][[34mnumexpr.utils[0m][[32mINFO[0m] - NumExpr defaulting to 8 threads.[0m
+[[36m2025-04-07 00:54:16,485[0m][[34mnumexpr.utils[0m][[32mINFO[0m] - Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.[0m
+[[36m2025-04-07 00:54:16,485[0m][[34mnumexpr.utils[0m][[32mINFO[0m] - NumExpr defaulting to 8 threads.[0m
+Restored from /usr/project/xtmp/par55/DiffScaler/pretrained_models/UNET_2mT.ckpt with 0 missing and 0 unexpected keys
+Unfreezing parameter: denoiser.middle_block.0.in_layers.2.weight
+Unfreezing parameter: denoiser.middle_block.0.in_layers.2.bias
+Unfreezing parameter: denoiser.middle_block.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.middle_block.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.middle_block.0.out_layers.3.weight
+Unfreezing parameter: denoiser.middle_block.0.out_layers.3.bias
+Unfreezing parameter: denoiser.middle_block.1.pre_proj.weight
+Unfreezing parameter: denoiser.middle_block.1.pre_proj.bias
+Unfreezing parameter: denoiser.middle_block.1.filter.w1
+Unfreezing parameter: denoiser.middle_block.1.filter.b1
+Unfreezing parameter: denoiser.middle_block.1.filter.w2
+Unfreezing parameter: denoiser.middle_block.1.filter.b2
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.middle_block.2.in_layers.2.weight
+Unfreezing parameter: denoiser.middle_block.2.in_layers.2.bias
+Unfreezing parameter: denoiser.middle_block.2.emb_layers.1.weight
+Unfreezing parameter: denoiser.middle_block.2.emb_layers.1.bias
+Unfreezing parameter: denoiser.middle_block.2.out_layers.3.weight
+Unfreezing parameter: denoiser.middle_block.2.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.2.1.conv.weight
+Unfreezing parameter: denoiser.output_blocks.2.1.conv.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.5.2.conv.weight
+Unfreezing parameter: denoiser.output_blocks.5.2.conv.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc2.bias
+Unfreezing parameter: autoencoder.decoder.net.0.weight
+Unfreezing parameter: autoencoder.decoder.net.0.bias
+Unfreezing parameter: autoencoder.decoder.net.1.proj.weight
+Unfreezing parameter: autoencoder.decoder.net.1.proj.bias
+Unfreezing parameter: autoencoder.decoder.net.1.conv1.weight
+Unfreezing parameter: autoencoder.decoder.net.1.conv1.bias
+Unfreezing parameter: autoencoder.decoder.net.1.conv2.weight
+Unfreezing parameter: autoencoder.decoder.net.1.conv2.bias
+Unfreezing parameter: autoencoder.decoder.net.1.norm1.weight
+Unfreezing parameter: autoencoder.decoder.net.1.norm1.bias
+Unfreezing parameter: autoencoder.decoder.net.1.norm2.weight
+Unfreezing parameter: autoencoder.decoder.net.1.norm2.bias
+Unfreezing parameter: autoencoder.decoder.net.2.weight
+Unfreezing parameter: autoencoder.decoder.net.2.bias
+Unfreezing parameter: autoencoder.decoder.net.3.conv1.weight
+Unfreezing parameter: autoencoder.decoder.net.3.conv1.bias
+Unfreezing parameter: autoencoder.decoder.net.3.conv2.weight
+Unfreezing parameter: autoencoder.decoder.net.3.conv2.bias
+Unfreezing parameter: autoencoder.decoder.net.3.norm1.weight
+Unfreezing parameter: autoencoder.decoder.net.3.norm1.bias
+Unfreezing parameter: autoencoder.decoder.net.3.norm2.weight
+Unfreezing parameter: autoencoder.decoder.net.3.norm2.bias
+Unfreezing parameter: autoencoder.decoder.net.4.weight
+Unfreezing parameter: autoencoder.decoder.net.4.bias
+Unfreezing parameter: autoencoder.decoder.net.5.proj.weight
+Unfreezing parameter: autoencoder.decoder.net.5.proj.bias
+Unfreezing parameter: autoencoder.decoder.net.5.conv1.weight
+Unfreezing parameter: autoencoder.decoder.net.5.conv1.bias
+Unfreezing parameter: autoencoder.decoder.net.5.conv2.weight
+Unfreezing parameter: autoencoder.decoder.net.5.conv2.bias
+Unfreezing parameter: autoencoder.decoder.net.5.norm1.weight
+Unfreezing parameter: autoencoder.decoder.net.5.norm1.bias
+Unfreezing parameter: autoencoder.decoder.net.5.norm2.weight
+Unfreezing parameter: autoencoder.decoder.net.5.norm2.bias
+[[36m2025-04-07 00:54:32,774[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Added key: store_based_barrier_key:1 to store for rank: 1[0m
+Restored from /usr/project/xtmp/par55/DiffScaler/pretrained_models/UNET_2mT.ckpt with 0 missing and 0 unexpected keys
+Unfreezing parameter: denoiser.middle_block.0.in_layers.2.weight
+Unfreezing parameter: denoiser.middle_block.0.in_layers.2.bias
+Unfreezing parameter: denoiser.middle_block.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.middle_block.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.middle_block.0.out_layers.3.weight
+Unfreezing parameter: denoiser.middle_block.0.out_layers.3.bias
+Unfreezing parameter: denoiser.middle_block.1.pre_proj.weight
+Unfreezing parameter: denoiser.middle_block.1.pre_proj.bias
+Unfreezing parameter: denoiser.middle_block.1.filter.w1
+Unfreezing parameter: denoiser.middle_block.1.filter.b1
+Unfreezing parameter: denoiser.middle_block.1.filter.w2
+Unfreezing parameter: denoiser.middle_block.1.filter.b2
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.middle_block.2.in_layers.2.weight
+Unfreezing parameter: denoiser.middle_block.2.in_layers.2.bias
+Unfreezing parameter: denoiser.middle_block.2.emb_layers.1.weight
+Unfreezing parameter: denoiser.middle_block.2.emb_layers.1.bias
+Unfreezing parameter: denoiser.middle_block.2.out_layers.3.weight
+Unfreezing parameter: denoiser.middle_block.2.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.2.1.conv.weight
+Unfreezing parameter: denoiser.output_blocks.2.1.conv.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.5.2.conv.weight
+Unfreezing parameter: denoiser.output_blocks.5.2.conv.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc2.bias
+Unfreezing parameter: autoencoder.decoder.net.0.weight
+Unfreezing parameter: autoencoder.decoder.net.0.bias
+Unfreezing parameter: autoencoder.decoder.net.1.proj.weight
+Unfreezing parameter: autoencoder.decoder.net.1.proj.bias
+Unfreezing parameter: autoencoder.decoder.net.1.conv1.weight
+Unfreezing parameter: autoencoder.decoder.net.1.conv1.bias
+Unfreezing parameter: autoencoder.decoder.net.1.conv2.weight
+Unfreezing parameter: autoencoder.decoder.net.1.conv2.bias
+Unfreezing parameter: autoencoder.decoder.net.1.norm1.weight
+Unfreezing parameter: autoencoder.decoder.net.1.norm1.bias
+Unfreezing parameter: autoencoder.decoder.net.1.norm2.weight
+Unfreezing parameter: autoencoder.decoder.net.1.norm2.bias
+Unfreezing parameter: autoencoder.decoder.net.2.weight
+Unfreezing parameter: autoencoder.decoder.net.2.bias
+Unfreezing parameter: autoencoder.decoder.net.3.conv1.weight
+Unfreezing parameter: autoencoder.decoder.net.3.conv1.bias
+Unfreezing parameter: autoencoder.decoder.net.3.conv2.weight
+Unfreezing parameter: autoencoder.decoder.net.3.conv2.bias
+Unfreezing parameter: autoencoder.decoder.net.3.norm1.weight
+Unfreezing parameter: autoencoder.decoder.net.3.norm1.bias
+Unfreezing parameter: autoencoder.decoder.net.3.norm2.weight
+Unfreezing parameter: autoencoder.decoder.net.3.norm2.bias
+Unfreezing parameter: autoencoder.decoder.net.4.weight
+Unfreezing parameter: autoencoder.decoder.net.4.bias
+Unfreezing parameter: autoencoder.decoder.net.5.proj.weight
+Unfreezing parameter: autoencoder.decoder.net.5.proj.bias
+Unfreezing parameter: autoencoder.decoder.net.5.conv1.weight
+Unfreezing parameter: autoencoder.decoder.net.5.conv1.bias
+Unfreezing parameter: autoencoder.decoder.net.5.conv2.weight
+Unfreezing parameter: autoencoder.decoder.net.5.conv2.bias
+Unfreezing parameter: autoencoder.decoder.net.5.norm1.weight
+Unfreezing parameter: autoencoder.decoder.net.5.norm1.bias
+Unfreezing parameter: autoencoder.decoder.net.5.norm2.weight
+Unfreezing parameter: autoencoder.decoder.net.5.norm2.bias
+[[36m2025-04-07 00:54:33,994[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Added key: store_based_barrier_key:1 to store for rank: 2[0m
+Restored from /usr/project/xtmp/par55/DiffScaler/pretrained_models/UNET_2mT.ckpt with 0 missing and 0 unexpected keys
+Unfreezing parameter: denoiser.middle_block.0.in_layers.2.weight
+Unfreezing parameter: denoiser.middle_block.0.in_layers.2.bias
+Unfreezing parameter: denoiser.middle_block.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.middle_block.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.middle_block.0.out_layers.3.weight
+Unfreezing parameter: denoiser.middle_block.0.out_layers.3.bias
+Unfreezing parameter: denoiser.middle_block.1.pre_proj.weight
+Unfreezing parameter: denoiser.middle_block.1.pre_proj.bias
+Unfreezing parameter: denoiser.middle_block.1.filter.w1
+Unfreezing parameter: denoiser.middle_block.1.filter.b1
+Unfreezing parameter: denoiser.middle_block.1.filter.w2
+Unfreezing parameter: denoiser.middle_block.1.filter.b2
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.middle_block.2.in_layers.2.weight
+Unfreezing parameter: denoiser.middle_block.2.in_layers.2.bias
+Unfreezing parameter: denoiser.middle_block.2.emb_layers.1.weight
+Unfreezing parameter: denoiser.middle_block.2.emb_layers.1.bias
+Unfreezing parameter: denoiser.middle_block.2.out_layers.3.weight
+Unfreezing parameter: denoiser.middle_block.2.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.2.1.conv.weight
+Unfreezing parameter: denoiser.output_blocks.2.1.conv.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.5.2.conv.weight
+Unfreezing parameter: denoiser.output_blocks.5.2.conv.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc2.bias
+Unfreezing parameter: autoencoder.decoder.net.0.weight
+Unfreezing parameter: autoencoder.decoder.net.0.bias
+Unfreezing parameter: autoencoder.decoder.net.1.proj.weight
+Unfreezing parameter: autoencoder.decoder.net.1.proj.bias
+Unfreezing parameter: autoencoder.decoder.net.1.conv1.weight
+Unfreezing parameter: autoencoder.decoder.net.1.conv1.bias
+Unfreezing parameter: autoencoder.decoder.net.1.conv2.weight
+Unfreezing parameter: autoencoder.decoder.net.1.conv2.bias
+Unfreezing parameter: autoencoder.decoder.net.1.norm1.weight
+Unfreezing parameter: autoencoder.decoder.net.1.norm1.bias
+Unfreezing parameter: autoencoder.decoder.net.1.norm2.weight
+Unfreezing parameter: autoencoder.decoder.net.1.norm2.bias
+Unfreezing parameter: autoencoder.decoder.net.2.weight
+Unfreezing parameter: autoencoder.decoder.net.2.bias
+Unfreezing parameter: autoencoder.decoder.net.3.conv1.weight
+Unfreezing parameter: autoencoder.decoder.net.3.conv1.bias
+Unfreezing parameter: autoencoder.decoder.net.3.conv2.weight
+Unfreezing parameter: autoencoder.decoder.net.3.conv2.bias
+Unfreezing parameter: autoencoder.decoder.net.3.norm1.weight
+Unfreezing parameter: autoencoder.decoder.net.3.norm1.bias
+Unfreezing parameter: autoencoder.decoder.net.3.norm2.weight
+Unfreezing parameter: autoencoder.decoder.net.3.norm2.bias
+Unfreezing parameter: autoencoder.decoder.net.4.weight
+Unfreezing parameter: autoencoder.decoder.net.4.bias
+Unfreezing parameter: autoencoder.decoder.net.5.proj.weight
+Unfreezing parameter: autoencoder.decoder.net.5.proj.bias
+Unfreezing parameter: autoencoder.decoder.net.5.conv1.weight
+Unfreezing parameter: autoencoder.decoder.net.5.conv1.bias
+Unfreezing parameter: autoencoder.decoder.net.5.conv2.weight
+Unfreezing parameter: autoencoder.decoder.net.5.conv2.bias
+Unfreezing parameter: autoencoder.decoder.net.5.norm1.weight
+Unfreezing parameter: autoencoder.decoder.net.5.norm1.bias
+Unfreezing parameter: autoencoder.decoder.net.5.norm2.weight
+Unfreezing parameter: autoencoder.decoder.net.5.norm2.bias
+[[36m2025-04-07 00:54:34,024[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Added key: store_based_barrier_key:1 to store for rank: 3[0m
+[[36m2025-04-07 00:54:34,030[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Added key: store_based_barrier_key:1 to store for rank: 0[0m
+[[36m2025-04-07 00:54:34,031[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Rank 0: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.[0m
+[[36m2025-04-07 00:54:34,035[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Rank 3: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.[0m
+[[36m2025-04-07 00:54:34,036[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Rank 2: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.[0m
+[[36m2025-04-07 00:54:34,039[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Rank 1: Completed store-based barrier for key:store_based_barrier_key:1 with 4 nodes.[0m
+┏━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━┓
+┃     ┃ Name                                                 ┃ Type   ┃ Params ┃
+┡━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━┩
+│ 0   │ denoiser                                             │ UNetM… │  274 M │
+│ 1   │ denoiser.time_embed                                  │ Seque… │  1.3 M │
+│ 2   │ denoiser.time_embed.0                                │ Linear │  263 K │
+│ 3   │ denoiser.time_embed.1                                │ SiLU   │      0 │
+│ 4   │ denoiser.time_embed.2                                │ Linear │  1.0 M │
+│ 5   │ denoiser.input_blocks                                │ Modul… │ 62.8 M │
+│ 6   │ denoiser.input_blocks.0                              │ Times… │ 74.0 K │
+│ 7   │ denoiser.input_blocks.0.0                            │ Conv2d │ 74.0 K │
+│ 8   │ denoiser.input_blocks.1                              │ Times… │  2.6 M │
+│ 9   │ denoiser.input_blocks.1.0                            │ ResBl… │  1.4 M │
+│ 10  │ denoiser.input_blocks.1.0.in_layers                  │ Seque… │  590 K │
+│ 11  │ denoiser.input_blocks.1.0.in_layers.0                │ Ident… │      0 │
+│ 12  │ denoiser.input_blocks.1.0.in_layers.1                │ SiLU   │      0 │
+│ 13  │ denoiser.input_blocks.1.0.in_layers.2                │ Conv2d │  590 K │
+│ 14  │ denoiser.input_blocks.1.0.emb_layers                 │ Seque… │  262 K │
+│ 15  │ denoiser.input_blocks.1.0.emb_layers.0               │ SiLU   │      0 │
+│ 16  │ denoiser.input_blocks.1.0.emb_layers.1               │ Linear │  262 K │
+│ 17  │ denoiser.input_blocks.1.0.out_layers                 │ Seque… │  590 K │
+│ 18  │ denoiser.input_blocks.1.0.out_layers.0               │ Ident… │      0 │
+│ 19  │ denoiser.input_blocks.1.0.out_layers.1               │ SiLU   │      0 │
+│ 20  │ denoiser.input_blocks.1.0.out_layers.2               │ Dropo… │      0 │
+│ 21  │ denoiser.input_blocks.1.0.out_layers.3               │ Conv2d │  590 K │
+│ 22  │ denoiser.input_blocks.1.0.skip_connection            │ Ident… │      0 │
+│ 23  │ denoiser.input_blocks.1.1                            │ AFNOC… │  1.2 M │
+│ 24  │ denoiser.input_blocks.1.1.norm1                      │ Ident… │      0 │
+│ 25  │ denoiser.input_blocks.1.1.norm2                      │ Ident… │      0 │
+│ 26  │ denoiser.input_blocks.1.1.pre_proj                   │ Linear │  262 K │
+│ 27  │ denoiser.input_blocks.1.1.filter                     │ AFNO2D │  133 K │
+│ 28  │ denoiser.input_blocks.1.1.mlp                        │ Mlp    │  787 K │
+│ 29  │ denoiser.input_blocks.1.1.mlp.fc1                    │ Linear │  525 K │
+│ 30  │ denoiser.input_blocks.1.1.mlp.act                    │ GELU   │      0 │
+│ 31  │ denoiser.input_blocks.1.1.mlp.fc2                    │ Linear │  262 K │
+│ 32  │ denoiser.input_blocks.1.1.mlp.drop                   │ Ident… │      0 │
+│ 33  │ denoiser.input_blocks.2                              │ Times… │  2.6 M │
+│ 34  │ denoiser.input_blocks.2.0                            │ ResBl… │  1.4 M │
+│ 35  │ denoiser.input_blocks.2.0.in_layers                  │ Seque… │  590 K │
+│ 36  │ denoiser.input_blocks.2.0.in_layers.0                │ Ident… │      0 │
+│ 37  │ denoiser.input_blocks.2.0.in_layers.1                │ SiLU   │      0 │
+│ 38  │ denoiser.input_blocks.2.0.in_layers.2                │ Conv2d │  590 K │
+│ 39  │ denoiser.input_blocks.2.0.emb_layers                 │ Seque… │  262 K │
+│ 40  │ denoiser.input_blocks.2.0.emb_layers.0               │ SiLU   │      0 │
+│ 41  │ denoiser.input_blocks.2.0.emb_layers.1               │ Linear │  262 K │
+│ 42  │ denoiser.input_blocks.2.0.out_layers                 │ Seque… │  590 K │
+│ 43  │ denoiser.input_blocks.2.0.out_layers.0               │ Ident… │      0 │
+│ 44  │ denoiser.input_blocks.2.0.out_layers.1               │ SiLU   │      0 │
+│ 45  │ denoiser.input_blocks.2.0.out_layers.2               │ Dropo… │      0 │
+│ 46  │ denoiser.input_blocks.2.0.out_layers.3               │ Conv2d │  590 K │
+│ 47  │ denoiser.input_blocks.2.0.skip_connection            │ Ident… │      0 │
+│ 48  │ denoiser.input_blocks.2.1                            │ AFNOC… │  1.2 M │
+│ 49  │ denoiser.input_blocks.2.1.norm1                      │ Ident… │      0 │
+│ 50  │ denoiser.input_blocks.2.1.norm2                      │ Ident… │      0 │
+│ 51  │ denoiser.input_blocks.2.1.pre_proj                   │ Linear │  262 K │
+│ 52  │ denoiser.input_blocks.2.1.filter                     │ AFNO2D │  133 K │
+│ 53  │ denoiser.input_blocks.2.1.mlp                        │ Mlp    │  787 K │
+│ 54  │ denoiser.input_blocks.2.1.mlp.fc1                    │ Linear │  525 K │
+│ 55  │ denoiser.input_blocks.2.1.mlp.act                    │ GELU   │      0 │
+│ 56  │ denoiser.input_blocks.2.1.mlp.fc2                    │ Linear │  262 K │
+│ 57  │ denoiser.input_blocks.2.1.mlp.drop                   │ Ident… │      0 │
+│ 58  │ denoiser.input_blocks.3                              │ Times… │  590 K │
+│ 59  │ denoiser.input_blocks.3.0                            │ Downs… │  590 K │
+│ 60  │ denoiser.input_blocks.3.0.op                         │ Conv2d │  590 K │
+│ 61  │ denoiser.input_blocks.4                              │ Times… │  8.9 M │
+│ 62  │ denoiser.input_blocks.4.0                            │ ResBl… │  4.2 M │
+│ 63  │ denoiser.input_blocks.4.0.in_layers                  │ Seque… │  1.2 M │
+│ 64  │ denoiser.input_blocks.4.0.in_layers.0                │ Ident… │      0 │
+│ 65  │ denoiser.input_blocks.4.0.in_layers.1                │ SiLU   │      0 │
+│ 66  │ denoiser.input_blocks.4.0.in_layers.2                │ Conv2d │  1.2 M │
+│ 67  │ denoiser.input_blocks.4.0.emb_layers                 │ Seque… │  524 K │
+│ 68  │ denoiser.input_blocks.4.0.emb_layers.0               │ SiLU   │      0 │
+│ 69  │ denoiser.input_blocks.4.0.emb_layers.1               │ Linear │  524 K │
+│ 70  │ denoiser.input_blocks.4.0.out_layers                 │ Seque… │  2.4 M │
+│ 71  │ denoiser.input_blocks.4.0.out_layers.0               │ Ident… │      0 │
+│ 72  │ denoiser.input_blocks.4.0.out_layers.1               │ SiLU   │      0 │
+│ 73  │ denoiser.input_blocks.4.0.out_layers.2               │ Dropo… │      0 │
+│ 74  │ denoiser.input_blocks.4.0.out_layers.3               │ Conv2d │  2.4 M │
+│ 75  │ denoiser.input_blocks.4.0.skip_connection            │ Conv2d │  131 K │
+│ 76  │ denoiser.input_blocks.4.1                            │ AFNOC… │  4.7 M │
+│ 77  │ denoiser.input_blocks.4.1.norm1                      │ Ident… │      0 │
+│ 78  │ denoiser.input_blocks.4.1.norm2                      │ Ident… │      0 │
+│ 79  │ denoiser.input_blocks.4.1.pre_proj                   │ Linear │  1.0 M │
+│ 80  │ denoiser.input_blocks.4.1.filter                     │ AFNO2D │  528 K │
+│ 81  │ denoiser.input_blocks.4.1.mlp                        │ Mlp    │  3.1 M │
+│ 82  │ denoiser.input_blocks.4.1.mlp.fc1                    │ Linear │  2.1 M │
+│ 83  │ denoiser.input_blocks.4.1.mlp.act                    │ GELU   │      0 │
+│ 84  │ denoiser.input_blocks.4.1.mlp.fc2                    │ Linear │  1.0 M │
+│ 85  │ denoiser.input_blocks.4.1.mlp.drop                   │ Ident… │      0 │
+│ 86  │ denoiser.input_blocks.5                              │ Times… │ 10.0 M │
+│ 87  │ denoiser.input_blocks.5.0                            │ ResBl… │  5.2 M │
+│ 88  │ denoiser.input_blocks.5.0.in_layers                  │ Seque… │  2.4 M │
+│ 89  │ denoiser.input_blocks.5.0.in_layers.0                │ Ident… │      0 │
+│ 90  │ denoiser.input_blocks.5.0.in_layers.1                │ SiLU   │      0 │
+│ 91  │ denoiser.input_blocks.5.0.in_layers.2                │ Conv2d │  2.4 M │
+│ 92  │ denoiser.input_blocks.5.0.emb_layers                 │ Seque… │  524 K │
+│ 93  │ denoiser.input_blocks.5.0.emb_layers.0               │ SiLU   │      0 │
+│ 94  │ denoiser.input_blocks.5.0.emb_layers.1               │ Linear │  524 K │
+│ 95  │ denoiser.input_blocks.5.0.out_layers                 │ Seque… │  2.4 M │
+│ 96  │ denoiser.input_blocks.5.0.out_layers.0               │ Ident… │      0 │
+│ 97  │ denoiser.input_blocks.5.0.out_layers.1               │ SiLU   │      0 │
+│ 98  │ denoiser.input_blocks.5.0.out_layers.2               │ Dropo… │      0 │
+│ 99  │ denoiser.input_blocks.5.0.out_layers.3               │ Conv2d │  2.4 M │
+│ 100 │ denoiser.input_blocks.5.0.skip_connection            │ Ident… │      0 │
+│ 101 │ denoiser.input_blocks.5.1                            │ AFNOC… │  4.7 M │
+│ 102 │ denoiser.input_blocks.5.1.norm1                      │ Ident… │      0 │
+│ 103 │ denoiser.input_blocks.5.1.norm2                      │ Ident… │      0 │
+│ 104 │ denoiser.input_blocks.5.1.pre_proj                   │ Linear │  1.0 M │
+│ 105 │ denoiser.input_blocks.5.1.filter                     │ AFNO2D │  528 K │
+│ 106 │ denoiser.input_blocks.5.1.mlp                        │ Mlp    │  3.1 M │
+│ 107 │ denoiser.input_blocks.5.1.mlp.fc1                    │ Linear │  2.1 M │
+│ 108 │ denoiser.input_blocks.5.1.mlp.act                    │ GELU   │      0 │
+│ 109 │ denoiser.input_blocks.5.1.mlp.fc2                    │ Linear │  1.0 M │
+│ 110 │ denoiser.input_blocks.5.1.mlp.drop                   │ Ident… │      0 │
+│ 111 │ denoiser.input_blocks.6                              │ Times… │  2.4 M │
+│ 112 │ denoiser.input_blocks.6.0                            │ Downs… │  2.4 M │
+│ 113 │ denoiser.input_blocks.6.0.op                         │ Conv2d │  2.4 M │
+│ 114 │ denoiser.input_blocks.7                              │ Times… │ 15.7 M │
+│ 115 │ denoiser.input_blocks.7.0                            │ ResBl… │ 15.7 M │
+│ 116 │ denoiser.input_blocks.7.0.in_layers                  │ Seque… │  4.7 M │
+│ 117 │ denoiser.input_blocks.7.0.in_layers.0                │ Ident… │      0 │
+│ 118 │ denoiser.input_blocks.7.0.in_layers.1                │ SiLU   │      0 │
+│ 119 │ denoiser.input_blocks.7.0.in_layers.2                │ Conv2d │  4.7 M │
+│ 120 │ denoiser.input_blocks.7.0.emb_layers                 │ Seque… │  1.0 M │
+│ 121 │ denoiser.input_blocks.7.0.emb_layers.0               │ SiLU   │      0 │
+│ 122 │ denoiser.input_blocks.7.0.emb_layers.1               │ Linear │  1.0 M │
+│ 123 │ denoiser.input_blocks.7.0.out_layers                 │ Seque… │  9.4 M │
+│ 124 │ denoiser.input_blocks.7.0.out_layers.0               │ Ident… │      0 │
+│ 125 │ denoiser.input_blocks.7.0.out_layers.1               │ SiLU   │      0 │
+│ 126 │ denoiser.input_blocks.7.0.out_layers.2               │ Dropo… │      0 │
+│ 127 │ denoiser.input_blocks.7.0.out_layers.3               │ Conv2d │  9.4 M │
+│ 128 │ denoiser.input_blocks.7.0.skip_connection            │ Conv2d │  525 K │
+│ 129 │ denoiser.input_blocks.8                              │ Times… │ 19.9 M │
+│ 130 │ denoiser.input_blocks.8.0                            │ ResBl… │ 19.9 M │
+│ 131 │ denoiser.input_blocks.8.0.in_layers                  │ Seque… │  9.4 M │
+│ 132 │ denoiser.input_blocks.8.0.in_layers.0                │ Ident… │      0 │
+│ 133 │ denoiser.input_blocks.8.0.in_layers.1                │ SiLU   │      0 │
+│ 134 │ denoiser.input_blocks.8.0.in_layers.2                │ Conv2d │  9.4 M │
+│ 135 │ denoiser.input_blocks.8.0.emb_layers                 │ Seque… │  1.0 M │
+│ 136 │ denoiser.input_blocks.8.0.emb_layers.0               │ SiLU   │      0 │
+│ 137 │ denoiser.input_blocks.8.0.emb_layers.1               │ Linear │  1.0 M │
+│ 138 │ denoiser.input_blocks.8.0.out_layers                 │ Seque… │  9.4 M │
+│ 139 │ denoiser.input_blocks.8.0.out_layers.0               │ Ident… │      0 │
+│ 140 │ denoiser.input_blocks.8.0.out_layers.1               │ SiLU   │      0 │
+│ 141 │ denoiser.input_blocks.8.0.out_layers.2               │ Dropo… │      0 │
+│ 142 │ denoiser.input_blocks.8.0.out_layers.3               │ Conv2d │  9.4 M │
+│ 143 │ denoiser.input_blocks.8.0.skip_connection            │ Ident… │      0 │
+│ 144 │ denoiser.middle_block                                │ Times… │ 58.7 M │
+│ 145 │ denoiser.middle_block.0                              │ ResBl… │ 19.9 M │
+│ 146 │ denoiser.middle_block.0.in_layers                    │ Seque… │  9.4 M │
+│ 147 │ denoiser.middle_block.0.in_layers.0                  │ Ident… │      0 │
+│ 148 │ denoiser.middle_block.0.in_layers.1                  │ SiLU   │      0 │
+│ 149 │ denoiser.middle_block.0.in_layers.2                  │ Conv2d │  9.4 M │
+│ 150 │ denoiser.middle_block.0.emb_layers                   │ Seque… │  1.0 M │
+│ 151 │ denoiser.middle_block.0.emb_layers.0                 │ SiLU   │      0 │
+│ 152 │ denoiser.middle_block.0.emb_layers.1                 │ Linear │  1.0 M │
+│ 153 │ denoiser.middle_block.0.out_layers                   │ Seque… │  9.4 M │
+│ 154 │ denoiser.middle_block.0.out_layers.0                 │ Ident… │      0 │
+│ 155 │ denoiser.middle_block.0.out_layers.1                 │ SiLU   │      0 │
+│ 156 │ denoiser.middle_block.0.out_layers.2                 │ Dropo… │      0 │
+│ 157 │ denoiser.middle_block.0.out_layers.3                 │ Conv2d │  9.4 M │
+│ 158 │ denoiser.middle_block.0.skip_connection              │ Ident… │      0 │
+│ 159 │ denoiser.middle_block.1                              │ AFNOC… │ 18.9 M │
+│ 160 │ denoiser.middle_block.1.norm1                        │ Ident… │      0 │
+│ 161 │ denoiser.middle_block.1.norm2                        │ Ident… │      0 │
+│ 162 │ denoiser.middle_block.1.pre_proj                     │ Linear │  4.2 M │
+│ 163 │ denoiser.middle_block.1.filter                       │ AFNO2D │  2.1 M │
+│ 164 │ denoiser.middle_block.1.mlp                          │ Mlp    │ 12.6 M │
+│ 165 │ denoiser.middle_block.1.mlp.fc1                      │ Linear │  8.4 M │
+│ 166 │ denoiser.middle_block.1.mlp.act                      │ GELU   │      0 │
+│ 167 │ denoiser.middle_block.1.mlp.fc2                      │ Linear │  4.2 M │
+│ 168 │ denoiser.middle_block.1.mlp.drop                     │ Ident… │      0 │
+│ 169 │ denoiser.middle_block.2                              │ ResBl… │ 19.9 M │
+│ 170 │ denoiser.middle_block.2.in_layers                    │ Seque… │  9.4 M │
+│ 171 │ denoiser.middle_block.2.in_layers.0                  │ Ident… │      0 │
+│ 172 │ denoiser.middle_block.2.in_layers.1                  │ SiLU   │      0 │
+│ 173 │ denoiser.middle_block.2.in_layers.2                  │ Conv2d │  9.4 M │
+│ 174 │ denoiser.middle_block.2.emb_layers                   │ Seque… │  1.0 M │
+│ 175 │ denoiser.middle_block.2.emb_layers.0                 │ SiLU   │      0 │
+│ 176 │ denoiser.middle_block.2.emb_layers.1                 │ Linear │  1.0 M │
+│ 177 │ denoiser.middle_block.2.out_layers                   │ Seque… │  9.4 M │
+│ 178 │ denoiser.middle_block.2.out_layers.0                 │ Ident… │      0 │
+│ 179 │ denoiser.middle_block.2.out_layers.1                 │ SiLU   │      0 │
+│ 180 │ denoiser.middle_block.2.out_layers.2                 │ Dropo… │      0 │
+│ 181 │ denoiser.middle_block.2.out_layers.3                 │ Conv2d │  9.4 M │
+│ 182 │ denoiser.middle_block.2.skip_connection              │ Ident… │      0 │
+│ 183 │ denoiser.output_blocks                               │ Modul… │  151 M │
+│ 184 │ denoiser.output_blocks.0                             │ Times… │ 31.5 M │
+│ 185 │ denoiser.output_blocks.0.0                           │ ResBl… │ 31.5 M │
+│ 186 │ denoiser.output_blocks.0.0.in_layers                 │ Seque… │ 18.9 M │
+│ 187 │ denoiser.output_blocks.0.0.in_layers.0               │ Ident… │      0 │
+│ 188 │ denoiser.output_blocks.0.0.in_layers.1               │ SiLU   │      0 │
+│ 189 │ denoiser.output_blocks.0.0.in_layers.2               │ Conv2d │ 18.9 M │
+│ 190 │ denoiser.output_blocks.0.0.emb_layers                │ Seque… │  1.0 M │
+│ 191 │ denoiser.output_blocks.0.0.emb_layers.0              │ SiLU   │      0 │
+│ 192 │ denoiser.output_blocks.0.0.emb_layers.1              │ Linear │  1.0 M │
+│ 193 │ denoiser.output_blocks.0.0.out_layers                │ Seque… │  9.4 M │
+│ 194 │ denoiser.output_blocks.0.0.out_layers.0              │ Ident… │      0 │
+│ 195 │ denoiser.output_blocks.0.0.out_layers.1              │ SiLU   │      0 │
+│ 196 │ denoiser.output_blocks.0.0.out_layers.2              │ Dropo… │      0 │
+│ 197 │ denoiser.output_blocks.0.0.out_layers.3              │ Conv2d │  9.4 M │
+│ 198 │ denoiser.output_blocks.0.0.skip_connection           │ Conv2d │  2.1 M │
+│ 199 │ denoiser.output_blocks.1                             │ Times… │ 31.5 M │
+│ 200 │ denoiser.output_blocks.1.0                           │ ResBl… │ 31.5 M │
+│ 201 │ denoiser.output_blocks.1.0.in_layers                 │ Seque… │ 18.9 M │
+│ 202 │ denoiser.output_blocks.1.0.in_layers.0               │ Ident… │      0 │
+│ 203 │ denoiser.output_blocks.1.0.in_layers.1               │ SiLU   │      0 │
+│ 204 │ denoiser.output_blocks.1.0.in_layers.2               │ Conv2d │ 18.9 M │
+│ 205 │ denoiser.output_blocks.1.0.emb_layers                │ Seque… │  1.0 M │
+│ 206 │ denoiser.output_blocks.1.0.emb_layers.0              │ SiLU   │      0 │
+│ 207 │ denoiser.output_blocks.1.0.emb_layers.1              │ Linear │  1.0 M │
+│ 208 │ denoiser.output_blocks.1.0.out_layers                │ Seque… │  9.4 M │
+│ 209 │ denoiser.output_blocks.1.0.out_layers.0              │ Ident… │      0 │
+│ 210 │ denoiser.output_blocks.1.0.out_layers.1              │ SiLU   │      0 │
+│ 211 │ denoiser.output_blocks.1.0.out_layers.2              │ Dropo… │      0 │
+│ 212 │ denoiser.output_blocks.1.0.out_layers.3              │ Conv2d │  9.4 M │
+│ 213 │ denoiser.output_blocks.1.0.skip_connection           │ Conv2d │  2.1 M │
+│ 214 │ denoiser.output_blocks.2                             │ Times… │ 35.7 M │
+│ 215 │ denoiser.output_blocks.2.0                           │ ResBl… │ 26.2 M │
+│ 216 │ denoiser.output_blocks.2.0.in_layers                 │ Seque… │ 14.2 M │
+│ 217 │ denoiser.output_blocks.2.0.in_layers.0               │ Ident… │      0 │
+│ 218 │ denoiser.output_blocks.2.0.in_layers.1               │ SiLU   │      0 │
+│ 219 │ denoiser.output_blocks.2.0.in_layers.2               │ Conv2d │ 14.2 M │
+│ 220 │ denoiser.output_blocks.2.0.emb_layers                │ Seque… │  1.0 M │
+│ 221 │ denoiser.output_blocks.2.0.emb_layers.0              │ SiLU   │      0 │
+│ 222 │ denoiser.output_blocks.2.0.emb_layers.1              │ Linear │  1.0 M │
+│ 223 │ denoiser.output_blocks.2.0.out_layers                │ Seque… │  9.4 M │
+│ 224 │ denoiser.output_blocks.2.0.out_layers.0              │ Ident… │      0 │
+│ 225 │ denoiser.output_blocks.2.0.out_layers.1              │ SiLU   │      0 │
+│ 226 │ denoiser.output_blocks.2.0.out_layers.2              │ Dropo… │      0 │
+│ 227 │ denoiser.output_blocks.2.0.out_layers.3              │ Conv2d │  9.4 M │
+│ 228 │ denoiser.output_blocks.2.0.skip_connection           │ Conv2d │  1.6 M │
+│ 229 │ denoiser.output_blocks.2.1                           │ Upsam… │  9.4 M │
+│ 230 │ denoiser.output_blocks.2.1.conv                      │ Conv2d │  9.4 M │
+│ 231 │ denoiser.output_blocks.3                             │ Times… │ 15.5 M │
+│ 232 │ denoiser.output_blocks.3.0                           │ ResBl… │ 10.7 M │
+│ 233 │ denoiser.output_blocks.3.0.in_layers                 │ Seque… │  7.1 M │
+│ 234 │ denoiser.output_blocks.3.0.in_layers.0               │ Ident… │      0 │
+│ 235 │ denoiser.output_blocks.3.0.in_layers.1               │ SiLU   │      0 │
+│ 236 │ denoiser.output_blocks.3.0.in_layers.2               │ Conv2d │  7.1 M │
+│ 237 │ denoiser.output_blocks.3.0.emb_layers                │ Seque… │  524 K │
+│ 238 │ denoiser.output_blocks.3.0.emb_layers.0              │ SiLU   │      0 │
+│ 239 │ denoiser.output_blocks.3.0.emb_layers.1              │ Linear │  524 K │
+│ 240 │ denoiser.output_blocks.3.0.out_layers                │ Seque… │  2.4 M │
+│ 241 │ denoiser.output_blocks.3.0.out_layers.0              │ Ident… │      0 │
+│ 242 │ denoiser.output_blocks.3.0.out_layers.1              │ SiLU   │      0 │
+│ 243 │ denoiser.output_blocks.3.0.out_layers.2              │ Dropo… │      0 │
+│ 244 │ denoiser.output_blocks.3.0.out_layers.3              │ Conv2d │  2.4 M │
+│ 245 │ denoiser.output_blocks.3.0.skip_connection           │ Conv2d │  786 K │
+│ 246 │ denoiser.output_blocks.3.1                           │ AFNOC… │  4.7 M │
+│ 247 │ denoiser.output_blocks.3.1.norm1                     │ Ident… │      0 │
+│ 248 │ denoiser.output_blocks.3.1.norm2                     │ Ident… │      0 │
+│ 249 │ denoiser.output_blocks.3.1.pre_proj                  │ Linear │  1.0 M │
+│ 250 │ denoiser.output_blocks.3.1.filter                    │ AFNO2D │  528 K │
+│ 251 │ denoiser.output_blocks.3.1.mlp                       │ Mlp    │  3.1 M │
+│ 252 │ denoiser.output_blocks.3.1.mlp.fc1                   │ Linear │  2.1 M │
+│ 253 │ denoiser.output_blocks.3.1.mlp.act                   │ GELU   │      0 │
+│ 254 │ denoiser.output_blocks.3.1.mlp.fc2                   │ Linear │  1.0 M │
+│ 255 │ denoiser.output_blocks.3.1.mlp.drop                  │ Ident… │      0 │
+│ 256 │ denoiser.output_blocks.4                             │ Times… │ 12.9 M │
+│ 257 │ denoiser.output_blocks.4.0                           │ ResBl… │  8.1 M │
+│ 258 │ denoiser.output_blocks.4.0.in_layers                 │ Seque… │  4.7 M │
+│ 259 │ denoiser.output_blocks.4.0.in_layers.0               │ Ident… │      0 │
+│ 260 │ denoiser.output_blocks.4.0.in_layers.1               │ SiLU   │      0 │
+│ 261 │ denoiser.output_blocks.4.0.in_layers.2               │ Conv2d │  4.7 M │
+│ 262 │ denoiser.output_blocks.4.0.emb_layers                │ Seque… │  524 K │
+│ 263 │ denoiser.output_blocks.4.0.emb_layers.0              │ SiLU   │      0 │
+│ 264 │ denoiser.output_blocks.4.0.emb_layers.1              │ Linear │  524 K │
+│ 265 │ denoiser.output_blocks.4.0.out_layers                │ Seque… │  2.4 M │
+│ 266 │ denoiser.output_blocks.4.0.out_layers.0              │ Ident… │      0 │
+│ 267 │ denoiser.output_blocks.4.0.out_layers.1              │ SiLU   │      0 │
+│ 268 │ denoiser.output_blocks.4.0.out_layers.2              │ Dropo… │      0 │
+│ 269 │ denoiser.output_blocks.4.0.out_layers.3              │ Conv2d │  2.4 M │
+│ 270 │ denoiser.output_blocks.4.0.skip_connection           │ Conv2d │  524 K │
+│ 271 │ denoiser.output_blocks.4.1                           │ AFNOC… │  4.7 M │
+│ 272 │ denoiser.output_blocks.4.1.norm1                     │ Ident… │      0 │
+│ 273 │ denoiser.output_blocks.4.1.norm2                     │ Ident… │      0 │
+│ 274 │ denoiser.output_blocks.4.1.pre_proj                  │ Linear │  1.0 M │
+│ 275 │ denoiser.output_blocks.4.1.filter                    │ AFNO2D │  528 K │
+│ 276 │ denoiser.output_blocks.4.1.mlp                       │ Mlp    │  3.1 M │
+│ 277 │ denoiser.output_blocks.4.1.mlp.fc1                   │ Linear │  2.1 M │
+│ 278 │ denoiser.output_blocks.4.1.mlp.act                   │ GELU   │      0 │
+│ 279 │ denoiser.output_blocks.4.1.mlp.fc2                   │ Linear │  1.0 M │
+│ 280 │ denoiser.output_blocks.4.1.mlp.drop                  │ Ident… │      0 │
+│ 281 │ denoiser.output_blocks.5                             │ Times… │ 13.9 M │
+│ 282 │ denoiser.output_blocks.5.0                           │ ResBl… │  6.8 M │
+│ 283 │ denoiser.output_blocks.5.0.in_layers                 │ Seque… │  3.5 M │
+│ 284 │ denoiser.output_blocks.5.0.in_layers.0               │ Ident… │      0 │
+│ 285 │ denoiser.output_blocks.5.0.in_layers.1               │ SiLU   │      0 │
+│ 286 │ denoiser.output_blocks.5.0.in_layers.2               │ Conv2d │  3.5 M │
+│ 287 │ denoiser.output_blocks.5.0.emb_layers                │ Seque… │  524 K │
+│ 288 │ denoiser.output_blocks.5.0.emb_layers.0              │ SiLU   │      0 │
+│ 289 │ denoiser.output_blocks.5.0.emb_layers.1              │ Linear │  524 K │
+│ 290 │ denoiser.output_blocks.5.0.out_layers                │ Seque… │  2.4 M │
+│ 291 │ denoiser.output_blocks.5.0.out_layers.0              │ Ident… │      0 │
+│ 292 │ denoiser.output_blocks.5.0.out_layers.1              │ SiLU   │      0 │
+│ 293 │ denoiser.output_blocks.5.0.out_layers.2              │ Dropo… │      0 │
+│ 294 │ denoiser.output_blocks.5.0.out_layers.3              │ Conv2d │  2.4 M │
+│ 295 │ denoiser.output_blocks.5.0.skip_connection           │ Conv2d │  393 K │
+│ 296 │ denoiser.output_blocks.5.1                           │ AFNOC… │  4.7 M │
+│ 297 │ denoiser.output_blocks.5.1.norm1                     │ Ident… │      0 │
+│ 298 │ denoiser.output_blocks.5.1.norm2                     │ Ident… │      0 │
+│ 299 │ denoiser.output_blocks.5.1.pre_proj                  │ Linear │  1.0 M │
+│ 300 │ denoiser.output_blocks.5.1.filter                    │ AFNO2D │  528 K │
+│ 301 │ denoiser.output_blocks.5.1.mlp                       │ Mlp    │  3.1 M │
+│ 302 │ denoiser.output_blocks.5.1.mlp.fc1                   │ Linear │  2.1 M │
+│ 303 │ denoiser.output_blocks.5.1.mlp.act                   │ GELU   │      0 │
+│ 304 │ denoiser.output_blocks.5.1.mlp.fc2                   │ Linear │  1.0 M │
+│ 305 │ denoiser.output_blocks.5.1.mlp.drop                  │ Ident… │      0 │
+│ 306 │ denoiser.output_blocks.5.2                           │ Upsam… │  2.4 M │
+│ 307 │ denoiser.output_blocks.5.2.conv                      │ Conv2d │  2.4 M │
+│ 308 │ denoiser.output_blocks.6                             │ Times… │  4.0 M │
+│ 309 │ denoiser.output_blocks.6.0                           │ ResBl… │  2.8 M │
+│ 310 │ denoiser.output_blocks.6.0.in_layers                 │ Seque… │  1.8 M │
+│ 311 │ denoiser.output_blocks.6.0.in_layers.0               │ Ident… │      0 │
+│ 312 │ denoiser.output_blocks.6.0.in_layers.1               │ SiLU   │      0 │
+│ 313 │ denoiser.output_blocks.6.0.in_layers.2               │ Conv2d │  1.8 M │
+│ 314 │ denoiser.output_blocks.6.0.emb_layers                │ Seque… │  262 K │
+│ 315 │ denoiser.output_blocks.6.0.emb_layers.0              │ SiLU   │      0 │
+│ 316 │ denoiser.output_blocks.6.0.emb_layers.1              │ Linear │  262 K │
+│ 317 │ denoiser.output_blocks.6.0.out_layers                │ Seque… │  590 K │
+│ 318 │ denoiser.output_blocks.6.0.out_layers.0              │ Ident… │      0 │
+│ 319 │ denoiser.output_blocks.6.0.out_layers.1              │ SiLU   │      0 │
+│ 320 │ denoiser.output_blocks.6.0.out_layers.2              │ Dropo… │      0 │
+│ 321 │ denoiser.output_blocks.6.0.out_layers.3              │ Conv2d │  590 K │
+│ 322 │ denoiser.output_blocks.6.0.skip_connection           │ Conv2d │  196 K │
+│ 323 │ denoiser.output_blocks.6.1                           │ AFNOC… │  1.2 M │
+│ 324 │ denoiser.output_blocks.6.1.norm1                     │ Ident… │      0 │
+│ 325 │ denoiser.output_blocks.6.1.norm2                     │ Ident… │      0 │
+│ 326 │ denoiser.output_blocks.6.1.pre_proj                  │ Linear │  262 K │
+│ 327 │ denoiser.output_blocks.6.1.filter                    │ AFNO2D │  133 K │
+│ 328 │ denoiser.output_blocks.6.1.mlp                       │ Mlp    │  787 K │
+│ 329 │ denoiser.output_blocks.6.1.mlp.fc1                   │ Linear │  525 K │
+│ 330 │ denoiser.output_blocks.6.1.mlp.act                   │ GELU   │      0 │
+│ 331 │ denoiser.output_blocks.6.1.mlp.fc2                   │ Linear │  262 K │
+│ 332 │ denoiser.output_blocks.6.1.mlp.drop                  │ Ident… │      0 │
+│ 333 │ denoiser.output_blocks.7                             │ Times… │  3.3 M │
+│ 334 │ denoiser.output_blocks.7.0                           │ ResBl… │  2.2 M │
+│ 335 │ denoiser.output_blocks.7.0.in_layers                 │ Seque… │  1.2 M │
+│ 336 │ denoiser.output_blocks.7.0.in_layers.0               │ Ident… │      0 │
+│ 337 │ denoiser.output_blocks.7.0.in_layers.1               │ SiLU   │      0 │
+│ 338 │ denoiser.output_blocks.7.0.in_layers.2               │ Conv2d │  1.2 M │
+│ 339 │ denoiser.output_blocks.7.0.emb_layers                │ Seque… │  262 K │
+│ 340 │ denoiser.output_blocks.7.0.emb_layers.0              │ SiLU   │      0 │
+│ 341 │ denoiser.output_blocks.7.0.emb_layers.1              │ Linear │  262 K │
+│ 342 │ denoiser.output_blocks.7.0.out_layers                │ Seque… │  590 K │
+│ 343 │ denoiser.output_blocks.7.0.out_layers.0              │ Ident… │      0 │
+│ 344 │ denoiser.output_blocks.7.0.out_layers.1              │ SiLU   │      0 │
+│ 345 │ denoiser.output_blocks.7.0.out_layers.2              │ Dropo… │      0 │
+│ 346 │ denoiser.output_blocks.7.0.out_layers.3              │ Conv2d │  590 K │
+│ 347 │ denoiser.output_blocks.7.0.skip_connection           │ Conv2d │  131 K │
+│ 348 │ denoiser.output_blocks.7.1                           │ AFNOC… │  1.2 M │
+│ 349 │ denoiser.output_blocks.7.1.norm1                     │ Ident… │      0 │
+│ 350 │ denoiser.output_blocks.7.1.norm2                     │ Ident… │      0 │
+│ 351 │ denoiser.output_blocks.7.1.pre_proj                  │ Linear │  262 K │
+│ 352 │ denoiser.output_blocks.7.1.filter                    │ AFNO2D │  133 K │
+│ 353 │ denoiser.output_blocks.7.1.mlp                       │ Mlp    │  787 K │
+│ 354 │ denoiser.output_blocks.7.1.mlp.fc1                   │ Linear │  525 K │
+│ 355 │ denoiser.output_blocks.7.1.mlp.act                   │ GELU   │      0 │
+│ 356 │ denoiser.output_blocks.7.1.mlp.fc2                   │ Linear │  262 K │
+│ 357 │ denoiser.output_blocks.7.1.mlp.drop                  │ Ident… │      0 │
+│ 358 │ denoiser.output_blocks.8                             │ Times… │  3.3 M │
+│ 359 │ denoiser.output_blocks.8.0                           │ ResBl… │  2.2 M │
+│ 360 │ denoiser.output_blocks.8.0.in_layers                 │ Seque… │  1.2 M │
+│ 361 │ denoiser.output_blocks.8.0.in_layers.0               │ Ident… │      0 │
+│ 362 │ denoiser.output_blocks.8.0.in_layers.1               │ SiLU   │      0 │
+│ 363 │ denoiser.output_blocks.8.0.in_layers.2               │ Conv2d │  1.2 M │
+│ 364 │ denoiser.output_blocks.8.0.emb_layers                │ Seque… │  262 K │
+│ 365 │ denoiser.output_blocks.8.0.emb_layers.0              │ SiLU   │      0 │
+│ 366 │ denoiser.output_blocks.8.0.emb_layers.1              │ Linear │  262 K │
+│ 367 │ denoiser.output_blocks.8.0.out_layers                │ Seque… │  590 K │
+│ 368 │ denoiser.output_blocks.8.0.out_layers.0              │ Ident… │      0 │
+│ 369 │ denoiser.output_blocks.8.0.out_layers.1              │ SiLU   │      0 │
+│ 370 │ denoiser.output_blocks.8.0.out_layers.2              │ Dropo… │      0 │
+│ 371 │ denoiser.output_blocks.8.0.out_layers.3              │ Conv2d │  590 K │
+│ 372 │ denoiser.output_blocks.8.0.skip_connection           │ Conv2d │  131 K │
+│ 373 │ denoiser.output_blocks.8.1                           │ AFNOC… │  1.2 M │
+│ 374 │ denoiser.output_blocks.8.1.norm1                     │ Ident… │      0 │
+│ 375 │ denoiser.output_blocks.8.1.norm2                     │ Ident… │      0 │
+│ 376 │ denoiser.output_blocks.8.1.pre_proj                  │ Linear │  262 K │
+│ 377 │ denoiser.output_blocks.8.1.filter                    │ AFNO2D │  133 K │
+│ 378 │ denoiser.output_blocks.8.1.mlp                       │ Mlp    │  787 K │
+│ 379 │ denoiser.output_blocks.8.1.mlp.fc1                   │ Linear │  525 K │
+│ 380 │ denoiser.output_blocks.8.1.mlp.act                   │ GELU   │      0 │
+│ 381 │ denoiser.output_blocks.8.1.mlp.fc2                   │ Linear │  262 K │
+│ 382 │ denoiser.output_blocks.8.1.mlp.drop                  │ Ident… │      0 │
+│ 383 │ denoiser.out                                         │ Seque… │ 73.8 K │
+│ 384 │ denoiser.out.0                                       │ Ident… │      0 │
+│ 385 │ denoiser.out.1                                       │ SiLU   │      0 │
+│ 386 │ denoiser.out.2                                       │ Conv2d │ 73.8 K │
+│ 387 │ autoencoder                                          │ Autoe… │ 31.2 M │
+│ 388 │ autoencoder.encoder                                  │ Simpl… │ 73.2 K │
+│ 389 │ autoencoder.encoder.net                              │ Seque… │ 73.2 K │
+│ 390 │ autoencoder.encoder.net.0                            │ ResBl… │  2.5 K │
+│ 391 │ autoencoder.encoder.net.0.proj                       │ Conv2d │     32 │
+│ 392 │ autoencoder.encoder.net.0.conv1                      │ Conv2d │    160 │
+│ 393 │ autoencoder.encoder.net.0.conv2                      │ Conv2d │  2.3 K │
+│ 394 │ autoencoder.encoder.net.0.act1                       │ SiLU   │      0 │
+│ 395 │ autoencoder.encoder.net.0.act2                       │ SiLU   │      0 │
+│ 396 │ autoencoder.encoder.net.0.norm1                      │ Group… │      2 │
+│ 397 │ autoencoder.encoder.net.0.norm2                      │ Group… │     32 │
+│ 398 │ autoencoder.encoder.net.0.sequence                   │ Seque… │  2.5 K │
+│ 399 │ autoencoder.encoder.net.1                            │ Conv2d │  1.0 K │
+│ 400 │ autoencoder.encoder.net.2                            │ ResBl… │  4.7 K │
+│ 401 │ autoencoder.encoder.net.2.proj                       │ Ident… │      0 │
+│ 402 │ autoencoder.encoder.net.2.conv1                      │ Conv2d │  2.3 K │
+│ 403 │ autoencoder.encoder.net.2.conv2                      │ Conv2d │  2.3 K │
+│ 404 │ autoencoder.encoder.net.2.act1                       │ SiLU   │      0 │
+│ 405 │ autoencoder.encoder.net.2.act2                       │ SiLU   │      0 │
+│ 406 │ autoencoder.encoder.net.2.norm1                      │ Group… │     32 │
+│ 407 │ autoencoder.encoder.net.2.norm2                      │ Group… │     32 │
+│ 408 │ autoencoder.encoder.net.2.sequence                   │ Seque… │  4.7 K │
+│ 409 │ autoencoder.encoder.net.3                            │ Conv2d │  1.0 K │
+│ 410 │ autoencoder.encoder.net.4                            │ ResBl… │ 47.5 K │
+│ 411 │ autoencoder.encoder.net.4.proj                       │ Conv2d │  1.1 K │
+│ 412 │ autoencoder.encoder.net.4.conv1                      │ Conv2d │  9.3 K │
+│ 413 │ autoencoder.encoder.net.4.conv2                      │ Conv2d │ 36.9 K │
+│ 414 │ autoencoder.encoder.net.4.act1                       │ SiLU   │      0 │
+│ 415 │ autoencoder.encoder.net.4.act2                       │ SiLU   │      0 │
+│ 416 │ autoencoder.encoder.net.4.norm1                      │ Group… │     32 │
+│ 417 │ autoencoder.encoder.net.4.norm2                      │ Group… │    128 │
+│ 418 │ autoencoder.encoder.net.4.sequence                   │ Seque… │ 46.4 K │
+│ 419 │ autoencoder.encoder.net.5                            │ Conv2d │ 16.4 K │
+│ 420 │ autoencoder.decoder                                  │ Simpl… │ 36.2 K │
+│ 421 │ autoencoder.decoder.net                              │ Seque… │ 36.2 K │
+│ 422 │ autoencoder.decoder.net.0                            │ ConvT… │ 16.4 K │
+│ 423 │ autoencoder.decoder.net.1                            │ ResBl… │ 12.8 K │
+│ 424 │ autoencoder.decoder.net.1.proj                       │ Conv2d │  1.0 K │
+│ 425 │ autoencoder.decoder.net.1.conv1                      │ Conv2d │  9.2 K │
+│ 426 │ autoencoder.decoder.net.1.conv2                      │ Conv2d │  2.3 K │
+│ 427 │ autoencoder.decoder.net.1.act1                       │ SiLU   │      0 │
+│ 428 │ autoencoder.decoder.net.1.act2                       │ SiLU   │      0 │
+│ 429 │ autoencoder.decoder.net.1.norm1                      │ Group… │    128 │
+│ 430 │ autoencoder.decoder.net.1.norm2                      │ Group… │     32 │
+│ 431 │ autoencoder.decoder.net.1.sequence                   │ Seque… │ 11.7 K │
+│ 432 │ autoencoder.decoder.net.2                            │ ConvT… │  1.0 K │
+│ 433 │ autoencoder.decoder.net.3                            │ ResBl… │  4.7 K │
+│ 434 │ autoencoder.decoder.net.3.proj                       │ Ident… │      0 │
+│ 435 │ autoencoder.decoder.net.3.conv1                      │ Conv2d │  2.3 K │
+│ 436 │ autoencoder.decoder.net.3.conv2                      │ Conv2d │  2.3 K │
+│ 437 │ autoencoder.decoder.net.3.act1                       │ SiLU   │      0 │
+│ 438 │ autoencoder.decoder.net.3.act2                       │ SiLU   │      0 │
+│ 439 │ autoencoder.decoder.net.3.norm1                      │ Group… │     32 │
+│ 440 │ autoencoder.decoder.net.3.norm2                      │ Group… │     32 │
+│ 441 │ autoencoder.decoder.net.3.sequence                   │ Seque… │  4.7 K │
+│ 442 │ autoencoder.decoder.net.4                            │ ConvT… │  1.0 K │
+│ 443 │ autoencoder.decoder.net.5                            │ ResBl… │    206 │
+│ 444 │ autoencoder.decoder.net.5.proj                       │ Conv2d │     17 │
+│ 445 │ autoencoder.decoder.net.5.conv1                      │ Conv2d │    145 │
+│ 446 │ autoencoder.decoder.net.5.conv2                      │ Conv2d │     10 │
+│ 447 │ autoencoder.decoder.net.5.act1                       │ SiLU   │      0 │
+│ 448 │ autoencoder.decoder.net.5.act2                       │ SiLU   │      0 │
+│ 449 │ autoencoder.decoder.net.5.norm1                      │ Group… │     32 │
+│ 450 │ autoencoder.decoder.net.5.norm2                      │ Group… │      2 │
+│ 451 │ autoencoder.decoder.net.5.sequence                   │ Seque… │    189 │
+│ 452 │ autoencoder.to_moments                               │ Conv2d │  4.2 K │
+│ 453 │ autoencoder.to_decoder                               │ Conv2d │  2.1 K │
+│ 454 │ autoencoder.unet_regr                                │ UnetL… │ 31.1 M │
+│ 455 │ autoencoder.unet_regr.net                            │ Downs… │ 31.1 M │
+│ 456 │ autoencoder.unet_regr.net.encoder                    │ Modul… │      0 │
+│ 457 │ autoencoder.unet_regr.net.decoder                    │ Modul… │      0 │
+│ 458 │ autoencoder.unet_regr.net.e1                         │ Encod… │ 55.6 K │
+│ 459 │ autoencoder.unet_regr.net.e1.conv                    │ Doubl… │ 55.6 K │
+│ 460 │ autoencoder.unet_regr.net.e1.conv.conv               │ Seque… │ 55.6 K │
+│ 461 │ autoencoder.unet_regr.net.e1.conv.conv.0             │ Conv2d │ 18.4 K │
+│ 462 │ autoencoder.unet_regr.net.e1.conv.conv.1             │ Batch… │    128 │
+│ 463 │ autoencoder.unet_regr.net.e1.conv.conv.2             │ ReLU   │      0 │
+│ 464 │ autoencoder.unet_regr.net.e1.conv.conv.3             │ Conv2d │ 36.9 K │
+│ 465 │ autoencoder.unet_regr.net.e1.conv.conv.4             │ Batch… │    128 │
+│ 466 │ autoencoder.unet_regr.net.e1.conv.conv.5             │ ReLU   │      0 │
+│ 467 │ autoencoder.unet_regr.net.e1.pool                    │ MaxPo… │      0 │
+│ 468 │ autoencoder.unet_regr.net.e2                         │ Encod… │  221 K │
+│ 469 │ autoencoder.unet_regr.net.e2.conv                    │ Doubl… │  221 K │
+│ 470 │ autoencoder.unet_regr.net.e2.conv.conv               │ Seque… │  221 K │
+│ 471 │ autoencoder.unet_regr.net.e2.conv.conv.0             │ Conv2d │ 73.7 K │
+│ 472 │ autoencoder.unet_regr.net.e2.conv.conv.1             │ Batch… │    256 │
+│ 473 │ autoencoder.unet_regr.net.e2.conv.conv.2             │ ReLU   │      0 │
+│ 474 │ autoencoder.unet_regr.net.e2.conv.conv.3             │ Conv2d │  147 K │
+│ 475 │ autoencoder.unet_regr.net.e2.conv.conv.4             │ Batch… │    256 │
+│ 476 │ autoencoder.unet_regr.net.e2.conv.conv.5             │ ReLU   │      0 │
+│ 477 │ autoencoder.unet_regr.net.e2.pool                    │ MaxPo… │      0 │
+│ 478 │ autoencoder.unet_regr.net.e3                         │ Encod… │  885 K │
+│ 479 │ autoencoder.unet_regr.net.e3.conv                    │ Doubl… │  885 K │
+│ 480 │ autoencoder.unet_regr.net.e3.conv.conv               │ Seque… │  885 K │
+│ 481 │ autoencoder.unet_regr.net.e3.conv.conv.0             │ Conv2d │  294 K │
+│ 482 │ autoencoder.unet_regr.net.e3.conv.conv.1             │ Batch… │    512 │
+│ 483 │ autoencoder.unet_regr.net.e3.conv.conv.2             │ ReLU   │      0 │
+│ 484 │ autoencoder.unet_regr.net.e3.conv.conv.3             │ Conv2d │  589 K │
+│ 485 │ autoencoder.unet_regr.net.e3.conv.conv.4             │ Batch… │    512 │
+│ 486 │ autoencoder.unet_regr.net.e3.conv.conv.5             │ ReLU   │      0 │
+│ 487 │ autoencoder.unet_regr.net.e3.pool                    │ MaxPo… │      0 │
+│ 488 │ autoencoder.unet_regr.net.e4                         │ Encod… │  3.5 M │
+│ 489 │ autoencoder.unet_regr.net.e4.conv                    │ Doubl… │  3.5 M │
+│ 490 │ autoencoder.unet_regr.net.e4.conv.conv               │ Seque… │  3.5 M │
+│ 491 │ autoencoder.unet_regr.net.e4.conv.conv.0             │ Conv2d │  1.2 M │
+│ 492 │ autoencoder.unet_regr.net.e4.conv.conv.1             │ Batch… │  1.0 K │
+│ 493 │ autoencoder.unet_regr.net.e4.conv.conv.2             │ ReLU   │      0 │
+│ 494 │ autoencoder.unet_regr.net.e4.conv.conv.3             │ Conv2d │  2.4 M │
+│ 495 │ autoencoder.unet_regr.net.e4.conv.conv.4             │ Batch… │  1.0 K │
+│ 496 │ autoencoder.unet_regr.net.e4.conv.conv.5             │ ReLU   │      0 │
+│ 497 │ autoencoder.unet_regr.net.e4.pool                    │ MaxPo… │      0 │
+│ 498 │ autoencoder.unet_regr.net.b                          │ Doubl… │ 14.2 M │
+│ 499 │ autoencoder.unet_regr.net.b.conv                     │ Seque… │ 14.2 M │
+│ 500 │ autoencoder.unet_regr.net.b.conv.0                   │ Conv2d │  4.7 M │
+│ 501 │ autoencoder.unet_regr.net.b.conv.1                   │ Batch… │  2.0 K │
+│ 502 │ autoencoder.unet_regr.net.b.conv.2                   │ ReLU   │      0 │
+│ 503 │ autoencoder.unet_regr.net.b.conv.3                   │ Conv2d │  9.4 M │
+│ 504 │ autoencoder.unet_regr.net.b.conv.4                   │ Batch… │  2.0 K │
+│ 505 │ autoencoder.unet_regr.net.b.conv.5                   │ ReLU   │      0 │
+│ 506 │ autoencoder.unet_regr.net.d1                         │ Decod… │  9.2 M │
+│ 507 │ autoencoder.unet_regr.net.d1.up                      │ ConvT… │  2.1 M │
+│ 508 │ autoencoder.unet_regr.net.d1.conv                    │ Doubl… │  7.1 M │
+│ 509 │ autoencoder.unet_regr.net.d1.conv.conv               │ Seque… │  7.1 M │
+│ 510 │ autoencoder.unet_regr.net.d1.conv.conv.0             │ Conv2d │  4.7 M │
+│ 511 │ autoencoder.unet_regr.net.d1.conv.conv.1             │ Batch… │  1.0 K │
+│ 512 │ autoencoder.unet_regr.net.d1.conv.conv.2             │ ReLU   │      0 │
+│ 513 │ autoencoder.unet_regr.net.d1.conv.conv.3             │ Conv2d │  2.4 M │
+│ 514 │ autoencoder.unet_regr.net.d1.conv.conv.4             │ Batch… │  1.0 K │
+│ 515 │ autoencoder.unet_regr.net.d1.conv.conv.5             │ ReLU   │      0 │
+│ 516 │ autoencoder.unet_regr.net.d2                         │ Decod… │  2.3 M │
+│ 517 │ autoencoder.unet_regr.net.d2.up                      │ ConvT… │  524 K │
+│ 518 │ autoencoder.unet_regr.net.d2.conv                    │ Doubl… │  1.8 M │
+│ 519 │ autoencoder.unet_regr.net.d2.conv.conv               │ Seque… │  1.8 M │
+│ 520 │ autoencoder.unet_regr.net.d2.conv.conv.0             │ Conv2d │  1.2 M │
+│ 521 │ autoencoder.unet_regr.net.d2.conv.conv.1             │ Batch… │    512 │
+│ 522 │ autoencoder.unet_regr.net.d2.conv.conv.2             │ ReLU   │      0 │
+│ 523 │ autoencoder.unet_regr.net.d2.conv.conv.3             │ Conv2d │  589 K │
+│ 524 │ autoencoder.unet_regr.net.d2.conv.conv.4             │ Batch… │    512 │
+│ 525 │ autoencoder.unet_regr.net.d2.conv.conv.5             │ ReLU   │      0 │
+│ 526 │ autoencoder.unet_regr.net.d3                         │ Decod… │  574 K │
+│ 527 │ autoencoder.unet_regr.net.d3.up                      │ ConvT… │  131 K │
+│ 528 │ autoencoder.unet_regr.net.d3.conv                    │ Doubl… │  442 K │
+│ 529 │ autoencoder.unet_regr.net.d3.conv.conv               │ Seque… │  442 K │
+│ 530 │ autoencoder.unet_regr.net.d3.conv.conv.0             │ Conv2d │  294 K │
+│ 531 │ autoencoder.unet_regr.net.d3.conv.conv.1             │ Batch… │    256 │
+│ 532 │ autoencoder.unet_regr.net.d3.conv.conv.2             │ ReLU   │      0 │
+│ 533 │ autoencoder.unet_regr.net.d3.conv.conv.3             │ Conv2d │  147 K │
+│ 534 │ autoencoder.unet_regr.net.d3.conv.conv.4             │ Batch… │    256 │
+│ 535 │ autoencoder.unet_regr.net.d3.conv.conv.5             │ ReLU   │      0 │
+│ 536 │ autoencoder.unet_regr.net.d4                         │ Decod… │  143 K │
+│ 537 │ autoencoder.unet_regr.net.d4.up                      │ ConvT… │ 32.8 K │
+│ 538 │ autoencoder.unet_regr.net.d4.conv                    │ Doubl… │  110 K │
+│ 539 │ autoencoder.unet_regr.net.d4.conv.conv               │ Seque… │  110 K │
+│ 540 │ autoencoder.unet_regr.net.d4.conv.conv.0             │ Conv2d │ 73.7 K │
+│ 541 │ autoencoder.unet_regr.net.d4.conv.conv.1             │ Batch… │    128 │
+│ 542 │ autoencoder.unet_regr.net.d4.conv.conv.2             │ ReLU   │      0 │
+│ 543 │ autoencoder.unet_regr.net.d4.conv.conv.3             │ Conv2d │ 36.9 K │
+│ 544 │ autoencoder.unet_regr.net.d4.conv.conv.4             │ Batch… │    128 │
+│ 545 │ autoencoder.unet_regr.net.d4.conv.conv.5             │ ReLU   │      0 │
+│ 546 │ autoencoder.unet_regr.net.outputs                    │ Conv2d │     65 │
+│ 547 │ autoencoder.unet_regr.loss                           │ MSELo… │      0 │
+│ 548 │ context_encoder                                      │ AFNOC… │ 23.8 M │
+│ 549 │ context_encoder.autoencoder                          │ Modul… │  4.7 M │
+│ 550 │ context_encoder.autoencoder.0                        │ Autoe… │  4.7 M │
+│ 551 │ context_encoder.autoencoder.0.encoder                │ Simpl… │  4.3 M │
+│ 552 │ context_encoder.autoencoder.0.encoder.net            │ Seque… │  4.3 M │
+│ 553 │ context_encoder.autoencoder.0.encoder.net.0          │ ResBl… │ 36.3 K │
+│ 554 │ context_encoder.autoencoder.0.encoder.net.0.proj     │ Conv2d │  1.0 K │
+│ 555 │ context_encoder.autoencoder.0.encoder.net.0.conv1    │ Conv2d │  8.8 K │
+│ 556 │ context_encoder.autoencoder.0.encoder.net.0.conv2    │ Conv2d │ 26.3 K │
+│ 557 │ context_encoder.autoencoder.0.encoder.net.0.act1     │ SiLU   │      0 │
+│ 558 │ context_encoder.autoencoder.0.encoder.net.0.act2     │ SiLU   │      0 │
+│ 559 │ context_encoder.autoencoder.0.encoder.net.0.norm1    │ Group… │     36 │
+│ 560 │ context_encoder.autoencoder.0.encoder.net.0.norm2    │ Group… │    108 │
+│ 561 │ context_encoder.autoencoder.0.encoder.net.0.sequence │ Seque… │ 35.2 K │
+│ 562 │ context_encoder.autoencoder.0.encoder.net.1          │ Conv2d │ 11.7 K │
+│ 563 │ context_encoder.autoencoder.0.encoder.net.2          │ ResBl… │  324 K │
+│ 564 │ context_encoder.autoencoder.0.encoder.net.2.proj     │ Conv2d │  8.9 K │
+│ 565 │ context_encoder.autoencoder.0.encoder.net.2.conv1    │ Conv2d │ 78.9 K │
+│ 566 │ context_encoder.autoencoder.0.encoder.net.2.conv2    │ Conv2d │  236 K │
+│ 567 │ context_encoder.autoencoder.0.encoder.net.2.act1     │ SiLU   │      0 │
+│ 568 │ context_encoder.autoencoder.0.encoder.net.2.act2     │ SiLU   │      0 │
+│ 569 │ context_encoder.autoencoder.0.encoder.net.2.norm1    │ Group… │    108 │
+│ 570 │ context_encoder.autoencoder.0.encoder.net.2.norm2    │ Group… │    324 │
+│ 571 │ context_encoder.autoencoder.0.encoder.net.2.sequence │ Seque… │  315 K │
+│ 572 │ context_encoder.autoencoder.0.encoder.net.3          │ Conv2d │  105 K │
+│ 573 │ context_encoder.autoencoder.0.encoder.net.4          │ ResBl… │  2.9 M │
+│ 574 │ context_encoder.autoencoder.0.encoder.net.4.proj     │ Conv2d │ 79.2 K │
+│ 575 │ context_encoder.autoencoder.0.encoder.net.4.conv1    │ Conv2d │  709 K │
+│ 576 │ context_encoder.autoencoder.0.encoder.net.4.conv2    │ Conv2d │  2.1 M │
+│ 577 │ context_encoder.autoencoder.0.encoder.net.4.act1     │ SiLU   │      0 │
+│ 578 │ context_encoder.autoencoder.0.encoder.net.4.act2     │ SiLU   │      0 │
+│ 579 │ context_encoder.autoencoder.0.encoder.net.4.norm1    │ Group… │    324 │
+│ 580 │ context_encoder.autoencoder.0.encoder.net.4.norm2    │ Group… │    972 │
+│ 581 │ context_encoder.autoencoder.0.encoder.net.4.sequence │ Seque… │  2.8 M │
+│ 582 │ context_encoder.autoencoder.0.encoder.net.5          │ Conv2d │  945 K │
+│ 583 │ context_encoder.autoencoder.0.to_moments             │ Conv2d │  236 K │
+│ 584 │ context_encoder.autoencoder.0.to_decoder             │ Conv2d │  118 K │
+│ 585 │ context_encoder.autoencoder.1                        │ Encod… │      0 │
+│ 586 │ context_encoder.autoencoder.1.encoder                │ Ident… │      0 │
+│ 587 │ context_encoder.proj                                 │ Modul… │ 31.6 K │
+│ 588 │ context_encoder.proj.0                               │ Conv2d │ 31.2 K │
+│ 589 │ context_encoder.proj.1                               │ Conv2d │    360 │
+│ 590 │ context_encoder.analysis                             │ Modul… │  584 K │
+│ 591 │ context_encoder.analysis.0                           │ Seque… │  563 K │
+│ 592 │ context_encoder.analysis.0.0                         │ AFNOB… │  140 K │
+│ 593 │ context_encoder.analysis.0.0.norm1                   │ Layer… │    256 │
+│ 594 │ context_encoder.analysis.0.0.filter                  │ AFNO2D │  8.7 K │
+│ 595 │ context_encoder.analysis.0.0.norm2                   │ Layer… │    256 │
+│ 596 │ context_encoder.analysis.0.0.mlp                     │ Mlp    │  131 K │
+│ 597 │ context_encoder.analysis.0.0.mlp.fc1                 │ Linear │ 66.0 K │
+│ 598 │ context_encoder.analysis.0.0.mlp.act                 │ GELU   │      0 │
+│ 599 │ context_encoder.analysis.0.0.mlp.fc2                 │ Linear │ 65.7 K │
+│ 600 │ context_encoder.analysis.0.0.mlp.drop                │ Ident… │      0 │
+│ 601 │ context_encoder.analysis.0.1                         │ AFNOB… │  140 K │
+│ 602 │ context_encoder.analysis.0.1.norm1                   │ Layer… │    256 │
+│ 603 │ context_encoder.analysis.0.1.filter                  │ AFNO2D │  8.7 K │
+│ 604 │ context_encoder.analysis.0.1.norm2                   │ Layer… │    256 │
+│ 605 │ context_encoder.analysis.0.1.mlp                     │ Mlp    │  131 K │
+│ 606 │ context_encoder.analysis.0.1.mlp.fc1                 │ Linear │ 66.0 K │
+│ 607 │ context_encoder.analysis.0.1.mlp.act                 │ GELU   │      0 │
+│ 608 │ context_encoder.analysis.0.1.mlp.fc2                 │ Linear │ 65.7 K │
+│ 609 │ context_encoder.analysis.0.1.mlp.drop                │ Ident… │      0 │
+│ 610 │ context_encoder.analysis.0.2                         │ AFNOB… │  140 K │
+│ 611 │ context_encoder.analysis.0.2.norm1                   │ Layer… │    256 │
+│ 612 │ context_encoder.analysis.0.2.filter                  │ AFNO2D │  8.7 K │
+│ 613 │ context_encoder.analysis.0.2.norm2                   │ Layer… │    256 │
+│ 614 │ context_encoder.analysis.0.2.mlp                     │ Mlp    │  131 K │
+│ 615 │ context_encoder.analysis.0.2.mlp.fc1                 │ Linear │ 66.0 K │
+│ 616 │ context_encoder.analysis.0.2.mlp.act                 │ GELU   │      0 │
+│ 617 │ context_encoder.analysis.0.2.mlp.fc2                 │ Linear │ 65.7 K │
+│ 618 │ context_encoder.analysis.0.2.mlp.drop                │ Ident… │      0 │
+│ 619 │ context_encoder.analysis.0.3                         │ AFNOB… │  140 K │
+│ 620 │ context_encoder.analysis.0.3.norm1                   │ Layer… │    256 │
+│ 621 │ context_encoder.analysis.0.3.filter                  │ AFNO2D │  8.7 K │
+│ 622 │ context_encoder.analysis.0.3.norm2                   │ Layer… │    256 │
+│ 623 │ context_encoder.analysis.0.3.mlp                     │ Mlp    │  131 K │
+│ 624 │ context_encoder.analysis.0.3.mlp.fc1                 │ Linear │ 66.0 K │
+│ 625 │ context_encoder.analysis.0.3.mlp.act                 │ GELU   │      0 │
+│ 626 │ context_encoder.analysis.0.3.mlp.fc2                 │ Linear │ 65.7 K │
+│ 627 │ context_encoder.analysis.0.3.mlp.drop                │ Ident… │      0 │
+│ 628 │ context_encoder.analysis.1                           │ Seque… │ 20.8 K │
+│ 629 │ context_encoder.analysis.1.0                         │ AFNOB… │  5.2 K │
+│ 630 │ context_encoder.analysis.1.0.norm1                   │ Layer… │     48 │
+│ 631 │ context_encoder.analysis.1.0.filter                  │ AFNO2D │    384 │
+│ 632 │ context_encoder.analysis.1.0.norm2                   │ Layer… │     48 │
+│ 633 │ context_encoder.analysis.1.0.mlp                     │ Mlp    │  4.7 K │
+│ 634 │ context_encoder.analysis.1.0.mlp.fc1                 │ Linear │  2.4 K │
+│ 635 │ context_encoder.analysis.1.0.mlp.act                 │ GELU   │      0 │
+│ 636 │ context_encoder.analysis.1.0.mlp.fc2                 │ Linear │  2.3 K │
+│ 637 │ context_encoder.analysis.1.0.mlp.drop                │ Ident… │      0 │
+│ 638 │ context_encoder.analysis.1.1                         │ AFNOB… │  5.2 K │
+│ 639 │ context_encoder.analysis.1.1.norm1                   │ Layer… │     48 │
+│ 640 │ context_encoder.analysis.1.1.filter                  │ AFNO2D │    384 │
+│ 641 │ context_encoder.analysis.1.1.norm2                   │ Layer… │     48 │
+│ 642 │ context_encoder.analysis.1.1.mlp                     │ Mlp    │  4.7 K │
+│ 643 │ context_encoder.analysis.1.1.mlp.fc1                 │ Linear │  2.4 K │
+│ 644 │ context_encoder.analysis.1.1.mlp.act                 │ GELU   │      0 │
+│ 645 │ context_encoder.analysis.1.1.mlp.fc2                 │ Linear │  2.3 K │
+│ 646 │ context_encoder.analysis.1.1.mlp.drop                │ Ident… │      0 │
+│ 647 │ context_encoder.analysis.1.2                         │ AFNOB… │  5.2 K │
+│ 648 │ context_encoder.analysis.1.2.norm1                   │ Layer… │     48 │
+│ 649 │ context_encoder.analysis.1.2.filter                  │ AFNO2D │    384 │
+│ 650 │ context_encoder.analysis.1.2.norm2                   │ Layer… │     48 │
+│ 651 │ context_encoder.analysis.1.2.mlp                     │ Mlp    │  4.7 K │
+│ 652 │ context_encoder.analysis.1.2.mlp.fc1                 │ Linear │  2.4 K │
+│ 653 │ context_encoder.analysis.1.2.mlp.act                 │ GELU   │      0 │
+│ 654 │ context_encoder.analysis.1.2.mlp.fc2                 │ Linear │  2.3 K │
+│ 655 │ context_encoder.analysis.1.2.mlp.drop                │ Ident… │      0 │
+│ 656 │ context_encoder.analysis.1.3                         │ AFNOB… │  5.2 K │
+│ 657 │ context_encoder.analysis.1.3.norm1                   │ Layer… │     48 │
+│ 658 │ context_encoder.analysis.1.3.filter                  │ AFNO2D │    384 │
+│ 659 │ context_encoder.analysis.1.3.norm2                   │ Layer… │     48 │
+│ 660 │ context_encoder.analysis.1.3.mlp                     │ Mlp    │  4.7 K │
+│ 661 │ context_encoder.analysis.1.3.mlp.fc1                 │ Linear │  2.4 K │
+│ 662 │ context_encoder.analysis.1.3.mlp.act                 │ GELU   │      0 │
+│ 663 │ context_encoder.analysis.1.3.mlp.fc2                 │ Linear │  2.3 K │
+│ 664 │ context_encoder.analysis.1.3.mlp.drop                │ Ident… │      0 │
+│ 665 │ context_encoder.fusion                               │ Fusio… │  168 K │
+│ 666 │ context_encoder.fusion.scale                         │ Modul… │      0 │
+│ 667 │ context_encoder.fusion.scale.0                       │ Ident… │      0 │
+│ 668 │ context_encoder.fusion.scale.1                       │ Ident… │      0 │
+│ 669 │ context_encoder.fusion.fusion                        │ Seque… │  168 K │
+│ 670 │ context_encoder.fusion.fusion.0                      │ Linear │ 23.3 K │
+│ 671 │ context_encoder.fusion.fusion.1                      │ AFNOB… │  105 K │
+│ 672 │ context_encoder.fusion.fusion.1.norm1                │ Layer… │    304 │
+│ 673 │ context_encoder.fusion.fusion.1.filter               │ AFNO2D │ 12.2 K │
+│ 674 │ context_encoder.fusion.fusion.1.norm2                │ Layer… │    304 │
+│ 675 │ context_encoder.fusion.fusion.1.mlp                  │ Mlp    │ 92.9 K │
+│ 676 │ context_encoder.fusion.fusion.1.mlp.fc1              │ Linear │ 46.5 K │
+│ 677 │ context_encoder.fusion.fusion.1.mlp.act              │ GELU   │      0 │
+│ 678 │ context_encoder.fusion.fusion.1.mlp.fc2              │ Linear │ 46.4 K │
+│ 679 │ context_encoder.fusion.fusion.1.mlp.drop             │ Ident… │      0 │
+│ 680 │ context_encoder.fusion.fusion.2                      │ Linear │ 39.2 K │
+│ 681 │ context_encoder.resnet                               │ Modul… │ 18.4 M │
+│ 682 │ context_encoder.resnet.0                             │ ResBl… │  3.7 M │
+│ 683 │ context_encoder.resnet.0.proj                        │ Conv2d │  131 K │
+│ 684 │ context_encoder.resnet.0.conv1                       │ Conv2d │  1.2 M │
+│ 685 │ context_encoder.resnet.0.conv2                       │ Conv2d │  2.4 M │
+│ 686 │ context_encoder.resnet.0.act1                        │ SiLU   │      0 │
+│ 687 │ context_encoder.resnet.0.act2                        │ SiLU   │      0 │
+│ 688 │ context_encoder.resnet.0.norm1                       │ Ident… │      0 │
+│ 689 │ context_encoder.resnet.0.norm2                       │ Ident… │      0 │
+│ 690 │ context_encoder.resnet.0.sequence                    │ Seque… │  3.5 M │
+│ 691 │ context_encoder.resnet.1                             │ ResBl… │ 14.7 M │
+│ 692 │ context_encoder.resnet.1.proj                        │ Conv2d │  525 K │
+│ 693 │ context_encoder.resnet.1.conv1                       │ Conv2d │  4.7 M │
+│ 694 │ context_encoder.resnet.1.conv2                       │ Conv2d │  9.4 M │
+│ 695 │ context_encoder.resnet.1.act1                        │ SiLU   │      0 │
+│ 696 │ context_encoder.resnet.1.act2                        │ SiLU   │      0 │
+│ 697 │ context_encoder.resnet.1.norm1                       │ Ident… │      0 │
+│ 698 │ context_encoder.resnet.1.norm2                       │ Ident… │      0 │
+│ 699 │ context_encoder.resnet.1.sequence                    │ Seque… │ 14.2 M │
+│ 700 │ denoiser_ema                                         │ LitEma │      0 │
+└─────┴──────────────────────────────────────────────────────┴────────┴────────┘
+Trainable params: 210 M                                                         
+Non-trainable params: 119 M                                                     
+Total params: 329 M                                                             
+Total estimated model params size (MB): 1.3 K                                   
+Epoch 00007: reducing learning rate of group 0 to 2.5000e-05.
+Epoch 00007: reducing learning rate of group 0 to 2.5000e-05.
+Epoch 00007: reducing learning rate of group 0 to 2.5000e-05.
+Epoch 00007: reducing learning rate of group 0 to 2.5000e-05.
+Epoch 9/34 ━━━━━━━━━━━━━━━━ 270/270 0:11:51 • 0:00:00 0.44it/s v_num: 0         
+                                                               val/loss: 0.241  
+                                                               val/loss_ema:    
+                                                               0.233            
+[[36m2025-04-07 03:25:43,179[0m][[34m__main__[0m][[32mINFO[0m] - Starting testing![0m
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃        Test metric        ┃       DataLoader 0        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│         test/loss         │    0.24001944065093994    │
+│       test/loss_ema       │    0.23246802389621735    │
+└───────────────────────────┴───────────────────────────┘
+Testing ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58/58 0:02:26 • 0:00:00 0.46it/s 
+[[36m2025-04-07 03:29:00,061[0m][[34m__main__[0m][[32mINFO[0m] - Best ckpt path: /usr/project/xtmp/par55/DiffScaler/logs/train/runs/2025-04-07_00-53-28/checkpoints/epoch_000-v1.ckpt[0m
+[[36m2025-04-07 03:29:00,239[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - Output dir: /usr/project/xtmp/par55/DiffScaler/logs/train/runs/2025-04-07_00-53-28[0m
+[[36m2025-04-07 03:29:00,239[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - Retrieved metric value! <val/loss=0.24075955152511597>[0m

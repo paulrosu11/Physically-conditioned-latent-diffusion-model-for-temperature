@@ -1,0 +1,969 @@
+[[36m2025-04-08 11:18:03,448[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - Enforcing tags! <cfg.extras.enforce_tags=True>[0m
+[[36m2025-04-08 11:18:03,455[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - Printing config tree with Rich! <cfg.extras.print_config=True>[0m
+CONFIG
+├── data
+│   └── _target_: src.data.downscaling_datamodule.DownscalingDataModule         
+│       data_dir: /usr/project/xtmp/par55/DiffScaler/data/                      
+│       static_vars:                                                            
+│         dtm_tif_file: /usr/project/xtmp/par55/DiffScaler/data//static_var/dtm_
+│         lc_tif_file: /usr/project/xtmp/par55/DiffScaler/data//static_var/land_
+│         lat_tif_file: /usr/project/xtmp/par55/DiffScaler/data//static_var/lat_
+│       target_vars:                                                            
+│         low_res:                                                              
+│         - 2mT                                                                 
+│         - PMSL                                                                
+│         - U10                                                                 
+│         - V10                                                                 
+│         - dp2mT                                                               
+│         - SST                                                                 
+│         - SNDPT                                                               
+│         - TP                                                                  
+│         - SSRadIn                                                             
+│         - Q850                                                                
+│         - T850                                                                
+│         - U850                                                                
+│         - V850                                                                
+│         - W850                                                                
+│         high_res:                                                             
+│         - 2mT                                                                 
+│       batch_size: 16                                                          
+│       num_workers: 2                                                          
+│       pin_memory: true                                                        
+│       crop_size: 512                                                          
+│       nn_lowres: false                                                        
+│                                                                               
+├── model
+│   └── _target_: src.models.ldm_module.LatentDiffusion                         
+│       parameterization: v                                                     
+│       denoiser:                                                               
+│         _target_: src.models.components.ldm.denoiser.UNetModel                
+│         in_channels: 32                                                       
+│         model_channels: 256                                                   
+│         out_channels: 32                                                      
+│         num_res_blocks: 2                                                     
+│         attention_resolutions:                                                
+│         - 1                                                                   
+│         - 2                                                                   
+│         dims: 2                                                               
+│         channel_mult:                                                         
+│         - 1                                                                   
+│         - 2                                                                   
+│         - 4                                                                   
+│         num_heads: 8                                                          
+│         context_ch:                                                           
+│         - 256                                                                 
+│         - 512                                                                 
+│         - 1024                                                                
+│       autoencoder:                                                            
+│         _target_: src.models.ae_module.AutoencoderKL                          
+│         encoder:                                                              
+│           _target_: src.models.components.ae.SimpleConvEncoder                
+│           levels: 3                                                           
+│         decoder:                                                              
+│           _target_: src.models.components.ae.SimpleConvDecoder                
+│           levels: 3                                                           
+│         unet_regr:                                                            
+│           _target_: src.models.unet_module.UnetLitModule                      
+│           net:                                                                
+│             _target_: src.models.components.unet.DownscalingUnet              
+│             in_ch: 32                                                         
+│             out_ch: 1                                                         
+│             features:                                                         
+│             - 64                                                              
+│             - 128                                                             
+│             - 256                                                             
+│             - 512                                                             
+│           loss:                                                               
+│             _target_: torch.nn.MSELoss                                        
+│             reduction: mean                                                   
+│           optimizer: None                                                     
+│           ckpt_path: /usr/project/xtmp/par55/DiffScaler/pretrained_models/UNET
+│         ae_flag: residual                                                     
+│       context_encoder:                                                        
+│         _target_: src.models.components.ldm.conditioner.AFNOConditionerNetCasc
+│         autoencoder:                                                          
+│         - _target_: src.models.ae_module.AutoencoderKL                        
+│           encoder:                                                            
+│             _target_: src.models.components.ae.SimpleConvEncoder              
+│             in_dim: 18                                                        
+│             levels: 3                                                         
+│             ch_mult: 3                                                        
+│           decoder: None                                                       
+│         - _target_: src.models.ae_module.EncoderLRES                          
+│         train_autoenc: true                                                   
+│         cascade_depth: 3                                                      
+│         embed_dim:                                                            
+│         - 128                                                                 
+│         - 24                                                                  
+│         analysis_depth:                                                       
+│         - 4                                                                   
+│         - 4                                                                   
+│         afno_fusion: true                                                     
+│         input_size_ratios:                                                    
+│         - 1                                                                   
+│         - 1                                                                   
+│         embed_dim_out: 256                                                    
+│       lr: 0.0001                                                              
+│       ae_load_state_file: /usr/project/xtmp/par55/DiffScaler/pretrained_models
+│       pde_lambda: 0.1                                                         
+│       temp_pde_coef: 1.0e-06                                                  
+│       temp_energy_coef: 0                                                     
+│       pde_mode: temp                                                          
+│       trainable_parts:                                                        
+│       - denoiser.output_blocks                                                
+│       - autoencoder.decoder                                                   
+│                                                                               
+├── callbacks
+│   └── model_checkpoint:                                                       
+│         _target_: lightning.pytorch.callbacks.ModelCheckpoint                 
+│         dirpath: /usr/project/xtmp/par55/DiffScaler/logs/train/runs/2025-04-08
+│         filename: epoch_{epoch:03d}                                           
+│         monitor: val/loss                                                     
+│         verbose: false                                                        
+│         save_last: true                                                       
+│         save_top_k: 3                                                         
+│         mode: min                                                             
+│         auto_insert_metric_name: false                                        
+│         save_weights_only: false                                              
+│         every_n_train_steps: null                                             
+│         train_time_interval: null                                             
+│         every_n_epochs: null                                                  
+│         save_on_train_epoch_end: null                                         
+│       early_stopping:                                                         
+│         _target_: lightning.pytorch.callbacks.EarlyStopping                   
+│         monitor: val/loss                                                     
+│         min_delta: 0.0                                                        
+│         patience: 5                                                           
+│         verbose: false                                                        
+│         mode: min                                                             
+│         strict: true                                                          
+│         check_finite: true                                                    
+│         stopping_threshold: null                                              
+│         divergence_threshold: null                                            
+│         check_on_train_epoch_end: null                                        
+│       model_summary:                                                          
+│         _target_: lightning.pytorch.callbacks.RichModelSummary                
+│         max_depth: -1                                                         
+│       rich_progress_bar:                                                      
+│         _target_: lightning.pytorch.callbacks.RichProgressBar                 
+│                                                                               
+├── logger
+│   └── tensorboard:                                                            
+│         _target_: lightning.pytorch.loggers.tensorboard.TensorBoardLogger     
+│         save_dir: /usr/project/xtmp/par55/DiffScaler/logs/train/runs/2025-04-0
+│         name: null                                                            
+│         log_graph: false                                                      
+│         default_hp_metric: true                                               
+│         prefix: ''                                                            
+│                                                                               
+├── trainer
+│   └── _target_: lightning.pytorch.trainer.Trainer                             
+│       default_root_dir: /usr/project/xtmp/par55/DiffScaler/logs/train/runs/202
+│       min_epochs: 1                                                           
+│       max_epochs: 10                                                          
+│       accelerator: gpu                                                        
+│       devices: 4                                                              
+│       strategy: ddp_find_unused_parameters_true                               
+│       check_val_every_n_epoch: 1                                              
+│       deterministic: false                                                    
+│                                                                               
+├── paths
+│   └── root_dir: /usr/project/xtmp/par55/DiffScaler                            
+│       data_dir: /usr/project/xtmp/par55/DiffScaler/data/                      
+│       log_dir: /usr/project/xtmp/par55/DiffScaler/logs/                       
+│       output_dir: /usr/project/xtmp/par55/DiffScaler/logs/train/runs/2025-04-0
+│       work_dir: /usr/project/xtmp/par55/DiffScaler                            
+│       pretrained_models_dir: /usr/project/xtmp/par55/DiffScaler/pretrained_mod
+│                                                                               
+├── extras
+│   └── ignore_warnings: false                                                  
+│       enforce_tags: true                                                      
+│       print_config: true                                                      
+│                                                                               
+├── task_name
+│   └── train                                                                   
+├── tags
+│   └── ['downscaling', 'ldm_res_2mT']                                          
+├── train
+│   └── True                                                                    
+├── test
+│   └── True                                                                    
+├── compile
+│   └── False                                                                   
+├── ckpt_path
+│   └── /usr/project/xtmp/par55/DiffScaler/pretrained_models/LDM_residual_2mT.ck
+├── seed
+│   └── 42                                                                      
+├── optimized_metric
+│   └── val/loss                                                                
+└── load_optimizer_state
+    └── False                                                                   
+[[36m2025-04-08 11:18:03,539[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating datamodule <src.data.downscaling_datamodule.DownscalingDataModule>[0m
+[[36m2025-04-08 11:18:03,773[0m][[34mnumexpr.utils[0m][[32mINFO[0m] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.[0m
+[[36m2025-04-08 11:18:03,773[0m][[34mnumexpr.utils[0m][[32mINFO[0m] - NumExpr defaulting to 8 threads.[0m
+[[36m2025-04-08 11:18:04,411[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating model <src.models.ldm_module.LatentDiffusion>[0m
+Restored from /usr/project/xtmp/par55/DiffScaler/pretrained_models/UNET_2mT.ckpt with 0 missing and 0 unexpected keys
+Unfreezing parameter: denoiser.output_blocks.0.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.2.1.conv.weight
+Unfreezing parameter: denoiser.output_blocks.2.1.conv.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.5.2.conv.weight
+Unfreezing parameter: denoiser.output_blocks.5.2.conv.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc2.bias
+Unfreezing parameter: autoencoder.decoder.net.0.weight
+Unfreezing parameter: autoencoder.decoder.net.0.bias
+Unfreezing parameter: autoencoder.decoder.net.1.proj.weight
+Unfreezing parameter: autoencoder.decoder.net.1.proj.bias
+Unfreezing parameter: autoencoder.decoder.net.1.conv1.weight
+Unfreezing parameter: autoencoder.decoder.net.1.conv1.bias
+Unfreezing parameter: autoencoder.decoder.net.1.conv2.weight
+Unfreezing parameter: autoencoder.decoder.net.1.conv2.bias
+Unfreezing parameter: autoencoder.decoder.net.1.norm1.weight
+Unfreezing parameter: autoencoder.decoder.net.1.norm1.bias
+Unfreezing parameter: autoencoder.decoder.net.1.norm2.weight
+Unfreezing parameter: autoencoder.decoder.net.1.norm2.bias
+Unfreezing parameter: autoencoder.decoder.net.2.weight
+Unfreezing parameter: autoencoder.decoder.net.2.bias
+Unfreezing parameter: autoencoder.decoder.net.3.conv1.weight
+Unfreezing parameter: autoencoder.decoder.net.3.conv1.bias
+Unfreezing parameter: autoencoder.decoder.net.3.conv2.weight
+Unfreezing parameter: autoencoder.decoder.net.3.conv2.bias
+Unfreezing parameter: autoencoder.decoder.net.3.norm1.weight
+Unfreezing parameter: autoencoder.decoder.net.3.norm1.bias
+Unfreezing parameter: autoencoder.decoder.net.3.norm2.weight
+Unfreezing parameter: autoencoder.decoder.net.3.norm2.bias
+Unfreezing parameter: autoencoder.decoder.net.4.weight
+Unfreezing parameter: autoencoder.decoder.net.4.bias
+Unfreezing parameter: autoencoder.decoder.net.5.proj.weight
+Unfreezing parameter: autoencoder.decoder.net.5.proj.bias
+Unfreezing parameter: autoencoder.decoder.net.5.conv1.weight
+Unfreezing parameter: autoencoder.decoder.net.5.conv1.bias
+Unfreezing parameter: autoencoder.decoder.net.5.conv2.weight
+Unfreezing parameter: autoencoder.decoder.net.5.conv2.bias
+Unfreezing parameter: autoencoder.decoder.net.5.norm1.weight
+Unfreezing parameter: autoencoder.decoder.net.5.norm1.bias
+Unfreezing parameter: autoencoder.decoder.net.5.norm2.weight
+Unfreezing parameter: autoencoder.decoder.net.5.norm2.bias
+[[36m2025-04-08 11:18:08,099[0m][[34m__main__[0m][[32mINFO[0m] - Partial training mode: loading model weights from /usr/project/xtmp/par55/DiffScaler/pretrained_models/LDM_residual_2mT.ckpt without optimizer state.[0m
+[[36m2025-04-08 11:18:11,117[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating callbacks...[0m
+[[36m2025-04-08 11:18:11,117[0m][[34msrc.utils.instantiators[0m][[32mINFO[0m] - Instantiating callback <lightning.pytorch.callbacks.ModelCheckpoint>[0m
+[[36m2025-04-08 11:18:11,120[0m][[34msrc.utils.instantiators[0m][[32mINFO[0m] - Instantiating callback <lightning.pytorch.callbacks.EarlyStopping>[0m
+[[36m2025-04-08 11:18:11,121[0m][[34msrc.utils.instantiators[0m][[32mINFO[0m] - Instantiating callback <lightning.pytorch.callbacks.RichModelSummary>[0m
+[[36m2025-04-08 11:18:11,122[0m][[34msrc.utils.instantiators[0m][[32mINFO[0m] - Instantiating callback <lightning.pytorch.callbacks.RichProgressBar>[0m
+[[36m2025-04-08 11:18:11,122[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating loggers...[0m
+[[36m2025-04-08 11:18:11,122[0m][[34msrc.utils.instantiators[0m][[32mINFO[0m] - Instantiating logger <lightning.pytorch.loggers.tensorboard.TensorBoardLogger>[0m
+[[36m2025-04-08 11:18:11,124[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating trainer <lightning.pytorch.trainer.Trainer>[0m
+[[36m2025-04-08 11:18:12,456[0m][[34m__main__[0m][[32mINFO[0m] - Logging hyperparameters![0m
+[[36m2025-04-08 11:18:17,335[0m][[34m__main__[0m][[32mINFO[0m] - Starting training![0m
+[[36m2025-04-08 11:18:30,505[0m][[34mnumexpr.utils[0m][[32mINFO[0m] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.[0m
+[[36m2025-04-08 11:18:30,506[0m][[34mnumexpr.utils[0m][[32mINFO[0m] - NumExpr defaulting to 8 threads.[0m
+Restored from /usr/project/xtmp/par55/DiffScaler/pretrained_models/UNET_2mT.ckpt with 0 missing and 0 unexpected keys
+Unfreezing parameter: denoiser.middle_block.0.in_layers.2.weight
+Unfreezing parameter: denoiser.middle_block.0.in_layers.2.bias
+Unfreezing parameter: denoiser.middle_block.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.middle_block.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.middle_block.0.out_layers.3.weight
+Unfreezing parameter: denoiser.middle_block.0.out_layers.3.bias
+Unfreezing parameter: denoiser.middle_block.1.pre_proj.weight
+Unfreezing parameter: denoiser.middle_block.1.pre_proj.bias
+Unfreezing parameter: denoiser.middle_block.1.filter.w1
+Unfreezing parameter: denoiser.middle_block.1.filter.b1
+Unfreezing parameter: denoiser.middle_block.1.filter.w2
+Unfreezing parameter: denoiser.middle_block.1.filter.b2
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.middle_block.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.middle_block.2.in_layers.2.weight
+Unfreezing parameter: denoiser.middle_block.2.in_layers.2.bias
+Unfreezing parameter: denoiser.middle_block.2.emb_layers.1.weight
+Unfreezing parameter: denoiser.middle_block.2.emb_layers.1.bias
+Unfreezing parameter: denoiser.middle_block.2.out_layers.3.weight
+Unfreezing parameter: denoiser.middle_block.2.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.2.1.conv.weight
+Unfreezing parameter: denoiser.output_blocks.2.1.conv.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.5.2.conv.weight
+Unfreezing parameter: denoiser.output_blocks.5.2.conv.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc2.bias
+Unfreezing parameter: autoencoder.decoder.net.0.weight
+Unfreezing parameter: autoencoder.decoder.net.0.bias
+Unfreezing parameter: autoencoder.decoder.net.1.proj.weight
+Unfreezing parameter: autoencoder.decoder.net.1.proj.bias
+Unfreezing parameter: autoencoder.decoder.net.1.conv1.weight
+Unfreezing parameter: autoencoder.decoder.net.1.conv1.bias
+Unfreezing parameter: autoencoder.decoder.net.1.conv2.weight
+Unfreezing parameter: autoencoder.decoder.net.1.conv2.bias
+Unfreezing parameter: autoencoder.decoder.net.1.norm1.weight
+Unfreezing parameter: autoencoder.decoder.net.1.norm1.bias
+Unfreezing parameter: autoencoder.decoder.net.1.norm2.weight
+Unfreezing parameter: autoencoder.decoder.net.1.norm2.bias
+Unfreezing parameter: autoencoder.decoder.net.2.weight
+Unfreezing parameter: autoencoder.decoder.net.2.bias
+Unfreezing parameter: autoencoder.decoder.net.3.conv1.weight
+Unfreezing parameter: autoencoder.decoder.net.3.conv1.bias
+Unfreezing parameter: autoencoder.decoder.net.3.conv2.weight
+Unfreezing parameter: autoencoder.decoder.net.3.conv2.bias
+Unfreezing parameter: autoencoder.decoder.net.3.norm1.weight
+Unfreezing parameter: autoencoder.decoder.net.3.norm1.bias
+Unfreezing parameter: autoencoder.decoder.net.3.norm2.weight
+Unfreezing parameter: autoencoder.decoder.net.3.norm2.bias
+Unfreezing parameter: autoencoder.decoder.net.4.weight
+Unfreezing parameter: autoencoder.decoder.net.4.bias
+Unfreezing parameter: autoencoder.decoder.net.5.proj.weight
+Unfreezing parameter: autoencoder.decoder.net.5.proj.bias
+Unfreezing parameter: autoencoder.decoder.net.5.conv1.weight
+Unfreezing parameter: autoencoder.decoder.net.5.conv1.bias
+Unfreezing parameter: autoencoder.decoder.net.5.conv2.weight
+Unfreezing parameter: autoencoder.decoder.net.5.conv2.bias
+Unfreezing parameter: autoencoder.decoder.net.5.norm1.weight
+Unfreezing parameter: autoencoder.decoder.net.5.norm1.bias
+Unfreezing parameter: autoencoder.decoder.net.5.norm2.weight
+Unfreezing parameter: autoencoder.decoder.net.5.norm2.bias
+[[36m2025-04-08 11:18:38,722[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Added key: store_based_barrier_key:1 to store for rank: 2[0m
+[[36m2025-04-08 11:18:48,731[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:18:58,741[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:19:08,750[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:19:18,755[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:19:28,760[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:19:38,763[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:19:48,769[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:19:58,772[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:20:08,776[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:20:18,780[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:20:28,786[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:20:38,795[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:20:48,801[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:20:58,804[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:21:08,813[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:21:18,815[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:21:28,823[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:21:38,833[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:21:48,842[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:21:58,853[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:22:08,858[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:22:18,863[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:22:28,874[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:22:38,876[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:22:48,878[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:22:58,880[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:23:08,883[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:23:18,893[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:23:28,902[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:23:38,908[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:23:48,913[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:23:58,923[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:24:08,926[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:24:18,930[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:24:28,941[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:24:38,946[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:24:48,956[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:24:58,964[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:25:08,966[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:25:18,967[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:25:28,969[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:25:38,971[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:25:48,973[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:25:58,980[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:26:08,989[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:26:18,990[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:26:28,996[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:26:39,002[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:26:49,010[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:26:59,015[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:27:09,016[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:27:19,020[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:27:29,027[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:27:39,030[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:27:49,035[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:27:59,037[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:28:09,040[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:28:19,050[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:28:29,056[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:28:39,067[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:28:49,069[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:28:59,075[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:29:09,076[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:29:19,079[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:29:29,080[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:29:39,083[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:29:49,088[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:29:59,098[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:30:09,106[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:30:19,112[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:30:29,120[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:30:39,125[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:30:49,128[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:30:59,128[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:31:09,137[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:31:19,146[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:31:29,148[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:31:39,158[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:31:49,163[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:31:59,166[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:32:09,175[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:32:19,183[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:32:29,191[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:32:39,201[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:32:49,205[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:32:59,210[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:33:09,218[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:33:19,225[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:33:29,233[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:33:39,238[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:33:49,247[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:33:59,251[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:34:09,255[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:34:19,258[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:34:29,268[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:34:39,278[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:34:49,279[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:34:59,285[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:35:09,293[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:35:19,304[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:35:29,309[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:35:39,316[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:35:49,322[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:35:59,325[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:36:09,334[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:36:19,341[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:36:29,352[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:36:39,362[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:36:49,370[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:36:59,376[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:37:09,379[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:37:19,387[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:37:29,391[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:37:39,395[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:37:49,398[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:37:59,406[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:38:09,407[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:38:19,411[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:38:29,413[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:38:39,414[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:38:49,421[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:38:59,425[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:39:09,436[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:39:19,441[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:39:29,445[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:39:39,449[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:39:49,453[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:39:59,460[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:40:09,469[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:40:19,472[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:40:29,474[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:40:39,481[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:40:49,485[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:40:59,493[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:41:09,496[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:41:19,502[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:41:29,504[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:41:39,505[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:41:49,514[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:41:59,521[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:42:09,527[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:42:19,532[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:42:29,535[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:42:39,541[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:42:49,550[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:42:59,559[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:43:09,568[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:43:19,575[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:43:29,584[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:43:39,586[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:43:49,593[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:43:59,602[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:44:09,604[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:44:19,612[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:44:29,617[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:44:39,622[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:44:49,624[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:44:59,626[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:45:09,628[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:45:19,636[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:45:29,640[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:45:39,643[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:45:49,650[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:45:59,658[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:46:09,668[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:46:19,671[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:46:29,679[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:46:39,683[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:46:49,693[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:46:59,699[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:47:09,703[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:47:19,710[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:47:29,715[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:47:39,718[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:47:49,720[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:47:59,721[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:48:09,730[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=1, timeout=0:30:00)[0m
+[[36m2025-04-08 11:48:18,503[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Added key: store_based_barrier_key:1 to store for rank: 0[0m
+[[36m2025-04-08 11:48:19,732[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:48:28,506[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:48:29,736[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 2, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:48:38,509[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:48:48,513[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:48:58,521[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:49:08,529[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:49:18,536[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:49:28,544[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:49:38,553[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:49:48,561[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:49:58,567[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:50:08,573[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:50:18,582[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:50:28,589[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:50:38,595[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:50:48,604[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:50:58,611[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:51:08,618[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:51:18,623[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:51:28,630[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:51:38,638[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:51:48,646[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:51:58,653[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:52:08,660[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:52:18,667[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:52:28,676[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:52:38,678[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:52:48,686[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:52:58,696[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:53:08,704[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:53:18,710[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:53:28,719[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:53:38,728[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:53:48,735[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:53:58,742[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:54:08,750[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:54:18,757[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:54:28,758[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:54:38,767[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:54:48,775[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:54:58,784[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:55:08,791[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:55:18,799[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:55:28,806[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:55:38,814[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:55:48,822[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:55:58,829[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:56:08,837[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:56:18,843[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:56:28,851[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:56:38,859[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:56:48,866[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:56:58,873[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:57:08,880[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:57:18,891[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:57:28,892[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:57:38,899[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:57:48,906[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:57:58,913[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:58:08,921[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:58:18,926[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:58:28,929[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:58:38,938[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:58:48,947[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:58:58,956[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:59:08,965[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:59:18,973[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:59:28,983[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:59:38,992[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:59:49,003[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 11:59:59,013[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:00:09,016[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:00:19,025[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:00:29,036[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:00:39,042[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:00:49,051[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:00:59,061[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:01:09,065[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:01:19,075[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:01:29,079[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:01:39,085[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:01:49,091[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:01:59,101[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:02:09,112[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:02:19,120[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:02:29,130[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:02:39,137[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:02:49,143[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:02:59,151[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:03:09,158[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:03:19,167[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:03:29,171[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:03:39,179[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:03:49,189[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:03:59,192[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:04:09,195[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:04:19,202[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:04:29,206[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:04:39,214[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:04:49,223[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:04:59,227[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:05:09,230[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:05:19,233[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:05:29,237[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:05:39,240[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:05:49,245[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:05:59,252[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:06:09,259[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:06:19,269[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:06:29,274[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:06:39,279[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:06:49,285[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:06:59,290[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:07:09,296[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:07:19,301[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:07:29,310[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:07:39,319[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:07:49,328[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:07:59,337[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:08:09,345[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:08:19,354[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:08:29,359[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:08:39,370[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:08:49,379[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:08:59,384[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:09:09,389[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:09:19,390[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:09:29,399[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:09:39,409[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:09:49,419[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:09:59,426[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:10:09,435[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:10:19,444[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:10:29,450[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:10:39,460[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:10:49,470[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:10:59,479[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:11:09,489[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:11:19,498[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:11:29,509[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:11:39,520[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:11:49,530[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:11:59,540[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:12:09,551[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:12:19,561[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:12:29,571[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:12:39,581[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:12:49,583[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:12:59,593[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:13:09,603[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:13:19,614[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:13:29,624[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:13:39,625[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:13:49,635[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:13:59,645[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:14:09,656[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:14:19,667[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:14:29,677[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:14:39,688[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:14:49,698[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:14:59,709[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:15:09,720[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:15:19,729[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:15:29,738[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:15:39,744[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:15:49,751[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:15:59,752[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:16:09,763[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:16:19,772[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:16:29,782[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:16:39,792[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:16:49,802[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:16:59,804[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:17:09,814[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:17:19,824[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:17:29,835[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:17:39,845[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:17:49,855[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:17:59,864[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:18:09,875[0m][[34mtorch.distributed.distributed_c10d[0m][[32mINFO[0m] - Waiting in store based barrier to initialize process group for rank: 0, key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)[0m
+[[36m2025-04-08 12:18:18,545[0m][[34msrc.utils.utils[0m][[31mERROR[0m] - [0m
+Traceback (most recent call last):
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 65, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 68, in train
+    trainer.fit(model=model, datamodule=datamodule, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 529, in fit
+    call._call_and_handle_interrupt(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 41, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/launchers/subprocess_script.py", line 91, in launch
+    return function(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 568, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 931, in _run
+    self.strategy.setup_environment()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 143, in setup_environment
+    self.setup_distributed()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 192, in setup_distributed
+    _init_dist_connection(self.cluster_environment, self._process_group_backend, timeout=self._timeout)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/fabric/utilities/distributed.py", line 246, in _init_dist_connection
+    torch.distributed.init_process_group(torch_distributed_backend, rank=global_rank, world_size=world_size, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py", line 932, in init_process_group
+    _store_based_barrier(rank, store, timeout)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py", line 469, in _store_based_barrier
+    raise RuntimeError(
+RuntimeError: Timed out initializing process group in store based barrier on rank: 0, for key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)
+[[36m2025-04-08 12:18:18,564[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - Output dir: /usr/project/xtmp/par55/DiffScaler/logs/train/runs/2025-04-08_11-18-03[0m

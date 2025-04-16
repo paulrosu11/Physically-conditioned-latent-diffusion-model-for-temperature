@@ -1,0 +1,226 @@
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+[rank: 0] Global seed set to 42
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/home/users/par55/.local/lib/python3.10/site-packages/lightning/fabric/plugins/environments/slurm.py:165: PossibleUserWarning: The `srun` command is available on your system but is not used. HINT: If your intention is to run Lightning on SLURM, prepend your python command with `srun` like so: srun python3 src/train.py experiment=downscaling_LDM_res_2mT ...
+  rank_zero_warn(
+hwloc/linux: Ignoring PCI device with non-16bit domain.
+Pass --enable-32bits-pci-domain to configure to support such devices
+(warning: it would break the library ABI, don't enable unless really needed).
+hwloc/linux: Ignoring PCI device with non-16bit domain.
+Pass --enable-32bits-pci-domain to configure to support such devices
+(warning: it would break the library ABI, don't enable unless really needed).
+Trainer already configured with model summary callbacks: [<class 'lightning.pytorch.callbacks.rich_model_summary.RichModelSummary'>]. Skipping setting a default `ModelSummary` callback.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+2025-04-08 11:18:13.061965: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-04-08 11:18:13.084088: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1744125493.102784 3432123 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1744125493.108245 3432123 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-04-08 11:18:13.128063: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+/home/users/par55/.local/lib/python3.10/site-packages/lightning/fabric/plugins/environments/slurm.py:165: PossibleUserWarning: The `srun` command is available on your system but is not used. HINT: If your intention is to run Lightning on SLURM, prepend your python command with `srun` like so: srun python3 src/train.py experiment=downscaling_LDM_res_2mT ...
+  rank_zero_warn(
+[rank: 0] Global seed set to 42
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/4
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/hydra.py", line 105, in run
+    cfg = self.compose_config(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/hydra.py", line 594, in compose_config
+    cfg = self.config_loader.load_configuration(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/config_loader_impl.py", line 142, in load_configuration
+    return self._load_configuration_impl(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/config_loader_impl.py", line 253, in _load_configuration_impl
+    defaults_list = create_defaults_list(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/defaults_list.py", line 745, in create_defaults_list
+    defaults, tree = _create_defaults_list(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/defaults_list.py", line 715, in _create_defaults_list
+    defaults_tree = _create_defaults_tree(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/defaults_list.py", line 356, in _create_defaults_tree
+    ret = _create_defaults_tree_impl(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/defaults_list.py", line 457, in _create_defaults_tree_impl
+    return _expand_virtual_root(repo, root, overrides, skip_missing)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/defaults_list.py", line 280, in _expand_virtual_root
+    subtree = _create_defaults_tree_impl(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/defaults_list.py", line 573, in _create_defaults_tree_impl
+    add_child(children, new_root)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/defaults_list.py", line 520, in add_child
+    subtree_ = _create_defaults_tree_impl(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/defaults_list.py", line 466, in _create_defaults_tree_impl
+    update_package_header(repo=repo, node=parent)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/defaults_list.py", line 262, in update_package_header
+    loaded = repo.load_config(config_path=node.get_config_path())
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/config_repository.py", line 348, in load_config
+    ret = self.delegate.load_config(config_path=config_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/config_repository.py", line 91, in load_config
+    ret = source.load_config(config_path=config_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/core_plugins/file_config_source.py", line 31, in load_config
+    cfg = OmegaConf.load(f)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/omegaconf/omegaconf.py", line 192, in load
+    obj = yaml.load(file_, Loader=get_yaml_loader())
+  File "/home/users/par55/.local/lib/python3.10/site-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/yaml/constructor.py", line 51, in get_single_data
+    return self.construct_document(node)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/yaml/constructor.py", line 60, in construct_document
+    for dummy in generator:
+  File "/home/users/par55/.local/lib/python3.10/site-packages/yaml/constructor.py", line 413, in construct_yaml_map
+    value = self.construct_mapping(node)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/omegaconf/_utils.py", line 144, in construct_mapping
+    raise yaml.constructor.ConstructorError(
+yaml.constructor.ConstructorError: while constructing a mapping
+  in "/usr/project/xtmp/par55/DiffScaler/configs/experiment/downscaling_LDM_res_2mT.yaml", line 24, column 3
+found duplicate key trainable_parts
+  in "/usr/project/xtmp/par55/DiffScaler/configs/experiment/downscaling_LDM_res_2mT.yaml", line 29, column 3
+Traceback (most recent call last):
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/hydra.py", line 105, in run
+    cfg = self.compose_config(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/hydra.py", line 594, in compose_config
+    cfg = self.config_loader.load_configuration(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/config_loader_impl.py", line 142, in load_configuration
+    return self._load_configuration_impl(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/config_loader_impl.py", line 253, in _load_configuration_impl
+    defaults_list = create_defaults_list(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/defaults_list.py", line 745, in create_defaults_list
+    defaults, tree = _create_defaults_list(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/defaults_list.py", line 715, in _create_defaults_list
+    defaults_tree = _create_defaults_tree(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/defaults_list.py", line 356, in _create_defaults_tree
+    ret = _create_defaults_tree_impl(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/defaults_list.py", line 457, in _create_defaults_tree_impl
+    return _expand_virtual_root(repo, root, overrides, skip_missing)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/defaults_list.py", line 280, in _expand_virtual_root
+    subtree = _create_defaults_tree_impl(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/defaults_list.py", line 573, in _create_defaults_tree_impl
+    add_child(children, new_root)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/defaults_list.py", line 520, in add_child
+    subtree_ = _create_defaults_tree_impl(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/defaults_list.py", line 466, in _create_defaults_tree_impl
+    update_package_header(repo=repo, node=parent)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/defaults_list.py", line 262, in update_package_header
+    loaded = repo.load_config(config_path=node.get_config_path())
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/config_repository.py", line 348, in load_config
+    ret = self.delegate.load_config(config_path=config_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/config_repository.py", line 91, in load_config
+    ret = source.load_config(config_path=config_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/hydra/_internal/core_plugins/file_config_source.py", line 31, in load_config
+    cfg = OmegaConf.load(f)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/omegaconf/omegaconf.py", line 192, in load
+    obj = yaml.load(file_, Loader=get_yaml_loader())
+  File "/home/users/par55/.local/lib/python3.10/site-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/yaml/constructor.py", line 51, in get_single_data
+    return self.construct_document(node)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/yaml/constructor.py", line 60, in construct_document
+    for dummy in generator:
+  File "/home/users/par55/.local/lib/python3.10/site-packages/yaml/constructor.py", line 413, in construct_yaml_map
+    value = self.construct_mapping(node)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/omegaconf/_utils.py", line 144, in construct_mapping
+    raise yaml.constructor.ConstructorError(
+yaml.constructor.ConstructorError: while constructing a mapping
+  in "/usr/project/xtmp/par55/DiffScaler/configs/experiment/downscaling_LDM_res_2mT.yaml", line 24, column 3
+found duplicate key trainable_parts
+  in "/usr/project/xtmp/par55/DiffScaler/configs/experiment/downscaling_LDM_res_2mT.yaml", line 29, column 3
+[rank: 2] Global seed set to 42
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:116: PkgResourcesDeprecationWarning: 1.12.1-git20200711.33e2d80-dfsg1-0.6 is an invalid version and will not be supported in a future release
+  warnings.warn(
+hwloc/linux: Ignoring PCI device with non-16bit domain.
+Pass --enable-32bits-pci-domain to configure to support such devices
+(warning: it would break the library ABI, don't enable unless really needed).
+hwloc/linux: Ignoring PCI device with non-16bit domain.
+Pass --enable-32bits-pci-domain to configure to support such devices
+(warning: it would break the library ABI, don't enable unless really needed).
+[rank: 2] Global seed set to 42
+Initializing distributed: GLOBAL_RANK: 2, MEMBER: 3/4
+Error executing job with overrides: ['experiment=downscaling_LDM_res_2mT']
+Traceback (most recent call last):
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 91, in main
+    metric_dict, _ = train(cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 75, in wrap
+    raise ex
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 65, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 68, in train
+    trainer.fit(model=model, datamodule=datamodule, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 529, in fit
+    call._call_and_handle_interrupt(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 41, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/launchers/subprocess_script.py", line 91, in launch
+    return function(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 568, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 931, in _run
+    self.strategy.setup_environment()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 143, in setup_environment
+    self.setup_distributed()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 192, in setup_distributed
+    _init_dist_connection(self.cluster_environment, self._process_group_backend, timeout=self._timeout)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/fabric/utilities/distributed.py", line 246, in _init_dist_connection
+    torch.distributed.init_process_group(torch_distributed_backend, rank=global_rank, world_size=world_size, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py", line 932, in init_process_group
+    _store_based_barrier(rank, store, timeout)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py", line 469, in _store_based_barrier
+    raise RuntimeError(
+RuntimeError: Timed out initializing process group in store based barrier on rank: 2, for key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+Error executing job with overrides: ['experiment=downscaling_LDM_res_2mT']
+Traceback (most recent call last):
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 91, in main
+    metric_dict, _ = train(cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 75, in wrap
+    raise ex
+  File "/usr/project/xtmp/par55/DiffScaler/src/utils/utils.py", line 65, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+  File "/usr/project/xtmp/par55/DiffScaler/src/train.py", line 68, in train
+    trainer.fit(model=model, datamodule=datamodule, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 529, in fit
+    call._call_and_handle_interrupt(
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 41, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/launchers/subprocess_script.py", line 91, in launch
+    return function(*args, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 568, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 931, in _run
+    self.strategy.setup_environment()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 143, in setup_environment
+    self.setup_distributed()
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/pytorch/strategies/ddp.py", line 192, in setup_distributed
+    _init_dist_connection(self.cluster_environment, self._process_group_backend, timeout=self._timeout)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/lightning/fabric/utilities/distributed.py", line 246, in _init_dist_connection
+    torch.distributed.init_process_group(torch_distributed_backend, rank=global_rank, world_size=world_size, **kwargs)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py", line 932, in init_process_group
+    _store_based_barrier(rank, store, timeout)
+  File "/home/users/par55/.local/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py", line 469, in _store_based_barrier
+    raise RuntimeError(
+RuntimeError: Timed out initializing process group in store based barrier on rank: 0, for key: store_based_barrier_key:1 (world_size=4, worker_count=2, timeout=0:30:00)
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

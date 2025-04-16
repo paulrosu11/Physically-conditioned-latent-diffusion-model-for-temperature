@@ -1,0 +1,342 @@
+[[36m2025-04-06 20:26:37,743[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - Enforcing tags! <cfg.extras.enforce_tags=True>[0m
+[[36m2025-04-06 20:26:37,749[0m][[34msrc.utils.utils[0m][[32mINFO[0m] - Printing config tree with Rich! <cfg.extras.print_config=True>[0m
+CONFIG
+├── data
+│   └── _target_: src.data.downscaling_datamodule.DownscalingDataModule         
+│       data_dir: /usr/project/xtmp/par55/DiffScaler/data/                      
+│       static_vars:                                                            
+│         dtm_tif_file: /usr/project/xtmp/par55/DiffScaler/data//static_var/dtm_
+│         lc_tif_file: /usr/project/xtmp/par55/DiffScaler/data//static_var/land_
+│         lat_tif_file: /usr/project/xtmp/par55/DiffScaler/data//static_var/lat_
+│       target_vars:                                                            
+│         low_res:                                                              
+│         - 2mT                                                                 
+│         - PMSL                                                                
+│         - U10                                                                 
+│         - V10                                                                 
+│         - dp2mT                                                               
+│         - SST                                                                 
+│         - SNDPT                                                               
+│         - TP                                                                  
+│         - SSRadIn                                                             
+│         - Q850                                                                
+│         - T850                                                                
+│         - U850                                                                
+│         - V850                                                                
+│         - W850                                                                
+│         high_res:                                                             
+│         - 2mT                                                                 
+│       batch_size: 8                                                           
+│       num_workers: 8                                                          
+│       pin_memory: true                                                        
+│       crop_size: 512                                                          
+│       nn_lowres: false                                                        
+│                                                                               
+├── model
+│   └── _target_: src.models.ldm_module.LatentDiffusion                         
+│       parameterization: v                                                     
+│       denoiser:                                                               
+│         _target_: src.models.components.ldm.denoiser.UNetModel                
+│         in_channels: 32                                                       
+│         model_channels: 256                                                   
+│         out_channels: 32                                                      
+│         num_res_blocks: 2                                                     
+│         attention_resolutions:                                                
+│         - 1                                                                   
+│         - 2                                                                   
+│         dims: 2                                                               
+│         channel_mult:                                                         
+│         - 1                                                                   
+│         - 2                                                                   
+│         - 4                                                                   
+│         num_heads: 8                                                          
+│         context_ch:                                                           
+│         - 256                                                                 
+│         - 512                                                                 
+│         - 1024                                                                
+│       autoencoder:                                                            
+│         _target_: src.models.ae_module.AutoencoderKL                          
+│         encoder:                                                              
+│           _target_: src.models.components.ae.SimpleConvEncoder                
+│           levels: 3                                                           
+│         decoder:                                                              
+│           _target_: src.models.components.ae.SimpleConvDecoder                
+│           levels: 3                                                           
+│         unet_regr:                                                            
+│           _target_: src.models.unet_module.UnetLitModule                      
+│           net:                                                                
+│             _target_: src.models.components.unet.DownscalingUnet              
+│             in_ch: 32                                                         
+│             out_ch: 1                                                         
+│             features:                                                         
+│             - 64                                                              
+│             - 128                                                             
+│             - 256                                                             
+│             - 512                                                             
+│           loss:                                                               
+│             _target_: torch.nn.MSELoss                                        
+│             reduction: mean                                                   
+│           optimizer: None                                                     
+│           ckpt_path: /usr/project/xtmp/par55/DiffScaler/pretrained_models/UNET
+│         ae_flag: residual                                                     
+│       context_encoder:                                                        
+│         _target_: src.models.components.ldm.conditioner.AFNOConditionerNetCasc
+│         autoencoder:                                                          
+│         - _target_: src.models.ae_module.AutoencoderKL                        
+│           encoder:                                                            
+│             _target_: src.models.components.ae.SimpleConvEncoder              
+│             in_dim: 18                                                        
+│             levels: 3                                                         
+│             ch_mult: 3                                                        
+│           decoder: None                                                       
+│         - _target_: src.models.ae_module.EncoderLRES                          
+│         train_autoenc: true                                                   
+│         cascade_depth: 3                                                      
+│         embed_dim:                                                            
+│         - 128                                                                 
+│         - 24                                                                  
+│         analysis_depth:                                                       
+│         - 4                                                                   
+│         - 4                                                                   
+│         afno_fusion: true                                                     
+│         input_size_ratios:                                                    
+│         - 1                                                                   
+│         - 1                                                                   
+│         embed_dim_out: 256                                                    
+│       lr: 0.0001                                                              
+│       ae_load_state_file: /usr/project/xtmp/par55/DiffScaler/pretrained_models
+│       pde_lambda: 0.5                                                         
+│       temp_pde_coef: 100000000                                                
+│       temp_energy_coef: 0                                                     
+│       pde_mode: temp                                                          
+│       trainable_parts:                                                        
+│       - denoiser.output_blocks                                                
+│                                                                               
+├── callbacks
+│   └── model_checkpoint:                                                       
+│         _target_: lightning.pytorch.callbacks.ModelCheckpoint                 
+│         dirpath: /usr/project/xtmp/par55/DiffScaler/logs/train/runs/2025-04-06
+│         filename: epoch_{epoch:03d}                                           
+│         monitor: val/loss                                                     
+│         verbose: false                                                        
+│         save_last: true                                                       
+│         save_top_k: 3                                                         
+│         mode: min                                                             
+│         auto_insert_metric_name: false                                        
+│         save_weights_only: false                                              
+│         every_n_train_steps: null                                             
+│         train_time_interval: null                                             
+│         every_n_epochs: null                                                  
+│         save_on_train_epoch_end: null                                         
+│       early_stopping:                                                         
+│         _target_: lightning.pytorch.callbacks.EarlyStopping                   
+│         monitor: val/loss                                                     
+│         min_delta: 0.0                                                        
+│         patience: 5                                                           
+│         verbose: false                                                        
+│         mode: min                                                             
+│         strict: true                                                          
+│         check_finite: true                                                    
+│         stopping_threshold: null                                              
+│         divergence_threshold: null                                            
+│         check_on_train_epoch_end: null                                        
+│       model_summary:                                                          
+│         _target_: lightning.pytorch.callbacks.RichModelSummary                
+│         max_depth: -1                                                         
+│       rich_progress_bar:                                                      
+│         _target_: lightning.pytorch.callbacks.RichProgressBar                 
+│                                                                               
+├── logger
+│   └── tensorboard:                                                            
+│         _target_: lightning.pytorch.loggers.tensorboard.TensorBoardLogger     
+│         save_dir: /usr/project/xtmp/par55/DiffScaler/logs/train/runs/2025-04-0
+│         name: null                                                            
+│         log_graph: false                                                      
+│         default_hp_metric: true                                               
+│         prefix: ''                                                            
+│                                                                               
+├── trainer
+│   └── _target_: lightning.pytorch.trainer.Trainer                             
+│       default_root_dir: /usr/project/xtmp/par55/DiffScaler/logs/train/runs/202
+│       min_epochs: 2                                                           
+│       max_epochs: 5                                                           
+│       accelerator: gpu                                                        
+│       devices: 4                                                              
+│       strategy: ddp_find_unused_parameters_true                               
+│       precision: 16                                                           
+│       check_val_every_n_epoch: 1                                              
+│       deterministic: false                                                    
+│                                                                               
+├── paths
+│   └── root_dir: /usr/project/xtmp/par55/DiffScaler                            
+│       data_dir: /usr/project/xtmp/par55/DiffScaler/data/                      
+│       log_dir: /usr/project/xtmp/par55/DiffScaler/logs/                       
+│       output_dir: /usr/project/xtmp/par55/DiffScaler/logs/train/runs/2025-04-0
+│       work_dir: /usr/project/xtmp/par55/DiffScaler                            
+│       pretrained_models_dir: /usr/project/xtmp/par55/DiffScaler/pretrained_mod
+│                                                                               
+├── extras
+│   └── ignore_warnings: false                                                  
+│       enforce_tags: true                                                      
+│       print_config: true                                                      
+│                                                                               
+├── task_name
+│   └── train                                                                   
+├── tags
+│   └── ['downscaling', 'ldm_res_2mT']                                          
+├── train
+│   └── True                                                                    
+├── test
+│   └── True                                                                    
+├── compile
+│   └── False                                                                   
+├── ckpt_path
+│   └── /usr/project/xtmp/par55/DiffScaler/pretrained_models/LDM_residual_2mT.ck
+├── seed
+│   └── 42                                                                      
+├── optimized_metric
+│   └── val/loss                                                                
+└── load_optimizer_state
+    └── False                                                                   
+[[36m2025-04-06 20:26:37,826[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating datamodule <src.data.downscaling_datamodule.DownscalingDataModule>[0m
+[[36m2025-04-06 20:26:37,999[0m][[34mnumexpr.utils[0m][[32mINFO[0m] - Note: NumExpr detected 48 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.[0m
+[[36m2025-04-06 20:26:37,999[0m][[34mnumexpr.utils[0m][[32mINFO[0m] - NumExpr defaulting to 8 threads.[0m
+[[36m2025-04-06 20:26:38,426[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating model <src.models.ldm_module.LatentDiffusion>[0m
+Restored from /usr/project/xtmp/par55/DiffScaler/pretrained_models/UNET_2mT.ckpt with 0 missing and 0 unexpected keys
+Unfreezing parameter: denoiser.output_blocks.0.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.0.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.0.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.1.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.1.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.2.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.2.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.2.1.conv.weight
+Unfreezing parameter: denoiser.output_blocks.2.1.conv.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.3.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.3.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.3.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.3.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.4.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.4.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.4.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.4.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.5.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.5.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.5.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.5.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.5.2.conv.weight
+Unfreezing parameter: denoiser.output_blocks.5.2.conv.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.6.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.6.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.6.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.6.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.7.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.7.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.7.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.7.1.mlp.fc2.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.in_layers.2.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.in_layers.2.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.emb_layers.1.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.emb_layers.1.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.out_layers.3.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.out_layers.3.bias
+Unfreezing parameter: denoiser.output_blocks.8.0.skip_connection.weight
+Unfreezing parameter: denoiser.output_blocks.8.0.skip_connection.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.pre_proj.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.pre_proj.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.w1
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.b1
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.w2
+Unfreezing parameter: denoiser.output_blocks.8.1.filter.b2
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc1.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc1.bias
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc2.weight
+Unfreezing parameter: denoiser.output_blocks.8.1.mlp.fc2.bias
+[[36m2025-04-06 20:26:42,909[0m][[34m__main__[0m][[32mINFO[0m] - Partial training mode: loading model weights from /usr/project/xtmp/par55/DiffScaler/pretrained_models/LDM_residual_2mT.ckpt without optimizer state.[0m

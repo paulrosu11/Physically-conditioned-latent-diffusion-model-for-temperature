@@ -1,0 +1,116 @@
+{
+  "os": "Linux-5.15.0-125-generic-x86_64-with-glibc2.35",
+  "python": "CPython 3.10.16",
+  "startedAt": "2025-04-08T00:46:44.310939Z",
+  "args": [
+    "experiment=downscaling_LDM_res_2mT"
+  ],
+  "program": "/usr/project/xtmp/par55/DiffScaler/src/train.py",
+  "codePath": "src/train.py",
+  "git": {
+    "remote": "git@github.com:mbahng/DiffScaler.git",
+    "commit": "09f9c2acee7130900959c2bd0ea315d750717840"
+  },
+  "email": "bahngmc@gmail.com",
+  "root": "/usr/project/xtmp/par55/DiffScaler",
+  "host": "compsci-cluster-fitz-21",
+  "executable": "/home/users/mb625/miniconda3/envs/diff/bin/python",
+  "codePathLocal": "src/train.py",
+  "cpu_count": 24,
+  "cpu_count_logical": 48,
+  "gpu": "NVIDIA RTX A5000",
+  "gpu_count": 4,
+  "disk": {
+    "/": {
+      "total": "3778784665600",
+      "used": "191213346816"
+    }
+  },
+  "memory": {
+    "total": "810971095040"
+  },
+  "cpu": {
+    "count": 24,
+    "countLogical": 48
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA RTX A5000",
+      "memoryTotal": "25757220864",
+      "cudaCores": 8192,
+      "architecture": "Ampere"
+    },
+    {
+      "name": "NVIDIA RTX A5000",
+      "memoryTotal": "25757220864",
+      "cudaCores": 8192,
+      "architecture": "Ampere"
+    },
+    {
+      "name": "NVIDIA RTX A5000",
+      "memoryTotal": "25757220864",
+      "cudaCores": 8192,
+      "architecture": "Ampere"
+    },
+    {
+      "name": "NVIDIA RTX A5000",
+      "memoryTotal": "25757220864",
+      "cudaCores": 8192,
+      "architecture": "Ampere"
+    }
+  ],
+  "slurm": {
+    "cluster_name": "compsci_cluster",
+    "conf": "/var/lib/slurm/slurmd/conf-cache/slurm.conf",
+    "cpus_on_node": "2",
+    "gpus_on_node": "4",
+    "gtids": "0",
+    "job_account": "users",
+    "job_cpus_per_node": "1",
+    "job_end_time": "1744109529",
+    "job_gid": "1000000",
+    "job_group": "oitusers",
+    "job_id": "8349236",
+    "job_name": "bash",
+    "job_nodelist": "compsci-cluster-fitz-21",
+    "job_num_nodes": "1",
+    "job_partition": "compsci-gpu",
+    "job_qos": "normal",
+    "job_start_time": "1744066329",
+    "job_uid": "1216997",
+    "job_user": "mb625",
+    "jobid": "8349236",
+    "launch_node_ipaddr": "152.3.143.22",
+    "localid": "0",
+    "nnodes": "1",
+    "nodeid": "0",
+    "nodelist": "compsci-cluster-fitz-21",
+    "nprocs": "1",
+    "ntasks": "1",
+    "ntasks_per_node": "1",
+    "oom_kill_step": "0",
+    "prio_process": "0",
+    "procid": "0",
+    "pty_port": "38219",
+    "pty_win_col": "179",
+    "pty_win_row": "46",
+    "srun_comm_host": "152.3.143.22",
+    "srun_comm_port": "38275",
+    "step_gpus": "0,1,2,3",
+    "step_id": "0",
+    "step_launcher_port": "38275",
+    "step_nodelist": "compsci-cluster-fitz-21",
+    "step_num_nodes": "1",
+    "step_num_tasks": "1",
+    "step_tasks_per_node": "1",
+    "stepid": "0",
+    "submit_dir": "/home/users/mb625/Multimodal_Hierarchical_PPNet",
+    "submit_host": "compsci-login-04",
+    "task_pid": "2636156",
+    "tasks_per_node": "1",
+    "topology_addr": "compsci-cluster-fitz-21",
+    "topology_addr_pattern": "node",
+    "umask": "0022"
+  },
+  "cudaVersion": "12.4"
+}

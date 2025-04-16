@@ -1,0 +1,184 @@
+task_name: train
+tags:
+- downscaling
+- ldm_res_2mT
+train: true
+test: true
+compile: false
+ckpt_path: /usr/project/xtmp/par55/DiffScaler/pretrained_models/LDM_residual_2mT.ckpt
+seed: 42
+optimized_metric: val/loss
+data:
+  _target_: src.data.downscaling_datamodule.DownscalingDataModule
+  data_dir: ${paths.data_dir}
+  static_vars:
+    dtm_tif_file: ${paths.data_dir}/static_var/dtm_2km_domain_trim_EPSG3035.tif
+    lc_tif_file: ${paths.data_dir}/static_var/land_cover_classes_2km_domain_trim_EPSG3035.tif
+    lat_tif_file: ${paths.data_dir}/static_var/lat_2km_domain_trim_EPSG3035.tif
+  target_vars:
+    low_res:
+    - 2mT
+    - PMSL
+    - U10
+    - V10
+    - dp2mT
+    - SST
+    - SNDPT
+    - TP
+    - SSRadIn
+    - Q850
+    - T850
+    - U850
+    - V850
+    - W850
+    high_res:
+    - 2mT
+  batch_size: 16
+  num_workers: 2
+  pin_memory: true
+  crop_size: 512
+  nn_lowres: false
+model:
+  _target_: src.models.ldm_module.LatentDiffusion
+  parameterization: v
+  denoiser:
+    _target_: src.models.components.ldm.denoiser.UNetModel
+    in_channels: 32
+    model_channels: 256
+    out_channels: 32
+    num_res_blocks: 2
+    attention_resolutions:
+    - 1
+    - 2
+    dims: 2
+    channel_mult:
+    - 1
+    - 2
+    - 4
+    num_heads: 8
+    context_ch:
+    - 256
+    - 512
+    - 1024
+  autoencoder:
+    _target_: src.models.ae_module.AutoencoderKL
+    encoder:
+      _target_: src.models.components.ae.SimpleConvEncoder
+      levels: 3
+    decoder:
+      _target_: src.models.components.ae.SimpleConvDecoder
+      levels: 3
+    unet_regr:
+      _target_: src.models.unet_module.UnetLitModule
+      net:
+        _target_: src.models.components.unet.DownscalingUnet
+        in_ch: 32
+        out_ch: 1
+        features:
+        - 64
+        - 128
+        - 256
+        - 512
+      loss:
+        _target_: torch.nn.MSELoss
+        reduction: mean
+      optimizer: None
+      ckpt_path: ${paths.pretrained_models_dir}UNET_2mT.ckpt
+    ae_flag: residual
+  context_encoder:
+    _target_: src.models.components.ldm.conditioner.AFNOConditionerNetCascade
+    autoencoder:
+    - _target_: src.models.ae_module.AutoencoderKL
+      encoder:
+        _target_: src.models.components.ae.SimpleConvEncoder
+        in_dim: 18
+        levels: 3
+        ch_mult: 3
+      decoder: None
+    - _target_: src.models.ae_module.EncoderLRES
+    train_autoenc: true
+    cascade_depth: 3
+    embed_dim:
+    - 128
+    - 24
+    analysis_depth:
+    - 4
+    - 4
+    afno_fusion: true
+    input_size_ratios:
+    - 1
+    - 1
+    embed_dim_out: 256
+  lr: 0.0001
+  ae_load_state_file: ${paths.pretrained_models_dir}VAE_residual_2mT.ckpt
+  pde_lambda: 0.1
+  temp_pde_coef: 1.0e-11
+  temp_energy_coef: 0
+  pde_mode: temp
+  trainable_parts:
+  - denoiser.output_blocks
+  - autoencoder.decoder
+  - denoiser.middle_block
+callbacks:
+  model_checkpoint:
+    _target_: lightning.pytorch.callbacks.ModelCheckpoint
+    dirpath: ${paths.output_dir}/checkpoints
+    filename: epoch_{epoch:03d}
+    monitor: val/loss
+    verbose: false
+    save_last: true
+    save_top_k: 3
+    mode: min
+    auto_insert_metric_name: false
+    save_weights_only: false
+    every_n_train_steps: null
+    train_time_interval: null
+    every_n_epochs: null
+    save_on_train_epoch_end: null
+  early_stopping:
+    _target_: lightning.pytorch.callbacks.EarlyStopping
+    monitor: val/loss
+    min_delta: 0.0
+    patience: 5
+    verbose: false
+    mode: min
+    strict: true
+    check_finite: true
+    stopping_threshold: null
+    divergence_threshold: null
+    check_on_train_epoch_end: null
+  model_summary:
+    _target_: lightning.pytorch.callbacks.RichModelSummary
+    max_depth: -1
+  rich_progress_bar:
+    _target_: lightning.pytorch.callbacks.RichProgressBar
+logger:
+  tensorboard:
+    _target_: lightning.pytorch.loggers.tensorboard.TensorBoardLogger
+    save_dir: ${paths.output_dir}/tensorboard/
+    name: null
+    log_graph: false
+    default_hp_metric: true
+    prefix: ''
+trainer:
+  _target_: lightning.pytorch.trainer.Trainer
+  default_root_dir: ${paths.output_dir}
+  min_epochs: 1
+  max_epochs: 10
+  accelerator: gpu
+  devices: 4
+  strategy: ddp_find_unused_parameters_true
+  check_val_every_n_epoch: 1
+  deterministic: false
+paths:
+  root_dir: ${oc.env:PROJECT_ROOT}
+  data_dir: ${paths.root_dir}/data/
+  log_dir: ${paths.root_dir}/logs/
+  output_dir: ${hydra:runtime.output_dir}
+  work_dir: ${hydra:runtime.cwd}
+  pretrained_models_dir: ${paths.root_dir}/pretrained_models/
+extras:
+  ignore_warnings: false
+  enforce_tags: true
+  print_config: true
+load_optimizer_state: false
